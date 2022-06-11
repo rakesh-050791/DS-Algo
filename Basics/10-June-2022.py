@@ -131,23 +131,42 @@ def main():
     # print('Printing result_matrix %s' % result_matrix)
     #  [[4, 1, 2], [7, 4, 4], [3, 7, 4]]
 
-    #   4 7 3 7 4 1 2 4 4
 
-    for j in range (matrix_size):
-        if j%2==0:
-            for i in range(matrix_size):
-                print(result_matrix[i][j],end= " ")
+    for col in range(matrix_size):
+        if col % 2 == 0:
+            for row in range(matrix_size):
+                # print("For COL", col, "ROW is", row)
+                print(result_matrix[row][col], end=" ")
         else:
-            for i in range(matrix_size):
-                print(result_matrix[matrix_size-i-1][j],end= ' ')
+            for row in range(matrix_size-1, -1, -1):
+                # print("For COL", col, "ROW is", row)
+                print(result_matrix[row][col], end=" ")
+
 
 if __name__ == '__main__':
     main()
 
 
+# 9 :Write a program to input an integer N and a N*N matrix Mat from user and print the matrix in wave form (row wise)
 
-# 9 :
+def main():
+    
+    matrix_size = int(input())
+    result_matrix = []
 
+    for i in range(matrix_size):
+        result_matrix.append(list(map(int, input().split())))
+
+    for row in range(matrix_size):
+        if row % 2 == 0:
+            for col in range(matrix_size):
+                print(result_matrix[row][col], end=" ")
+        else:
+            for col in range(matrix_size-1, -1, -1):
+                print(result_matrix[row][col], end=" ")
+
+if __name__ == '__main__':
+    main()
 
 
 # 10 :
