@@ -5,13 +5,8 @@
 def swap(s1, s2):
     str= ''
 
-    str += s2[:2]
-    str += s1[2::]
-    str += ' '
-    str += s1[:2]
-    str += s2[2::]
+    str += s2[:2] + s1[2::] + ' ' + s1[:2] + s2[2::]
 
-    
     return str
 
 
