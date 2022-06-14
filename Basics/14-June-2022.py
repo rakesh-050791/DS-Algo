@@ -57,10 +57,10 @@ def modify(s):
 # Note: A string is said to be a palindrome if the reverse of the string is the same as the string itself.
 
 def isPalindrome(s):
-    for i in range(len(s)):
-        if s[i] == s[i-1]:
-            return True
-    return False
+    if s == s[::-1]:
+        return True
+    else:
+        return False
 
 
 
