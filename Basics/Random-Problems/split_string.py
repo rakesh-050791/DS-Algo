@@ -1,27 +1,34 @@
-# https://gist.github.com/ajay2611/c3378bc78dda6af54a1cfd1960184140
-
 # Input :
 
 # input_list = ['red', 'blue', 'green&blue&yellow', 'pink', 'yellow&brown&red']
+
 
 # Desired output :
 
 # input_list = ['red', 'blue', 'green', 'blue', 'yellow', 'pink', 'yellow' 'brown', 'red']
 
 
+# Solved without using .split()
 
 def split_str(input_list):
-    new_list = []
+    newList = []
     for item in range(len(input_list)):
         start = 0
-        for index, char in enumerate(input_list[item]):
+        
+        for index, char in enumerate(input_list[item]):          
             if char == '&':
-                new_list.append(input_list[item][start:index])
-                
+                element = input_list[item][start:index]
+                newList.append(element)
                 start += index+1
-            
-        new_list.append(input_list[item][start:index + 1])
-
-    return new_list
+                
+        alnum_word = ''
+        for element in input_list[item][::-1]:
+            if element != '&':
+                alnum_word += element
+            else:
+                break
+        newList.append(alnum_word[::-1])
+        
+    return newList
 
 split_str(input_list)
