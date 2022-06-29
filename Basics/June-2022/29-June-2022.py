@@ -44,4 +44,41 @@ if __name__ == '__main__':
     main(n)
 
 
-# 3 : 
+# 3 : Write a program to find sum all Natural numbers from 1 to N where you have to take N as input from user
+
+def main(n):
+    sum = 0
+    for i in range(1, n+1):
+        sum += i
+        
+    print(sum)
+
+if __name__ == '__main__':
+    n = int(input())
+    main(n)
+
+# 4 : Given a number A. Return square root of the number if it is perfect square otherwise return -1.
+
+class Solution:
+    # @param A : integer
+    # @return an integer
+    def solve(self, A):
+        start = 1
+        end = A 
+
+        while start <= end:
+            mid = (start + end) // 2
+
+            sqrt = mid * mid
+
+            if sqrt > A:
+                end = mid - 1 
+            elif sqrt < A:
+                start = mid + 1
+            elif sqrt == A:
+                return mid
+        return -1
+            
+            
+
+
