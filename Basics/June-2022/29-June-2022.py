@@ -79,6 +79,35 @@ class Solution:
                 return mid
         return -1
             
-            
+# 5 : Find Armstrong no:
 
+# You are given an integer N you need to print all the Armstrong Numbers between 1 to N.
+
+# If sum of cubes of each digit of the number is equal to the number itself, then the number is called an Armstrong number.
+
+# For example, 153 = ( 1 * 1 * 1 ) + ( 5 * 5 * 5 ) + ( 3 * 3 * 3 ).
+
+def main(n):
+    for i in range(1, n):
+        if is_armstrong_no(i):
+            print(i)
+
+def is_armstrong_no(num):
+    other_num = num
+    sum = 0
+    while num:
+        remainder = num % 10 
+        sum += remainder ** 3
+
+        num = num // 10
+
+    return True if sum == other_num else False
+
+if __name__ == '__main__':
+    n = int(input())
+    main(n)
+
+
+
+# 6 : 
 
