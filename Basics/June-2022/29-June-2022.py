@@ -109,5 +109,13 @@ if __name__ == '__main__':
 
 
 
-# 6 : 
+# 6 : For a given number A, print its multiplication table having the first 10 multiples.
+
+def main(num):
+    for i in range(1, 11):
+        print(num, '*', i, '=', n * i )
+
+if __name__ == '__main__':
+    n = int(input())
+    main(n)
 
