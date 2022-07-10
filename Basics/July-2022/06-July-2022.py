@@ -68,6 +68,28 @@ if __name__ == '__main__':
     main()
 
 
+ # 4 : You are given a constant array A.
+
+# You are required to return another array which is the reversed form of the input array.
+
+
+class Solution:
+    # @param A : tuple of integers
+    # @return a list of integers
+    def solve(self, A):
+        newArray = list(A)
+        tempArray = []
+
+        i = 0 
+        j = len(newArray) -1 
+
+        while i < j:
+            newArray[i], newArray[j] = newArray[j], newArray[i]
+
+            i += 1
+            j -= 1
+
+# 5 : 
 
 
 
