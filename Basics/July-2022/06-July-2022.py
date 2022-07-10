@@ -47,3 +47,33 @@ class Solution:
         return 0
 
 
+# 3 : Write a program to print maximum and minimum elements of the input array A of size N 
+# where you have to take integer N and other N elements as input from the user.
+
+def main():
+    A = list(map(int, input().split()))
+    arrLength = A[0]
+    arr = A[1:] # Removing the fist element, which signifies number of elements
+    # x.pop(0) # Removing the fist element, which signifies number of elements
+    maxElement = minElement = arr[0]
+
+    for i in arr:
+        if i > maxElement:
+            maxElement = i
+        elif i < minElement:
+            minElement = i
+    print(maxElement, minElement)
+
+if __name__ == '__main__':
+    main()
+
+
+
+
+
+
+
+
+
+
+
