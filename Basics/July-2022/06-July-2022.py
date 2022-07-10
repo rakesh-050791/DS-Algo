@@ -89,8 +89,32 @@ class Solution:
             i += 1
             j -= 1
 
-# 5 : 
+# 5 : You are given an integer T (number of test cases). 
+# You are given array A and an integer B for each test case. 
+# You have to tell whether B is present in array A or not.
 
+def main():
+    no_of_test_case = int(input())
+
+    while no_of_test_case > 0:
+
+        no_of_test_case -= 1
+        find = 0
+        A = input()
+        arr = [int(x) for x in A.split()]
+        element_to_find = int(input())
+
+        for i in range(len(arr)):
+            if arr[i] == element_to_find:
+                find += 1
+        if find > 0:
+            print(1)
+        else:
+            print(0)
+
+
+if __name__ == '__main__':
+    main()
 
 
 
