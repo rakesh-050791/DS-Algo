@@ -77,46 +77,40 @@ class Solution:
         return(finalOutput)
 
 
-# 3 : Little Ponny is given an array, A, of N integers. In a particular operation, he can set any element of the array equal to -1.
-
-# He wants your help in finding out the minimum number of operations required such that the maximum element of the resulting array is B. 
-# If it is not possible, then return -1.
-
-class Solution:
-    # @param A : list of integers
-    # @param B : integer
-    # @return an integer
-    def solve(self, A, B):
-
-        flag = count = 0
-
-        for i in A:
-            if i == B:
-                flag = 1
-            if i > B:
-                count += 1
-
-        return -1 if flag < 1 else count 
-
-# 4 :
-# You are given an integer array A. You have to find the second largest element/value in the array or report that no such element exists.
+# 3 : Given an array, arr[] of size N, the task is to find the count of array indices 
+# such that removing an element from these indices makes the sum of even-indexed and odd-indexed 
+# array elements equal.
 
 class Solution:
     # @param A : list of integers
     # @return an integer
     def solve(self, A):
-        maxElement = -1
-        maxElementIndex = 0
+        n = len(A)
+        prefixSumEven = []
+        prefixSumOdd = []
 
-        for i in range(len(A)):
-            if A[i] > maxElement:
-                maxElement = A[i]
-                maxElementIndex = i
+        prefixSumEven.append(A[0])
+        prefixSumOdd.append(0)
 
-        secondMax = -1
+        for i in range(1, n):
+            if i % 2 == 0:
+                prefixSumEven.append(prefixSumEven[i - 1] + A[i])
+                prefixSumOdd.append(prefixSumOdd[i - 1])
+            else:
+                prefixSumOdd.append(prefixSumOdd[i - 1] + A[i])
+                prefixSumEven.append(prefixSumEven[i - 1])
 
-        for i in range(len(A)):
-            if i != maxElementIndex:
-                secondMax = max(secondMax , A[i])
-        return secondMax
+        count = 0
+        for i in range(n):
+            if i == 0:
+                sumEven = 0 + (prefixSumOdd[n-1] - prefixSumOdd[i])
+                sumOdd = 0 + (prefixSumEven[n-1] - prefixSumEven[i])
+            else:
+                sumEven = prefixSumEven[i-1] + (prefixSumOdd[n-1] - prefixSumOdd[i])
+                sumOdd = prefixSumOdd[i-1] + (prefixSumEven[n-1] - prefixSumEven[i])
+            
+            if sumEven == sumOdd:
+                count += 1
+        return count
+
             
