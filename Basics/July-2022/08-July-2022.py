@@ -76,4 +76,47 @@ class Solution:
                 
         return(finalOutput)
 
+
+# 3 : Little Ponny is given an array, A, of N integers. In a particular operation, he can set any element of the array equal to -1.
+
+# He wants your help in finding out the minimum number of operations required such that the maximum element of the resulting array is B. 
+# If it is not possible, then return -1.
+
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return an integer
+    def solve(self, A, B):
+
+        flag = count = 0
+
+        for i in A:
+            if i == B:
+                flag = 1
+            if i > B:
+                count += 1
+
+        return -1 if flag < 1 else count 
+
+# 4 :
+# You are given an integer array A. You have to find the second largest element/value in the array or report that no such element exists.
+
+class Solution:
+    # @param A : list of integers
+    # @return an integer
+    def solve(self, A):
+        maxElement = -1
+        maxElementIndex = 0
+
+        for i in range(len(A)):
+            if A[i] > maxElement:
+                maxElement = A[i]
+                maxElementIndex = i
+
+        secondMax = -1
+
+        for i in range(len(A)):
+            if i != maxElementIndex:
+                secondMax = max(secondMax , A[i])
+        return secondMax
             
