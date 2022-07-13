@@ -39,6 +39,7 @@ class Solution:
         
         return minIndex if count > 0 else -1
 
+
 # 2 : You are given an integer array A of length N.
 # You are also given a 2D integer array B with dimensions M x 2, where each row denotes a [L, R] query.
 # For each query, you have to find the sum of all elements from L to R indices in A (1 - indexed).
@@ -112,5 +113,42 @@ class Solution:
             if sumEven == sumOdd:
                 count += 1
         return count
+
+# 4 :Problem Description
+# You are given an integer array A of size N.
+
+# You have to pick B elements in total. Some (possibly 0) elements from left end of array A and some (possibly 0) from the right end of array A to get the maximum sum.
+
+# Find and return this maximum possible sum.
+
+# NOTE: Suppose B = 4, and array A contains 10 elements, then
+
+# You can pick the first four elements or can pick the last four elements, or can pick 1 from front and 3 from the back, etc. You need to return the maximum possible sum of elements you can pick.
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return an integer
+    def solve(self, A, B):
+        curr_sum = sum(A[0:B])
+        max_sum = curr_sum
+
+        start = B - 1 
+        end = - 1 
+    
+        for i in range(B):
+            curr_sum = curr_sum - A[start] + A[end]
+
+            if (max_sum < curr_sum):
+                max_sum = curr_sum
+                
+            start -= 1
+            end -= 1
+        return max_sum
+
+
+
+
+
+
 
             
