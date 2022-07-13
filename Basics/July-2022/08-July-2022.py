@@ -165,5 +165,24 @@ class Solution:
 
 
 
+# 6 : Given an array of integers A, find and return the product array of the same size where the ith element of the product array will be equal to the product of all the elements divided by the ith element of the array.
 
+# Note: It is always possible to form the product array with integer (32 bit) values. Solve it without using the division operator.
+
+class Solution:
+    # @param A : list of integers
+    # @return a list of integers
+    def solve(self, A):
+
+        arrLen = len(A)
+        prefixProduct = [0] * arrLen
+        prefixProduct[0] = A[0]
+
+        for i in range(1, arrLen):
+            prefixProduct[i] = prefixProduct[i-1] * A[i]
             
+        result = []
+        for i in range(arrLen):
+            result.append(prefixProduct[-1] // A[i])
+
+        return result
