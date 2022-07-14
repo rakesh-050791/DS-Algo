@@ -21,3 +21,40 @@ class Solution:
         return(result%1000000007)
 
 
+# 2 : Closest MinMax
+
+# Given an array A, find the size of the smallest subarray such that it contains at least one occurrence of the maximum value of the array
+
+# and at least one occurrence of the minimum value of the array.
+
+class Solution:
+    # @param A : list of integers
+    # @return an integer
+    def solve(self, A):
+        n = len(A)
+        minIndex = -1
+        maxIndex = -1
+        result = n
+
+        minVal = min(A)
+        maxVal = max(A)
+
+        if minVal == maxVal:
+            return 1 
+        
+        for i in range(n - 1, -1, -1):
+            if A[i] == minVal:
+                minIndex = i
+                if maxIndex != -1:
+                    length = maxIndex - minIndex + 1
+                    result = min(result, length)
+
+            if A[i] == maxVal:
+                maxIndex = i
+                if minIndex != -1:
+                    length = minIndex - maxIndex + 1
+                    result = min(result, length)
+        return result
+
+
+
