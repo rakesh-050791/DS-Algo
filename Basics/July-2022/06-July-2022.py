@@ -68,7 +68,7 @@ if __name__ == '__main__':
     main()
 
 
- # 4 : You are given a constant array A.
+# 4 : You are given a constant array A.
 
 # You are required to return another array which is the reversed form of the input array.
 
@@ -162,4 +162,63 @@ class Solution:
 
         return -1 if flag < 1 else count 
 
+# 8 : Minimum Picks 
+# You are given an array of integers A of size N.
+# Return the difference between the maximum among all even numbers of A and the minimum among all odd numbers in A.
+
+class Solution:
+    # @param A : list of integers
+    # @return an integer
+    def solve(self, A):
+
+        n = len(A)
+
+        maxNo = -9999
+        minNo = 9999
+
+        for i in range(n):
+            if A[i] % 2 == 0:
+                if A[i] > maxNo:
+                    maxNo = A[i]
+            else:
+                if A[i] < minNo:
+                    minNo = A[i]
+
+        return(maxNo - minNo)
+
+# 9 :  Separate Odd Even 
+# You are given an integer T denoting the number of test cases. For each test case, you are given an integer array A.
+
+# You have to put the odd and even elements of array A in 2 separate arrays and print the new arrays.
+
+# NOTE: Array elements should have the same relative order as in A.
+
+def main():
+    T = int(input())
+    # evenArr = []
+    # oddArr = []
+
+    while T > 0:
+        T -= 1
+        evenArr = []
+        oddArr = []
+        N = int(input())
+        arr = list(map(int,input().split()))
+        for i in range(N):
+            if arr[i] % 2 == 0:
+                evenArr.append(arr[i])
+            else:
+                oddArr.append(arr[i])
+
+        for k in range(len(oddArr)):
+            print(oddArr[k],end=" ")
+        print()
+        for l in range(len(evenArr)):
+            print(evenArr[l],end=" ")
+        print()
+
+    return 0 
+
+if __name__ == '__main__':
+    main()
 
