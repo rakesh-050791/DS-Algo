@@ -40,3 +40,46 @@ class Solution:
             sumOfSubArraySum += subArraySum
         
         return sumOfSubArraySum
+
+
+
+
+# 3 : Maximum Subarray Easy
+# You are given an integer array C of size A. Now you need to find a subarray (contiguous elements) so that the sum of contiguous elements is maximum.
+# But the sum must not exceed B.
+
+
+class Solution:
+    # @param A : integer
+    # @param B : integer
+    # @param C : list of integers
+    # @return an integer
+    def maxSubarray(self, A, B, C):
+
+        maxSum = -9999
+
+        for i in range(A):
+            
+            subArraySum = 0
+
+            for j in range(i, A):
+
+                subArraySum += C[j]
+
+                if (subArraySum <= B) and (subArraySum > maxSum):
+                    maxSum = subArraySum
+            
+                if maxSum < 0:
+                    maxSum = 0
+
+        return maxSum
+
+
+# 4 : Subarray with least average
+# Given an array of size N, find the subarray of size K with the least average.
+
+
+
+
+
+
