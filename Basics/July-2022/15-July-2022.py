@@ -36,8 +36,11 @@ class Solution:
         arrLen = len(A)
 
         for i in range(arrLen):
-            subArraySum = (A[i] * (i+1) * (arrLen - i))
-            sumOfSubArraySum += subArraySum
+            iRepetitions = (i+1) * (arrLen - i)
+
+            iContributionInSubArraySum = (A[i] * iRepetitions)
+
+            sumOfSubArraySum += iContributionInSubArraySum
         
         return sumOfSubArraySum
 
