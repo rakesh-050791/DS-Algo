@@ -77,9 +77,24 @@ class Solution:
 
 # 4 : Subarray with least average
 # Given an array of size N, find the subarray of size K with the least average.
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return an integer
+    def solve(self, A, B):
+        arrLen = len(A)
+        BElementsSum = sum(A[:B]) 
+        leastSum = BElementsSum
+        leastAvgSubArrayIndex = 0
 
+        for i in range(B, arrLen):
+            BElementsSum = BElementsSum + A[i] - A[i-B]
+   
+            if BElementsSum < leastSum:
+                leastSum = BElementsSum
+                leastAvgSubArrayIndex = i - B + 1
 
-
+        return leastAvgSubArrayIndex
 
 
 
