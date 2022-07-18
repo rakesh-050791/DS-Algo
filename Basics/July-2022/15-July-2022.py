@@ -125,6 +125,38 @@ class Solution:
         return noOfSubArrSumLessThenB
 
 
+# 6 : Good Subarrays Easy
+# Problem Description
+# Given an array of integers A, a subarray of an array is said to be good if it fulfills any one of the criteria:
+# 1. Length of the subarray is be even, and the sum of all the elements of the subarray must be less than B.
+# 2. Length of the subarray is be odd, and the sum of all the elements of the subarray must be greater than B.
+# Your task is to find the count of good subarrays in A.
+
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return an integer
+    def solve(self, A, B):
+        n = len(A)
+        goodArrayCount = 0
+
+        for i in range(n):
+            subArraySum = 0
+            subArrayLength = 0
+            for j in range(i, n):
+                subArraySum += A[j]
+                subArrayLength = j - i + 1
+
+                if (subArrayLength % 2 == 0) and  subArraySum < B:
+                    goodArrayCount += 1
+                elif (subArrayLength % 2 != 0) and  subArraySum > B:
+                    goodArrayCount += 1
+                    
+        return goodArrayCount
+
+# 7 : 
+
+
 
 
 
