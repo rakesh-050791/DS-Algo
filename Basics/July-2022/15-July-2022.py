@@ -101,3 +101,30 @@ class Solution:
 
 
 
+# 5 : Counting Subarrays Easy
+# Given an array A of N non-negative numbers and a non-negative number B,
+# you need to find the number of subarrays in A with a sum less than B.
+# We may assume that there is no overflow.
+
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return an integer
+    def solve(self, A, B):
+        n = len(A)
+        noOfSubArrSumLessThenB = 0
+       
+        for i in range(n):
+            total = 0
+            for j in range(i, n):
+                total += A[j]
+
+                if total < B:
+                    noOfSubArrSumLessThenB += 1
+
+        return noOfSubArrSumLessThenB
+
+
+
+
+
