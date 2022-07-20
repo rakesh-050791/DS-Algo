@@ -17,3 +17,25 @@ class Solution:
 # 2 : Anti Diagonals
 # Give a N * N square matrix A, return an array of its anti-diagonals. 
 # Look at the example for more details.
+class Solution:
+    # @param A : list of list of integers
+    # @return a list of list of integers
+    def diagonal(self, A):
+        n = len(A)
+        res=[[0]*n for r in range(2*n-1)]
+        for j in range(n):
+            x , y = 0, j 
+            while(x < n and y >= 0):
+                res[x+y][x] = A[x][y]
+                x += 1
+                y -= 1
+
+        for i in range(1, n):
+            x, y, l = i, n-1, 0
+
+            while(x < n and y >= 0):
+                res[x+y][l] = A[x][y]
+                x += 1
+                y -= 1
+                l += 1
+        return res
