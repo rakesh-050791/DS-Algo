@@ -39,3 +39,20 @@ class Solution:
                 y -= 1
                 l += 1
         return res
+
+# 3 : Column Sum
+# You are given a 2D integer matrix A, 
+# return a 1D integer vector containing column-wise sums of original matrix.
+class Solution:
+    # @param A : list of list of integers
+    # @return a list of integers
+    def solve(self, A):
+        n = len(A)
+        result = []
+    
+        for j in range(len(A[0])):
+            sums = 0
+            for i in range(n):
+                sums += A[i][j]
+            result.append(sums)
+        return result
