@@ -56,3 +56,26 @@ class Solution:
                 sums += A[i][j]
             result.append(sums)
         return result
+
+
+
+# 4 : Matrix Multiplication
+# You are given two integer matrices A(having M X N size) and B(having N X P). 
+# You have to multiply matrix A with B and return the resultant matrix. (i.e. return the matrix AB).
+class Solution:
+    # @param A : list of list of integers
+    # @param B : list of list of integers
+    # @return a list of list of integers
+    def solve(self, A, B):
+        rows = len(A)
+        cols = len(B[0])
+
+        C = [[0]* cols for i in range(rows)]
+
+        for i in range(len(C)):
+            for j in range(len(C[0])):
+                for k in range(len(B)):
+                    C[i][j] += A[i][k] * B[k][j]
+        return C
+
+
