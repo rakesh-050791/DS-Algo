@@ -79,3 +79,39 @@ class Solution:
         return C
 
 
+# 5 : Matrix Transpose
+# You are given a matrix A, you have to return another matrix which is the transpose of A.
+
+# NOTE: Transpose of a matrix A is defined as - AT[i][j] = A[j][i] ; Where 1 ≤ i ≤ col and 1 ≤ j ≤ row
+
+class Solution:
+    # @param A : list of list of integers
+    # @return a list of list of integers
+    def solve(self, A):
+
+        transposed_matrix = []
+        for col in range(len(A[0])):
+            result_matrix = []
+            for row in range(len(A)):
+                result_matrix.append(A[row][col])
+            transposed_matrix.append(result_matrix)
+        
+        return(transposed_matrix)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
