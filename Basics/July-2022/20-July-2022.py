@@ -54,7 +54,47 @@ class Solution:
 # 2 : Christmas Trees
 # You are given an array A consisting of heights of Christmas trees and an array B of the same size consisting of the cost of each of the trees (Bi is the cost of tree Ai, where 1 ≤ i ≤ size(A)), and you are supposed to choose 3 trees (let's say, indices p, q, and r), such that Ap < Aq < Ar, where p < q < r.
 # The cost of these trees is Bp + Bq + Br.
-
 # You are to choose 3 trees such that their total cost is minimum. Return that cost.
-
 # If it is not possible to choose 3 such trees return -1.
+
+class Solution:
+    # @param A : list of integers
+    # @param B : list of integers
+    # @return an integer
+    def solve(self, A, B):
+
+        n = len(A)
+        minPrice = 3*10**9
+
+        if n < 3:
+            return - 1
+        elif n==3:
+            if A[0]<A[1] and A[1]<A[2]:
+                return sum(B)
+            else:
+                return -1
+            
+        for j in range(1, n):
+            midElement = A[j]
+            midPrice = B[j]
+
+            minLeftPrice = 3*10**9
+            minRightPrice = 3*10**9
+
+            for i in range(j):
+                if A[i] < midElement and B[i] < minLeftPrice:
+                    minLeftPrice = B[i]
+            
+            for k in range(j+1, n):
+                if A[k] > midElement and B[k] < minRightPrice:
+                    minRightPrice = B[k]
+
+            total = minLeftPrice + minRightPrice + midPrice
+            minPrice = min(minPrice, total)
+        return minPrice
+
+
+
+            
+
+
