@@ -94,7 +94,7 @@ class Solution:
         return minPrice
 
 
-# 3 : Star Pattern 
+# 3 : Hollow diamond star pattern
 # Write a program to input an integer N from user and print hollow diamond star pattern series of N lines.
 
 # See example for clarifications over the pattern.
@@ -126,6 +126,39 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# 4 : Maximum positivity
+
+# Given an array of integers A, of size N.
+
+# Return the maximum size subarray of A having only non-negative elements. If there are more than one such subarray, return the one having the smallest starting index in A.
+
+# NOTE: It is guaranteed that an answer always exists.
+
+class Solution:
+    # @param A : list of integers
+    # @return a list of integers
+    def solve(self, A):
+        n = len(A)
+        subarraylength, subarrayStartIndex, subarrayEndIndex = 0, 0, 0
+        resultantSubarrayLength = -sys.maxsize - 1
+        resultantSubarrayStartIndex, resultantSubarrayEndIndex = 0, 0
+        
+
+        for i in range(n):
+            if A[i] < 0:
+                subarrayStartIndex = i+1
+            if A[i] > 0:
+                subarrayEndIndex = i 
+            
+            if subarrayEndIndex >= subarrayStartIndex:
+                subarraylength = (subarrayEndIndex - subarrayStartIndex)
+            
+                if subarraylength > resultantSubarrayLength:
+                    resultantSubarrayLength = subarraylength
+                    resultantSubarrayStartIndex, resultantSubarrayEndIndex = subarrayStartIndex, subarrayEndIndex
+
+        return(A[resultantSubarrayStartIndex:resultantSubarrayEndIndex+1])
 
 
             
