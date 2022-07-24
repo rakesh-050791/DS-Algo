@@ -94,6 +94,39 @@ class Solution:
         return minPrice
 
 
+# 3 : Star Pattern 
+# Write a program to input an integer N from user and print hollow diamond star pattern series of N lines.
+
+# See example for clarifications over the pattern.
+
+def main():
+    n = int(input())
+
+    for row in range(1, n+1):
+        for col in range(0,n-row+1):
+            print('*', end='')
+        
+        for col in range((row-1) * 2):
+            print(' ', end='')
+
+        for col in range(0, n - row + 1):
+            print('*', end='')
+        print()
+    
+    for row in range(1, n+1):
+        for col in range(0,row):
+            print('*', end='')
+        
+        for col in range((n-row) * 2):
+            print(' ', end='')
+
+        for col in range(0, row):
+            print('*', end='')
+        print() 
+
+if __name__ == '__main__':
+    main()
+
 
             
 
