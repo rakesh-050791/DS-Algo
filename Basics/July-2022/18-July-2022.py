@@ -100,6 +100,23 @@ class Solution:
 
 
 
+# 6 : Matrix Subtraction 
+
+# You are given two integer matrices A and B having same size(Both having same number of rows (N) and columns (M)). You have to subtract matrix A from B and return the resultant matrix. (i.e. return the matrix A - B).
+
+# If X and Y are two matrices of the same order (same dimensions). Then X - Y is a matrix of the same order as X and Y and its elements are obtained by subtracting the elements of Y from the corresponding elements of X. Thus if Z = [z[i][j]] = X - Y, then [z[i][j]] = [x[i][j]] – [y[i][j]].
+
+class Solution:
+    # @param A : list of list of integers
+    # @param B : list of list of integers
+    # @return a list of list of integers
+    def solve(self, A, B):
+        for i in range(len(A)):
+            for j in range(len(B[0])):
+                A[i][j] -= B[i][j]
+        return A
+
+
 
 
 
