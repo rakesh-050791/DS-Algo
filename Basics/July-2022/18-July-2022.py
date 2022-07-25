@@ -117,6 +117,25 @@ class Solution:
         return A
 
 
+# 7 : Rotate Matrix
+# You are given a n x n 2D matrix A representing an image.
+# Rotate the image by 90 degrees (clockwise).
+# You need to do this in place.
+# Note: If you end up using an additional array, you will only receive partial score.
+
+class Solution:
+    # @param A : list of list of integers
+    def solve(self, A):
+        n = len(A)
+
+        for col in range(1, n) :
+            for row in range(col) :
+                A[col][row], A[row][col] = A[row][col], A[col][row]
+
+        for element in A:
+            element.reverse()
+
+        return A
 
 
 
