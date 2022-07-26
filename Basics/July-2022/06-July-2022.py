@@ -222,3 +222,50 @@ def main():
 if __name__ == '__main__':
     main()
 
+# 10 : Multiple left rotations of the array
+# Given an array of integers A and multiple values in B, 
+# which represents the number of times array A needs to be left rotated.
+# Find the rotated array for each value and return the result in the from of a matrix where ith row represents the rotated array for the ith value in B.
+
+class Solution:
+    # @param A : list of integers
+    # @param B : list of integers
+    # @return a list of list of integers
+    def solve(self, A, B):
+
+        n = len(A)
+        finalOutput = []
+
+        for i in B:
+            rotationNo = i
+            newArr = A[:]
+            rotationNo = rotationNo % n #to handel the case when rotationNo > array length
+            self.rotateList(newArr, rotationNo)
+            finalOutput.append(newArr)
+        return finalOutput 
+
+    def rotateList(self, arr, rotationNo):
+        arrLength = len(arr)
+        reversedArr = self.reverse(arr, 0, rotationNo - 1)
+        # print("A = ", arr, "rotationNo = ", rotationNo, "reversedArr = ", reversedArr)
+        reverseKElements = self.reverse(arr, rotationNo, arrLength - 1)
+        # print("A = ", arr, "rotationNo = ", rotationNo, "reverseKElements = ", reverseKElements)
+        reverseNElements = self.reverse(arr, 0, arrLength - 1)
+        
+                
+    def reverse(self, arr, start, end):
+        while start < end:
+            arr[start] , arr[end] = arr[end] , arr[start]
+            start += 1
+            end -= 1
+
+        
+
+
+
+
+
+
+
+
+
