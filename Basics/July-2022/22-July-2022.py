@@ -58,8 +58,20 @@ class Solution:
 		return result[::-1]
 
 
+# 3 : Calculate no of 1 bits
+# Write a function that takes an integer and returns the number of 1 bits it has.
+class Solution:
+    # @param A : integer
+    # @return an integer
+    def numSetBits(self, A):
+        count = 0
+        while(A>0):
+            A, remainder = divmod(A, 2)
+
+            if remainder > 0:
+                count += 1
+        return count
 
 
 
 
-		
