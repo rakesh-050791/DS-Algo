@@ -1,4 +1,28 @@
-# 1 : N/3 Repeat Number
+# 1 : Majority Element
+# Given an array of size N, find the majority element. 
+# The majority element is the element that appears more than floor(n/2) times.
+# You may assume that the array is non-empty and the majority element always exists in the array.
+
+class Solution:
+    # @param A : tuple of integers
+    # @return an integer
+    def majorityElement(self, A):
+
+        targetElement = A[0]
+        targetElementFrequency = 1
+
+        for i in range(1, len(A)):
+            if targetElementFrequency == 0:
+                targetElement = A[i]
+                targetElementFrequency += 1
+            elif A[i] == targetElement:
+                targetElementFrequency += 1
+            else:
+                targetElementFrequency -= 1
+        return targetElement
+
+
+# 2 : N/3 Repeat Number
 # You're given a read-only array of N integers. Find out if any integer occurs more than N/3 times in the array in linear time and constant additional space.
 # If so, return the integer. If not, return -1.
 
@@ -51,6 +75,7 @@ class Solution:
             return targetIntB
         else:
             return -1
+
 
 
 
