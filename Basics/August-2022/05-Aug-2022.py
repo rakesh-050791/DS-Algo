@@ -66,3 +66,17 @@ class Solution:
             start += 1
             end -= 1
         return(" ".join(A))
+
+
+# 3 : Simple Reverse
+# Given a string A, you are asked to reverse the string and return the reversed string.
+class Solution:
+    # @param A : string
+    # @return a strings
+    def solve(self, A):
+        n = len(A)
+        result = A[n::-1]
+        return result
+
+
+
