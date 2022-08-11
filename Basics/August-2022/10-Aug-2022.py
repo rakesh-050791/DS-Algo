@@ -59,5 +59,29 @@ class Solution:
             i += 1
         return 0
 
-# Final Approach
+# Optimized solution using HashMap/ Dictionary
+
+class Solution:
+	# @param A : tuple of integers
+	# @param B : integer
+	# @return an integer
+	def diffPossible(self, A, B):
+        n = len(A)
+        frequencyMap = {}
+
+        for i in range(n):
+            if A[i] in frequencyMap:
+                frequencyMap[A[i]] += 1
+            else:
+                frequencyMap[A[i]] = 1
+
+        for i in range(n):
+            a = A[i]
+            target = a - B
+            if target in frequencyMap:
+                if (a == target and frequencyMap[a] >= 2 ) :
+                    return 1
+                elif (a != target and frequencyMap[a] >= 1):
+                    return 1
+        return 0
 
