@@ -28,3 +28,36 @@ class Solution:
             if currentSum == B:
                 return(A[left:right])
         return [-1]
+
+
+# 2 : Diffk II
+
+# Given an array A of integers and another non negative integer k, find if there exists 2 indices i and j such that A[i] - A[j] = k, i != j.
+
+# Example :
+
+# Input :
+
+# A : [1 5 3]
+# k : 2
+
+# Brute Force approach :
+class Solution:
+	# @param A : tuple of integers
+	# @param B : integer
+	# @return an integer
+	def diffPossible(self, A, B):
+        K = B
+        n = len(A)
+        for i in range(n):
+            a = A[i]
+            b = a - K
+            for j in range(i+1, n):
+                if A[j] == b:
+                    return 1
+                j += 1
+            i += 1
+        return 0
+
+# Final Approach
+
