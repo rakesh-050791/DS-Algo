@@ -111,19 +111,8 @@ class Solution:
                 count += 1
         
 
-        return 'Yes' if count % 2 == 0 else 'No'     
-
-
-
-   
-
-
-I just wanted to understand With the syllabus that we are covering here 
-how much is this going to help us in daily development tasks at the company. 
-
-Or is this will be more into clearing interviews ?
-
-
+        return 'Yes' if count % 2 == 0 else 'No'
+        
 
 
 
