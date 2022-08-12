@@ -55,12 +55,58 @@ class Solution:
                 return A[i]
         return -1
 
+
 # 3 : Largest Continuous Sequence Zero Sum
+# Given an array A of N integers.
+
+# Find the largest continuous sequence in a array which sums to zero.
+# Brute force approach 
+class Solution:
+    # @param A : list of integers
+    # @return a list of integers
+    def lszero(self, A):
+        n = len(A)
+        maxLen = 0
+
+        for i in range(n):
+            total = 0 
+            for j in range(i, n):
+                total += A[j]
+
+                if total == 0:
+                    currentSubarrayLen = j - i +1
+                    maxLen = max(maxLen, currentSubarrayLen)
+        
+        return maxLen
+
+# Optimized solution using hashmap / disctionary :
+class Solution:
+    # @param A : list of integers
+    # @return a list of integers
+    def lszero(self, A):
+        n = len(A)
+        maxLen = 0
+        prefixSum = [0] * n
+        prefixSum[0] = A[0]
+        frequencyMap = {}
+        result = []
+
+        for i in range(n):
+            prefixSum[i] = prefixSum[i-1] + A[i]
+
+        for i in range(n):
+            if prefixSum[i] == 0:
+                if i + 1 > len(result):
+                    result = A[:i+1]
+
+            if prefixSum[i] in frequencyMap:
+                if i - frequencyMap[prefixSum[i]] > len(result):
+                    result = A[frequencyMap[prefixSum[i]] + 1: i+1]
+            else:
+                frequencyMap[prefixSum[i]] = i
+        return result
 
 
-
-
- 
 # 5 : Shaggy and distances
 # Shaggy has an array A consisting of N elements. We call a pair of distinct indices 
 # in that array a special if elements at those indices in the array are equal.
