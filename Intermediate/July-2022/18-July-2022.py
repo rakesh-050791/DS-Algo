@@ -137,6 +137,61 @@ class Solution:
 
         return A
 
+# 8 : Spiral Order Matrix II
+# Given an integer A, generate a square matrix filled with elements from 1 to A2 in spiral order and 
+# return the generated square matrix.
+class Solution:
+    # @param A : integer
+    # @return a list of list of integers
+    def generateMatrix(self, A):
+        n = A
+        rows, cols = A, A
+        resultMatrix = [[0 for i in range(cols)] for j in range(rows)]
+
+        k = 1
+        d, i , j = 0, 0, 0
+        nSquare = n*n 
+
+        while(k <= nSquare ):
+
+            resultMatrix[i][j] = k
+            k += 1
+
+            # Moving in right direction
+            if d == 0:
+                j += 1
+                if (j == n or resultMatrix[i][j] != 0): # Changing direction from right to down
+                    d = 1
+                    j -= 1
+                    i += 1 
+
+            # Moving in Down direction
+            elif d == 1:
+                i += 1
+                if (i == n or resultMatrix[i][j] != 0): # Changing direction from Down to Left
+                    d = 2
+                    i  -= 1 
+                    j  -= 1 
+
+            # Moving in Left direction
+            elif d == 2:
+                j -= 1
+                if (j < 0 or resultMatrix[i][j] != 0): # Changing direction from Left to Up
+                    d = 3
+                    i -= 1
+                    j += 1
+
+            # Moving in Up direction
+            elif d == 3:
+                i -= 1
+                if (i < 0 or resultMatrix[i][j] != 0): # Changing direction from up to Right
+                    d = 0
+                    i += 1
+                    j += 1
+
+        return resultMatrix
+            
+
 
 
 
