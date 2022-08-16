@@ -192,11 +192,35 @@ class Solution:
         return resultMatrix
             
 
+# 9 : Row to Column Zero
+# You are given a 2D integer matrix A, 
+# make all the elements in a row or column zero if the A[i][j] = 0. Specifically, make entire ith row and jth column zero.
 
+class Solution:
+    # @param A : list of list of integers
+    # @return a list of list of integers
+    def solve(self, A):
 
+        rows = len(A)
+        cols = len(A[0])
 
+        rowIndex = set()
+        colIndex = set()
 
+        for i in range(rows):
+            for j in range(cols):
+                if A[i][j] == 0:
+                    rowIndex.add(i)
+                    colIndex.add(j)
 
+        for i in range(rows):
+            for j in range(cols):
+                if i in rowIndex or j in colIndex:
+                    A[i][j] = 0
+        
+        return A
+# TIME COMPLEXITY- O(M*N) where M and N are the number of rows and columns respectively.
+# SPACE COMPLEXITY- O(M+N)
 
 
 
