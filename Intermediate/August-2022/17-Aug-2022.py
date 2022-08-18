@@ -17,6 +17,53 @@
 # multiply(ComplexNumber) -> Returns an object of ComplexNumber having multiplication of the two complex numbers.
 
 # divide(ComplexNumber) -> Returns an object of ComplexNumber having division of the two complex numbers.
+class ComplexNumber:
+
+    real = 0 
+    imaginary = 0
+    
+    # Define constructor here
+    def __init__(self, real, imaginary):
+        self.real = real
+        self.imaginary = imaginary
+
+
+    def add(self, x: "ComplexNumber")->"ComplexNumber":
+        a = complex(self.real , self.imaginary)
+        b =  complex(x.real , x.imaginary)
+        s = a + b
+        return ComplexNumber(s.real, s.imag)
+     
+    
+    def subtract(self, x: "ComplexNumber")->"ComplexNumber":
+        a = complex(self.real , self.imaginary)
+        b =  complex(x.real , x.imaginary)
+        s = a - b
+        return ComplexNumber(s.real, s.imag)
+        
+        
+    def multiply(self, x: "ComplexNumber")->"ComplexNumber":
+        a = complex(self.real , self.imaginary)
+        b =  complex(x.real , x.imaginary)
+        s = a * b
+        return ComplexNumber(s.real, s.imag)
+    
+    
+    def divide(self, x: "ComplexNumber")->"ComplexNumber":
+        a = complex(self.real , self.imaginary)
+        b =  complex(x.real , x.imaginary)
+        s = a / b
+        return ComplexNumber(s.real, s.imag)
+
+
+a = ComplexNumber(10, 5)
+b = ComplexNumber(2, 3)
+
+c1 = a.add(b)
+c2 = a.subtract(b)
+c3 = a.multiply(b)
+c4 = a.divide(b)
+
 
 
 # 2 : Class Circle
