@@ -113,3 +113,74 @@ class Solution:
                 frequencyMap[a] = i+1 
         return []
 
+
+# 4 : Distinct Numbers in Window
+
+# You are given an array of N integers, A1, A2 ,..., AN and an integer B. Return the of count of distinct numbers in all windows of size B.
+
+# Formally, return an array of size N-B+1 where i'th element in this array contains number of distinct elements in sequence Ai, Ai+1 ,..., Ai+B-1.
+
+# NOTE: if B > N, return an empty array.
+ # A = [1, 2, 1, 3, 4, 3]
+ # B = 3
+
+ # Output : [2, 3, 3, 2]
+
+# Brute force approach 
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return a list of integers
+    def dNums(self, A, B):
+        n = len(A)
+        k = B
+
+        result = []
+        for i in range(n-k+1):
+            mySet = set()
+            for j in range(i, i+k):
+                mySet.add(A[j])
+                j += 1
+            i += 1
+            result.append(len(mySet))
+        return result
+
+# Optimized Solution using hashmap / dictionary
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return a list of integers
+    def dNums(self, A, B):
+        n = len(A)
+        k = B
+        frequencyMap = {}
+        result = []
+
+        # prepare first window
+        for i in range(k):
+            if A[i] in frequencyMap:
+                frequencyMap[A[i]] += 1
+            else:
+                frequencyMap[A[i]] = 1
+
+        result.append(len(frequencyMap))
+
+        i = 1
+        j = k
+
+        while (i <= n-k):
+            frequencyMap[A[i - 1]] -= 1
+
+            if frequencyMap[A[i - 1]] == 0:
+                del frequencyMap[A[i - 1]]
+
+            if A[j] in frequencyMap:
+                frequencyMap[A[j]] += 1
+            else:
+                frequencyMap[A[j]] = 1
+            
+            result.append(len(frequencyMap))
+            i += 1
+            j += 1
+        return result
+
