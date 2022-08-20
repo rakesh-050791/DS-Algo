@@ -112,13 +112,5 @@ class Solution:
         
 
         return 'Yes' if count % 2 == 0 else 'No'
+
         
-
-
-
-
-
-
-
-
-
