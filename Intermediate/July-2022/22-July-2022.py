@@ -93,24 +93,27 @@ class Solution:
         return 'Yes' if count % 2 == 0 else 'No'      
 
 
-# 5 : Interesting Array
+# 5 : Reverse Bits
 
-# You have an array A with N elements. We have two types of operation available on this array :
-# We can split an element B into two elements, C and D, such that B = C + D.
-# We can merge two elements, P and Q, to one element, R, such that R = P ^ Q i.e., XOR of P and Q.
-# You have to determine whether it is possible to convert array A to size 1, containing a single element equal to 0 after several splits and/or merge?
+# Reverse the bits of an 32 bit unsigned integer A.
 
 class Solution:
-    # @param A : list of integers
-    # @return a strings
-    def solve(self, A):
-        count = 0 
+    # @param A : unsigned integer
+    # @return an unsigned integer
+    def reverse(self, A):
+        n = A 
+        result = 0
 
-        for i in range(len(A)):
-            if A[i] % 2 != 0:
-                count += 1
+        for i in range(32): # Because question says 32 bits for looping 32 times
+            
+            lsb = n & 1 # STEP 1 -> Check last bit of given integer (is it 1 or 0), to do so make and operation with n
+
+            reverseLsb = lsb << (31 - i) # STEP 2 -> reverse the LSB bit
+
+            result = result | reverseLsb # STEP 3 -> get OR of reverseLsb with 0 (because result contains all 0 bits)  
+
+            n = n >> 1 # STEP 4 -> right shift given input by 1, to perform the STEP 1
         
-
-        return 'Yes' if count % 2 == 0 else 'No'
-
+        return result
+        
         
