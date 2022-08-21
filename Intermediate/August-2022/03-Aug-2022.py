@@ -94,6 +94,67 @@ class Solution:
         return(zeroCount + oneCount + twoCount)
 
 
+# 4 : Largest Number
+# Given an array A of non-negative integers, arrange them such that they form the largest number.
+
+# Note: The result may be very large, so you need to return a string instead of an integer.
+
+from functools import cmp_to_key
+
+class Solution:
+    # @param A : tuple of integers
+    # @return a strings
+    def largestNumber(self, A):
+        A = list(map(str,A))
+
+        def compareNums(i,j):
+            str1, str2 = i + j,  j + i
+
+            return -1 if str1 > str2 else 1
+
+        A = sorted(A, key=cmp_to_key(compareNums))
+
+        if A[0] == '0':
+            return 0
+        return "".join(A)
+    
+
+# Below is another solution that needs to be worked.
+# class Solution:
+#     # @param A : tuple of integers
+#     # @return a strings
+
+#     # def compareNums(i,j):
+
+#     def largestNumber(self, A):
+
+#         # A = list(map(str,A))
+
+#         A = list(A)
+
+#         # print("A =", A)
+
+#         result = ''
+
+#         for i in range(len(A)-1):
+#             for j in range(i+1, len(A)):
+
+#                 str1 = str(A[i]) + str(A[j])
+#                 str2 = str(A[j]) + str(A[i])
+
+#                 if str1 < str2:
+#                     A[i], A[j] = A[j], A[i]
+        
+#         if A[0] == 0:
+#             return 0
+        
+#         for i in range(len(A)):
+#             result += str(A[i])
+
+#         return result
+       
+    
+
 
 
 
