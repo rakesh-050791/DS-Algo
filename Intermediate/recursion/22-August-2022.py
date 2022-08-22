@@ -31,17 +31,17 @@ class Solution:
     def pow(self, A, B, C):
         return calculateExponent(A,B,C)
 
-def calculateExponent(A,B,C):
-    if B == 0:
-        return 1 % C
+def calculateExponent(base,power,mod):
+    if power == 0:
+        return 1 % mod
 
-    if B == 1:
-        return A % C
+    if power == 1:
+        return base % mod
 
-    exponent = (calculateExponent(A, B//2, C)) % C
+    exponent = (calculateExponent(base, power//2, mod)) % mod
 
-    if B % 2 == 0:
-        return (exponent * exponent) % C
+    if power % 2 == 0:
+        return (exponent * exponent) % mod
     else:
-        return ((exponent * exponent) % C * A ) % C
+        return ((exponent * exponent) % mod * base ) % mod
 
