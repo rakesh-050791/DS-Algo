@@ -80,4 +80,27 @@ def fibSeries(n):
         return 1
 
     return fibSeries(n - 1) + fibSeries(n - 2)
+
+# 4 : Print reverse string
+
+# Write a recursive function that, given a string S, prints the characters of S in reverse order.
+
+def main(s):
+    i, j = 0, len(s) - 1
+    ar = list(s)
+    print(reverseString(ar, i, j))
+
+def reverseString(ar, i, j):
+    if i >= j:
+        return "".join(ar)
+
+    temp = ar[i]
+    ar[i] = ar[j]
+    ar[j] = temp
+    return reverseString(ar, i+1, j-1)
+
+if __name__ == '__main__':
+    s = input()
+    main(s)
+
     
