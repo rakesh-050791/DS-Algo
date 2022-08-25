@@ -45,3 +45,53 @@ def calculateExponent(base,power,mod):
     else:
         return ((exponent * exponent) % mod * base ) % mod
 
+
+# 3 : Is magic?
+
+# Given a number A, check if it is a magic number or not.
+# A number is said to be a magic number if the sum of its digits is calculated till a single digit 
+# recursively by adding the sum of the digits after every addition.
+# If the single digit comes out to be 1, then the number is a magic number.
+# Return an 1 if the given number is magic else return 0.
+
+class Solution:
+    # @param A : integer
+    # @return an integer
+    def solve(self, A):
+        result = digitSum(A)
+
+        if result > 9:
+            return self.solve(result)
+
+        return 1 if result == 1 else 0
+
+def digitSum(x):
+    if x == 0:
+        return 0
+
+    lastDigit = x % 10
+    remainingDigits = x // 10
+
+    return lastDigit + digitSum(remainingDigits)
+
+
+# 4 : Kth Symbol / Identify Kth Grammer
+# On the first row, we write a 0. Now in every subsequent row,
+# we look at the previous row and replace each occurrence of 0 with 01, and each occurrence of 1 with 10.
+# Given row number A and index B, return the Bth indexed symbol in row A. (The values of B are 1-indexed.).
+class Solution:
+    def solve(self, A, B):
+        n = A
+        k = B
+        return findKSymbol(n, k-1) #Passing k - 1 because question stated that indexing should start from 1
+
+def findKSymbol(n, k):
+    if k == 0:
+        return 0
+
+    parentData = findKSymbol(n-1, k // 2)
+
+    if (k % 2 == 0):
+        return parentData
+    else:
+        return (1 - parentData) # 1's complement or inverse of 1 or 0
