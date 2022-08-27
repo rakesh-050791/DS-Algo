@@ -119,7 +119,7 @@ class Solution:
         return "".join(A)
     
 
-# Below is another solution that needs to be worked.
+# Below is another solution that needs to be worked on.
 # class Solution:
 #     # @param A : tuple of integers
 #     # @return a strings
@@ -152,10 +152,22 @@ class Solution:
 #             result += str(A[i])
 
 #         return result
-       
-    
 
 
+# 5 : Elements removal 
+# Given an integer array A of size N. You can remove any element from the array in one operation.
+# The cost of this operation is the sum of all elements in the array present before this operation.
 
+# Find the minimum cost to remove all elements from the array.
 
+class Solution:
+    # @param A : list of integers
+    # @return an integer
+    def solve(self, A):
+        A.sort(reverse=True)
+        cost = 0
 
+        for i in range(len(A)):
+            cost +=  (i + 1) * A[i]
+
+        return cost
