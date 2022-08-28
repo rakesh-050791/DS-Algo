@@ -143,5 +143,15 @@ def getNode(llist, positionFromTail):
     return currentNode.data
 
 
+# 7 : Print LinkedList in Reverse
+def reversePrint(llist):
+    elements = []
+    while llist:
+        elements.append(llist.data)
+        llist = llist.next
+    
+    for i in elements[::-1]:
+        print(i)
+
 
 
