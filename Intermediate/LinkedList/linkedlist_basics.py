@@ -102,13 +102,28 @@ def insertNodeAtTail(head, data):
 def insertNodeAtPosition(llist, data, position):
     newNode = SinglyLinkedListNode(data)
     currentNode = llist
-    count = 0 
     
     for i in range(position - 1):
-        count += 1
         currentNode = currentNode.next
         
     newNode.next = currentNode.next
     currentNode.next = newNode
     return llist
+
+
+# 5 : Delete a Node
+def deleteNode(llist, position):
+    currentNode = llist
+    
+    if position==0:
+        llist=llist.next
+    
+    for i in range(position - 1):
+        currentNode = currentNode.next
+        
+    currentNode.next = currentNode.next.next
+    
+    return llist
+    
+
 
