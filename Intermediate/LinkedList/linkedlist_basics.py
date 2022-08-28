@@ -126,4 +126,22 @@ def deleteNode(llist, position):
     return llist
     
 
+# 6 : Get Node Value
+def getNode(llist, positionFromTail):
+    currentNode = llist
+    count = 0
+    while currentNode:
+        count += 1
+        currentNode = currentNode.next
+    
+    positionFromHead = count - positionFromTail - 1
+    
+    currentNode = llist
+    for i in range(positionFromHead):
+        currentNode = currentNode.next 
+        
+    return currentNode.data
+
+
+
 
