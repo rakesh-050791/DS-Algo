@@ -106,6 +106,29 @@ class Solution:
                 frequencyMap[prefixSum[i]] = i
         return result
 
+# 4 : Sub-array with 0 sum
+# Given an array of integers A, find and return whether the given array contains a non-empty subarray with a sum equal to 0.
+
+# If the given array contains a sub-array with sum zero return 1, else return 0.
+
+class Solution:
+    # @param A : list of integers
+    # @return an integer
+    def solve(self, A):
+        n = len(A)
+        prefixSum = [0]*n
+        prefixSum[0] = A[0]
+
+        for i in range(1, n):
+            prefixSum[i] = prefixSum[i-1] + A[i]
+
+        mySet = set((prefixSum))
+
+        if (len(mySet) < n) or (0 in mySet):
+            return 1
+        else:
+            return 0
+
 
 # 5 : Shaggy and distances
 # Shaggy has an array A consisting of N elements. We call a pair of distinct indices 
