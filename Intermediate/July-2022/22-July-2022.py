@@ -97,6 +97,8 @@ class Solution:
 
 # Reverse the bits of an 32 bit unsigned integer A.
 
+# Explanation (https://www.youtube.com/watch?v=LJiMk8lPJNc )
+
 class Solution:
     # @param A : unsigned integer
     # @return an unsigned integer
@@ -115,5 +117,5 @@ class Solution:
             n = n >> 1 # STEP 4 -> right shift given input by 1, to perform the STEP 1
         
         return result
-        
+
         
