@@ -95,8 +95,7 @@ class Solution:
             currentBit *= 5
             if (A & 1 == 1):
                 result += currentBit
-            # A //= 2
-            A = A >> 1
+            A = A >> 1 #OR A = A//2
         return result
 
 
