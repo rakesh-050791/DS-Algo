@@ -222,3 +222,39 @@ class Solution:
             
         return 1
 
+# 6 : Valid Sudoku
+# Determine if a Sudoku is valid, according to: http://sudoku.com.au/TheRules.aspx
+# Video explanation : https://www.youtube.com/watch?v=TjFXEUCMqI8
+
+from collections import defaultdict
+
+class Solution:
+    def isValidSudoku(self, A):
+        squareSize = 9
+        board = A
+
+        #creating hashmap with set as a value we use default dictionary in this code
+        cols = defaultdict(set)
+        rows = defaultdict(set)
+        squares = defaultdict(set)
+
+        for row in range(squareSize):
+            for col in range(squareSize):
+                #checking for blank spaces and avoiding them
+                if board[row][col] == ".":
+                    continue
+                
+                #here we are checking if any value is already in the col, rows or the grid then we return False
+                if (board[row][col] in rows[row] or 
+                   board[row][col] in cols[col] or 
+                   board[row][col] in squares[(row // 3, col // 3)]):
+                    
+                    return 0
+                
+                #we add all the values encountered in the hashmap we created
+                rows[row].add(board[row][col])
+                cols[col].add(board[row][col])
+                squares[(row // 3, col // 3)].add(board[row][col])
+        return 1
+
+
