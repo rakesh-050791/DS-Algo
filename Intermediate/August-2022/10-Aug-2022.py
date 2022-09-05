@@ -184,3 +184,41 @@ class Solution:
             j += 1
         return result
 
+
+# 5 : Verifying an Alien Dictionary
+# Video explanation : https://www.youtube.com/watch?v=OVgPAJIyX6o
+class Solution:
+    # @param A : list of strings
+    # @param B : string
+    # @return an integer
+    def solve(self, A, B):
+
+        # creating dictionary for alien alphabets (character as key & index as value)
+        alienDict = { char : index for index, char in enumerate(B)}
+
+        # To check on each word in given array A, iterating over each element in an array
+        for i in range(len(A)-1):
+            # to compare every given word in an array decalare adjacent words as word1 & word2
+            word1 = A[i] 
+            word2 = A[i+1]
+            # print("Word 1= ", word1, "word2 =", word2)
+
+            # Iterating over a word1 to check 
+            #1 first differing characters
+            #2 If word1 is prefix of word2, word2 must be after word 1
+            #2.1 example word1 = ab, word2 = abc, then word1 should come first and then word2 
+
+            for j in range(len(word1)):
+
+                # Checking for prefix condition here
+                if j == len(word2): 
+                    return 0
+                
+                # Checking and comparing the weightage of characters from alien dictionary
+                if word1[j] != word2[j]:
+                    if alienDict[word2[j]] < alienDict[word1[j]]:
+                        return 0
+                    break
+            
+        return 1
+
