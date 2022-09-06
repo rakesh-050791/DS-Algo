@@ -257,4 +257,44 @@ class Solution:
                 squares[(row // 3, col // 3)].add(board[row][col])
         return 1
 
+# 7 : Pairs With Given Xor
+# Given an integer array A containing N distinct integers.
+
+# Find the number of unique pairs of integers in the array whose XOR is equal to B.
+
+# NOTE:
+
+# Pair (a, b) and (b, a) is considered to be the same and should be counted once.
+
+# Input 1:
+
+#  A = [5, 4, 10, 15, 7, 6]
+#  B = 5
+
+# Output 1:
+
+#  1
+
+# Explanation 1:
+
+#  (10 ^ 15) = 5
+
+# Solution using hashset
+
+class Solution:
+    def solve(self, A, B):
+
+        hashSet = set()
+        resultCount = 0
+
+        for i in range(len(A)):
+
+            value = A[i] ^ B
+
+            if value in hashSet:
+                resultCount += 1
+            
+            hashSet.add(A[i])
+        return resultCount
+
 
