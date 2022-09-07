@@ -95,3 +95,60 @@ def findKSymbol(n, k):
         return parentData
     else:
         return (1 - parentData) # 1's complement or inverse of 1 or 0
+
+# 5 : Gray Code
+# The gray code is a binary numeral system where two successive values differ in only one bit.
+
+# Given a non-negative integer A representing the total number of bits in the code, print the sequence of gray code.
+
+# A gray code sequence must begin with 0.
+
+# Example Input
+# Input 1:
+
+# A = 2
+
+# Example Output
+# output 1:
+
+# [0, 1, 3, 2]
+
+## Video Hint : https://www.youtube.com/watch?v=KOD2BFauQbA
+## 
+
+## Below solution is for returning decimal numbers, as asked in question
+class Solution:
+    # @param A : integer
+    # @return a list of integers
+    def grayCode(self, A):
+        result = self.getGrayCode(A)
+        ## result contains binary numbers, in next line we are returning and 
+        #converting them to decimal numbers
+        return [int(element, 2) for element in result]
+
+    def getGrayCode(self, A):
+        # base case
+        if A <= 0:
+            return ['0']
+        
+        if A == 1:
+            return ['0', '1']
+
+        # recursive case
+        recAns = self.getGrayCode(A-1)
+
+        mainAns = []
+
+        # Append 0 to the first half
+        for i in range(len(recAns)):
+            s = recAns[i]
+            mainAns.append('0' + s)
+        
+        # Append 1 to the second half
+        for i in range(len(recAns) - 1, -1, -1):
+            s = recAns[i]
+            mainAns.append('1' + s)
+        
+        return mainAns
+
+
