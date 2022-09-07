@@ -116,7 +116,7 @@ def findKSymbol(n, k):
 ## Video Hint : https://www.youtube.com/watch?v=KOD2BFauQbA
 ## 
 
-## Below solution is for returning decimal numbers, as asked in question
+## Below solution is using recursion for returning decimal numbers, as asked in question
 class Solution:
     # @param A : integer
     # @return a list of integers
@@ -152,3 +152,10 @@ class Solution:
         return mainAns
 
 
+## Below solution is using recursion 
+class Solution:
+    def grayCode(self, A):
+        ans = []
+        for i in range(2 ** A):
+            ans.append((i>>1) ^ i)
+        return ans
