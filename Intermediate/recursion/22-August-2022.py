@@ -159,3 +159,33 @@ class Solution:
         for i in range(2 ** A):
             ans.append((i>>1) ^ i)
         return ans
+
+
+## Below solution is for returning binary numbers
+class Solution:
+    def grayCode(self, A):
+
+        # base case
+        if A <= 0:
+            return ['0']
+        
+        if A == 1:
+            return ['0', '1']
+
+        # recursive case
+        recAns = self.grayCode(A-1)
+
+        mainAns = []
+
+        # Append 0 to the first half
+        for i in range(len(recAns)):
+            s = recAns[i]
+            mainAns.append('0' + s)
+        
+        # Append 1 to the second half
+        for i in range(len(recAns) - 1, -1, -1):
+            s = recAns[i]
+            mainAns.append('1' + s)
+        
+        return mainAns
+
