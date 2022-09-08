@@ -20,3 +20,43 @@ class Solution:
         middleElement = A + B + C - maximumElement - minimumElement
         
         return (minimumElement*10000 + middleElement*100 + maximumElement)
+
+
+# 3 : Find if two rectangles overlap
+
+# Eight integers A, B, C, D, E, F, G, and H represent two rectangles in a 2D plane.
+# For the first rectangle, its bottom left corner is (A, B), and the top right corner is (C, D), and for the second rectangle, its bottom left corner is (E, F), and the top right corner is (G, H).
+
+# Find and return whether the two rectangles overlap or not.
+
+# Example Input
+# Input 1:
+
+# A = 0   B = 0
+# C = 4   D = 4
+# E = 2   F = 2
+# G = 6   H = 6
+
+# Output 1:
+# 1
+
+# Explanation 1:
+# Rectangle with bottom left (2, 2) and top right (4, 4) is overlapping.
+
+# Solution Approach 
+# we can formulate the required conditions.
+
+# First, we can see if a foot of one rectangle is >= top of another rectangle, then an answer is not possible.
+
+# You can make a similar argument about the y-axis.
+
+class Solution:
+    def solve(self, A, B, C, D, E, F, G, H):
+        if A >= G or E >= C:
+            return 0
+        if D <= F or H <= B:
+            return 0
+        return 1
+
+
+
