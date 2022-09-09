@@ -79,5 +79,36 @@ class Solution:
         return 0
 
 
+# 5 : Least Common Multiple
+# Write a program to input an integer T and then for each test case input two integers A and B in two different lines and then print T lines containing Least Common Multiple (LCM) of two given 2 numbers A and B.
+
+# LCM of two integers is the smallest positive integer divisible by both.
+
+# Input Format
+# In first-line input T which means number of test cases.
+
+# Next 2T lines contains input A and B for each testcase.
+# First line of each testcase contain an integer A and second line of the testcase contains input B.
+
+def main():
+    T = int(input())
+
+    while T:
+        T -= 1
+        A = int(input())
+        B = int(input())
+
+        greaterNo = max(A,B)
+
+        lcm = greaterNo
+        while (True):
+            if greaterNo % A == 0 and greaterNo % B == 0:
+                lcm = greaterNo
+                break
+            greaterNo += 1
+        print(lcm)
+
+if __name__ == '__main__':
+    main()
 
 
