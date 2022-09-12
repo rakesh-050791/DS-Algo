@@ -123,7 +123,69 @@ class Solution:
         return result
 
 
-# 4 : Flip
+# 4 : Max Non Negative SubArray
+# Given an array of integers, A of length N, find out the maximum sum sub-array of non negative numbers from A.
+
+# The sub-array should be contiguous i.e., a sub-array created by choosing the second and fourth element and skipping the third element is invalid.
+
+# Maximum sub-array is defined in terms of the sum of the elements in the sub-array.
+
+# Find and return the required subarray.
+
+# NOTE:
+
+#     1. If there is a tie, then compare with segment's length and return segment which has maximum length.
+#     2. If there is still a tie, then return the segment with minimum starting index.
+
+# Examples:
+
+# Input 1:
+#     A = [1, 2, 5, -7, 2, 3]
+
+# Output 1:
+#     [1, 2, 5]
+
+# Explanation 1:
+#     The two sub-arrays are [1, 2, 5] [2, 3].
+#     The answer is [1, 2, 5] as its sum is larger than [2, 3].
+
+class Solution:
+    # @param A : list of integers
+    # @return a list of integers
+    def maxset(self, A):
+
+        n = len(A)
+        currentMaxSum = 0
+        maxSumSoFar = 0
+        startIndex = 0 
+        endIndex = 0
+        indexTracker = 0
+        subArrayLength = 0
+        result = []
+
+        for i in range(n):
+            if A[i] < 0:
+                indexTracker = i+1 # Move start index by one pointer as negative value has encountered 
+                currentMaxSum = 0
+            else:
+                currentMaxSum += A[i]
+            
+                if currentMaxSum > maxSumSoFar:
+                    maxSumSoFar = currentMaxSum
+                    startIndex = indexTracker
+                    endIndex = i + 1
+                    subArrayLength = endIndex - endIndex
+                elif currentMaxSum == maxSumSoFar and ((i - indexTracker) > subArrayLength):
+                    startIndex = indexTracker
+                    endIndex = i+1
+
+        for i in range(startIndex, endIndex):
+            result.append(A[i])
+
+        return result
+
+
+# 5 : Flip
 # You are given a binary string A(i.e., with characters 0 and 1) consisting of characters A1, A2, ..., AN. In a single operation, you can choose two indices, L and R, such that 1 ≤ L ≤ R ≤ N and flip the characters AL, AL+1, ..., AR. By flipping, we mean changing character 0 to 1 and vice-versa.
 
 # Your aim is to perform ATMOST one operation such that in the final string number of 1s is maximized.
