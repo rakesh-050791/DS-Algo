@@ -122,3 +122,63 @@ class Solution:
 
         return result
 
+
+# 4 : Flip
+# You are given a binary string A(i.e., with characters 0 and 1) consisting of characters A1, A2, ..., AN. In a single operation, you can choose two indices, L and R, such that 1 ≤ L ≤ R ≤ N and flip the characters AL, AL+1, ..., AR. By flipping, we mean changing character 0 to 1 and vice-versa.
+
+# Your aim is to perform ATMOST one operation such that in the final string number of 1s is maximized.
+
+# If you don't want to perform the operation, return an empty array. Else, return an array consisting of two elements denoting L and R. If there are multiple solutions, return the lexicographically smallest pair of L and R.
+
+# NOTE: Pair (a, b) is lexicographically smaller than pair (c, d) if a < c or, if a == c and b < d.
+
+# Input 1: A = "010"
+
+# Output 1: [1, 1]
+
+# Explanation 1:
+
+# A = "010"
+
+# Pair of [L, R] | Final string
+# _______________|_____________
+# [1 1]          | "110"
+# [1 2]          | "100"
+# [1 3]          | "101"
+# [2 2]          | "000"
+# [2 3]          | "001"
+
+# We see that two pairs [1, 1] and [1, 3] give same number of 1s in final string. So, we return [1, 1].
+
+class Solution:
+    # @param A : string
+    # @return a list of integers
+    def flip(self, A):
+        n = len(A)
+        newA = []
+        currentSum, maxSum, idx = 0, 0, 0
+        startIndex, endIndex = -1, -1 
+        
+        # creating new array from existing array A, if A[i] is 1 add - 1 & if A[i] is 0 add 1 to new array
+        for i in range(n):
+            x = -1 if A[i] == '1' else 1
+            newA.append(x)
+
+        # using kadane's algorithm
+        for i in range(n):
+            if ((currentSum + newA[i]) < 0):
+                currentSum = 0
+                idx = i+1
+            else:
+                currentSum += newA[i]
+
+            if currentSum > maxSum:
+                maxSum = currentSum
+                startIndex = idx 
+                endIndex = i 
+
+        if startIndex == -1:
+            return []
+
+        return [startIndex+1,endIndex+1]
+
