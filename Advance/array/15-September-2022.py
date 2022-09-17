@@ -43,3 +43,42 @@ class Solution:
         result.append(newInterval)
 
         return result
+
+# 2 : Minimum Swaps 2
+
+# Given an array of integers A of size N that is a permutation of [0, 1, 2, ..., (N-1)]. It is allowed to 
+# swap any two elements (not necessarily consecutive).
+# Find the minimum number of swaps required to sort the array in ascending order.
+
+# Example Input
+# Input 1:
+
+# A = [1, 2, 3, 4, 0]
+
+# Example Output
+# Output 1:
+
+# 4
+
+# Example Explanation
+# Explanation 1:
+
+#  If you swap (1, 2) -> (2, 3) -> (4, 0) -> (3, 0). You will get a sorted array.
+#  You cannot sort it with lesser swaps.
+
+class Solution:
+    def solve(self, A):
+        n = len(A)
+        noOfSwaps = 0
+        i = 0
+        while i < n:
+            num = A[i]
+            if num == i:
+                i+=1
+            else:
+                temp = A[i]
+                A[i] = A[num]
+                A[num] = temp
+                noOfSwaps += 1
+        return noOfSwaps
+
