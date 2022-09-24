@@ -244,3 +244,58 @@ class Solution:
 
         return [startIndex+1,endIndex+1]
 
+
+# 6 : Rain Water Trapped
+
+# Given a vector A of non-negative integers representing an elevation map where the width of each bar is 1, 
+# compute how much water it is able to trap after raining.
+
+# Input 1:
+# A = [0, 1, 0, 2]
+
+# Output 1:
+# 1
+
+# Explanation 1:
+
+# 1 unit is trapped on top of the 3rd element.
+
+class Solution:
+    def trap(self, A):
+        n = len(A)
+
+        prefixSumMax = self.getPrefixSumMax(A, n)
+        suffixSumMax = self.getSuffixSumMax(A, n)
+        result = 0
+
+        for i in range(1, n-1):
+            leftMax = prefixSumMax[i-1]
+            rightmax = suffixSumMax[i+1]
+            level = min(leftMax, rightmax)
+            water = level - A[i]
+
+            if water > 0: result += water
+
+        return result
+
+
+    def getPrefixSumMax(self, A, n):
+        prefixSumMax = [0]*n
+        prefixSumMax[0] = A[0]
+
+        for i in range(1, n):
+            prefixSumMax[i] =  A[i] if A[i] > prefixSumMax[i-1] else prefixSumMax[i-1]
+
+        return prefixSumMax
+
+    def getSuffixSumMax(self, A, n):
+
+        suffixSumMax = [0]*n
+        suffixSumMax[n-1] = A[n-1]
+
+        for i in range(n-2, -1, -1):
+            suffixSumMax[i]  = A[i] if A[i] > suffixSumMax[i+1] else suffixSumMax[i+1]
+        
+        return suffixSumMax
+
+
