@@ -42,6 +42,7 @@ class Solution:
 
         return result
 
+
 # 2 : Minimum Swaps
 # Given an array of integers A and an integer B, find and return the minimum number of swaps 
 # required to bring all the numbers less than or equal to B together.
@@ -129,3 +130,49 @@ class Solution:
                 noOfSwaps += 1
         return noOfSwaps
         
+
+# 4 : First Missing Integer
+# Given an unsorted integer array, A of size N. Find the first missing positive integer.
+
+# Note: Your algorithm should run in O(n) time and use constant space.
+
+# Input 1:
+
+# [1, 2, 0]
+
+# Output 1:
+
+# 3
+
+# Explanation 1:
+
+# A = [1, 2, 0]
+# First positive integer missing from the array is 3.
+class Solution:
+    # @param A : list of integers
+    # @return an integer
+    def firstMissingPositive(self, A):
+        N = len(A)
+        i = 0
+
+        while i < N:
+            if A[i] > 0 and A[i] < N +1:
+                correctindx = A[i] - 1
+                if A[correctindx] != A[i]:
+                    temp = A[i]
+                    A[i] = A[correctindx]
+                    A[correctindx] = temp
+                else:
+                    i+= 1
+
+            else:
+                i +=1
+               
+        for i in range(N):
+            if A[i]-1 != i:
+                return(i+1)
+           
+           
+        return N+1
+
+
