@@ -60,4 +60,52 @@ class Solution:
             return a 
         return self.calculateGCD(b, a % b)
 
+        
+# 3 : Pubg
 
+# There are N players, each with strength A[i]. when player i attack player j, player j strength reduces to max(0, A[j]-A[i]). When a player's strength reaches zero, it loses the game, and the game continues in the same manner among other players until only 1 survivor remains.
+
+# Can you tell the minimum health last surviving person can have?
+
+# Example Input
+# Input 1:
+# A = [6, 4]
+
+# Example Output
+# Output 1:
+# 2
+
+# Example Explanation
+# Explanation 1:
+
+# Given strength array A = [6, 4]
+# Second player attack first player, A =  [2, 4]
+# First player attack second player twice. [2, 0]
+
+class Solution:
+    # @param A : list of integers
+    # @return an integer
+    def solve(self, A):
+
+        def calculateGCD(A, B):
+            a = abs(A)
+            b = abs(B)
+
+            if b == 0:
+                return a 
+            
+            return calculateGCD(b, a%b)
+        
+        n = len(A) 
+        if n == 0:
+            return 0
+        
+        previousElement = A[0]
+
+        for i in range(1, n):
+            previousElement = calculateGCD(previousElement, A[i]) #Moving forward, With calculating the GCD with previous and next element
+
+            if previousElement == 1:
+                return 1 #if 1 is health then its always 1
+        
+        return previousElement
