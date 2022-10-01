@@ -56,3 +56,44 @@ class Solution:
             res.append(value)
            
         return res
+
+# 2 : Lucky Numbers
+# A lucky number is a number that has exactly 2 distinct prime divisors.
+
+# You are given a number A, and you need to determine the count of lucky numbers between the range 1 to A (both inclusive).
+# Example Input
+# Input 1:
+
+# A = 8
+
+# Example Output
+# Output 1: 1
+
+# Explanation 1:
+
+#  Between [1, 8] there is only 1 lucky number i.e 6.
+#  6 has 2 distinct prime factors i.e 2 and 3.
+
+class Solution:
+    # @param A : integer
+    # @return an integer
+    def solve(self, A):
+        res = 0
+
+        arr = [0]*(A+1)
+        
+        p = 2
+        while p <= A:
+            # if we encounter 2 then that has 2 distinct primes
+            if arr[p] == 2: 
+                res += 1
+                p += 1
+                continue
+            
+            # 0 indicates a new prime number
+            if arr[p] == 0:
+                for i in range(2*p, A+1, p):
+                    arr[i] += 1
+
+            p += 1
+        return res
