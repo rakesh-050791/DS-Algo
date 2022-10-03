@@ -45,3 +45,53 @@ class Solution:
         TOH(A, 1, 2, 3)
 
         return result
+
+# 2 : Gray Code
+# The gray code is a binary numeral system where two successive values differ in only one bit.
+
+# Given a non-negative integer A representing the total number of bits in the code, print the sequence of gray code.
+
+# A gray code sequence must begin with 0.
+
+# Example Input
+# Input 1: A = 2
+
+
+# Example Output
+# output 1: [0, 1, 3, 2]
+
+# Explanation 1:
+
+# for A = 2 the gray code sequence is:
+#     00 - 0
+#     01 - 1
+#     11 - 3
+#     10 - 2
+# So, return [0,1,3,2].
+
+class Solution:
+    # @param A : integer
+    # @return a list of integers
+    def grayCode(self, A):
+        result = self.getGrayCode(A)
+        return [int(element, 2) for element in result]
+    
+    def getGrayCode(self, n):
+        if n <= 0:
+            return ['0']
+        if n == 1:
+            return ['0', '1']
+
+        rescursionResult = self.getGrayCode(n-1)
+
+        output = []
+
+        for i in range(len(rescursionResult)):
+            s = rescursionResult[i]
+            output.append('0' + s)
+        
+        for i in range(len(rescursionResult) - 1, -1, -1):
+            s = rescursionResult[i]
+            output.append('1' + s)
+
+        return output
