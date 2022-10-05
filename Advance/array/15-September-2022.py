@@ -176,3 +176,45 @@ class Solution:
         return N+1
 
 
+# 5 : Row with maximum number of ones
+
+# Given a binary sorted matrix A of size N x N. Find the row with the maximum number of 1.
+
+# NOTE:
+
+# If two rows have the maximum number of 1 then return the row which has a lower index.
+# Rows are numbered from top to bottom and columns are numbered from left to right.
+# Assume 0-based indexing.
+# Assume each row to be sorted by values.
+# Expected time complexity is O(rows).
+
+# Input 1:
+
+#  A = [   [0, 1, 1]
+#          [0, 0, 1]
+#          [0, 1, 1]   ]
+
+
+# Output 1:
+
+#  0
+
+#  Explanation 1:
+
+#  Row 0 has maximum number of 1s.
+
+class Solution:
+    # @param A : list of list of integers
+    # @return an integer
+    def solve(self, A):
+        count = 0
+        max1, row = 0, None        
+        rows,col = len(A),len(A[0])-1
+        for i in range(rows):
+            while A[i][col] == 1 and col >= 0:
+                count += 1
+                if count > max1:
+                    max1 = count
+                    row = i
+                col -= 1
+        return row
