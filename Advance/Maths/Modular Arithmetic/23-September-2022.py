@@ -120,3 +120,48 @@ class Solution:
             j-= 1
         return int(result % mod)
 
+# 3 : Prime Modulo Inverse
+# Given two integers A and B. Find the value of A-1 mod B where B is a prime number and gcd(A, B) = 1.
+
+# A-1 mod B is also known as modular multiplicative inverse of A under modulo B.
+
+# Example Input
+# Input 1:
+
+#  A = 3
+#  B = 5
+
+
+# Example Output
+# Output 1: 2
+
+# Example Explanation
+# Explanation 1:
+
+#  Lets say A-1 mod B = X, then (A * X) % B = 1.
+#  3 * 2 = 6, 6 % 5 = 1.
+
+
+class Solution:
+    def solve(self, A, B):
+        #using FERMET's Little Theoram  -> calculate (A^B-2 % B) % B 
+        result = self.calculatePower(A, B-2, B) % B
+        return result
+
+    
+    def calculatePower(self, base, exponent, mod):
+        if base == 0:
+            return 0 #if 0 ^ n where n = any natural number, we get 0 only. Eg: 0 ^ 2 = 0
+        
+        if exponent == 0:
+            return 1 #If power is 0, we get 1 for all base values.
+
+        # storing the recursion calls in a variable power which gives us the SC: O(log N_base2)
+        power = self.calculatePower(base, exponent // 2, mod)
+
+        # Using modulo to keep the multiplication of two max integers in the worst case also comes in the range [0, mod-1]
+        if exponent % 2 == 0: #If B is even, powers can be broken in equal parts
+            return ((power % mod) * (power % mod)) % mod
+        else:
+            return ((power % mod) * (power % mod) * (base % mod)) % mod
+
