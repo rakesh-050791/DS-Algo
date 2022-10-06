@@ -271,3 +271,42 @@ class Solution:
             minForI=min(minForI,A[i]+i)
             minForJ=min(minForJ,A[i]-i)
         return max(maxForI-minForI, maxForJ-minForJ)
+
+
+# 7 : Max Chunks To Make Sorted
+
+# Given an array of integers A of size N that is a permutation of [0, 1, 2, ..., (N-1)], 
+# if we split the array into some number of "chunks" (partitions), and individually sort each chunk. 
+# After concatenating them in order of splitting, the result equals the sorted array.
+# What is the most number of chunks we could have made?
+
+# Input 1:
+# A = [1, 2, 3, 4, 0]
+
+
+# Example Output
+# Output 1: 1
+
+# Explanation 1:
+
+#  A = [1, 2, 3, 4, 0]
+#  To get the 0 in the first index, we have to take all elements in a single chunk.
+
+
+class Solution:
+    def solve(self, A):
+        # since the input goes from 1 to n-1 we can keep track of the current max , 
+        # we check if the current max is equal to current index that will suggest that 
+        # current window has all the required element.
+
+        maxElement = float('-inf')
+        chunks = 0
+
+        for i in range(len(A)):
+            if A[i] > maxElement:
+                maxElement = A[i]
+            
+            if maxElement == i:
+                chunks += 1
+        
+        return chunks
