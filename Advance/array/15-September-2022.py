@@ -292,6 +292,7 @@ class Solution:
 #  A = [1, 2, 3, 4, 0]
 #  To get the 0 in the first index, we have to take all elements in a single chunk.
 
+# Video explanation : https://www.youtube.com/watch?v=Aor_z1iryc4
 
 class Solution:
     def solve(self, A):
@@ -310,3 +311,42 @@ class Solution:
                 chunks += 1
         
         return chunks
+
+
+# 8 : Max Distance
+
+# Given an array, A of integers of size N. Find the maximum value of j - i such that A[i] <= A[j].
+
+# Example Input
+# Input 1:
+
+# A = [3, 5, 4, 2]
+
+# Example Output
+# Output 1: 2
+
+# Explanation 1:
+
+# For A[0] = 3 and A[2] = 4, the ans is (2 - 0) = 2. 
+
+class Solution:
+    # @param A : tuple of integers
+    # @return an integer
+    def maximumGap(self, A):
+        n = len(A)
+        arr = []
+
+        for i in range(n):
+            arr.append([A[i], i])
+
+        arr.sort()    
+
+        result = 0
+        maxIndex = arr[n-1][1]
+
+        for i in range(n-2, -1, -1):
+            maxIndex = max(maxIndex, arr[i][1])
+            
+            result = max(result, maxIndex - arr[i][1])
+            
+        return result
