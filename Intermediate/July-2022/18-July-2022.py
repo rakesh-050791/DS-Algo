@@ -224,9 +224,36 @@ class Solution:
 
 
 
+# 10 : Row Sum
+# You are given a 2D integer matrix A, return a 1D integer array containing row-wise sums of original matrix.
+
+# Example Input
+# Input 1:
+
+# [1,2,3,4]
+# [5,6,7,8]
+# [9,2,3,4]
 
 
+# Example Output
+# Output 1: {10,26,18}
 
+# Explanation 1
 
+# Row 1 = 1+2+3+4 = 10
+# Row 2 = 5+6+7+8 = 26
+# Row 3 = 9+2+3+4 = 18
 
+class Solution:
+    # @param A : list of list of integers
+    # @return a list of integers
+    def solve(self, A):
+        output = []
+
+        for i in range(0, len(A)):
+            sum = 0
+            for j in range(0,len(A[0])):
+                sum += A[i][j]
+            output.append(sum)
+        return output
 
