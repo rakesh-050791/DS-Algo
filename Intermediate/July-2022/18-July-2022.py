@@ -257,3 +257,36 @@ class Solution:
             output.append(sum)
         return output
 
+
+# 11 : Main Diagonal Sum
+# You are given a N X N integer matrix. You have to find the sum of all the main diagonal elements of A.
+
+# Main diagonal of a matrix A is a collection of elements A[i, j] such that i = j.
+
+# Example Input
+# Input 1:
+
+#  A = [[1, -2, -3],
+#      [-4, 5, -6],
+#      [-7, -8, 9]]
+
+# Output 1: 15 
+
+# Explanation 1:
+
+#  A[1][1] + A[2][2] + A[3][3] = 1 + 5 + 9 = 15
+
+class Solution:
+    def solve(self, A):
+        rows = len(A)
+        cols = len(A[0])
+
+        result = 0
+        for i in range(rows):
+            for j in range(cols):
+                if i == j:
+                    result += A[i][j]
+        
+        return result
+
+
