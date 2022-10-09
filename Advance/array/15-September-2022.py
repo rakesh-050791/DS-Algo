@@ -350,3 +350,43 @@ class Solution:
             result = max(result, maxIndex - arr[i][1])
             
         return result
+
+
+# 9 : Merge Overlapping Intervals
+# Given a collection of intervals, merge all overlapping intervals.
+
+# Example Input
+# Input 1: [1,3],[2,6],[8,10],[15,18]
+
+# Example Output
+# Output 1: [1,6],[8,10],[15,18]
+
+
+# Explanation 1:
+
+# Merge intervals [1,3] and [2,6] -> [1,6].
+# so, the required answer after merging is [1,6],[8,10],[15,18].
+# No more overlapping intervals present.
+
+# Definition for an interval.
+class Interval:
+    def __init__(self, s=0, e=0):
+        self.start = s
+        self.end = e
+
+class Solution:
+    def merge(self, intervals):
+        n = len(intervals)
+        intervals.sort(key=lambda x : x.start)
+        result = []
+
+        for i in range(n):
+            # when no overlap
+            if not result or result[-1].end < intervals[i].start:
+                result.append(intervals[i])
+            # when overlap, so update the latest added value in the result
+            else:
+                result[-1].start = min(intervals[i].start, result[-1].start)
+                result[-1].end = max(intervals[i].end, result[-1].end)
+        
+        return result
