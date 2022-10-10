@@ -290,3 +290,22 @@ class Solution:
         return result
 
 
+# 12 : Are Matrices Same ? 
+# You are given two matrices A & B of equal dimensions and you have to check whether two matrices are equal or not.
+
+# NOTE: Both matrices are equal if A[i][j] == B[i][j] for all i and j in the given range.
+
+class Solution:
+    def solve(self, A, B):
+        
+        rows = len(A)
+        cols = len(A[0])
+        for row in range(rows):
+            for col in range(cols):
+                if A[row][col] != B[row][col]:
+                    return 0
+        return 1
+            
+
+
+
