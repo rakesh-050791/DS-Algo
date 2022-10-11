@@ -307,5 +307,37 @@ class Solution:
         return 1
             
 
+# 13 : Minor Diagonal Sum
+# You are given a N X N integer matrix. You have to find the sum of all the minor diagonal elements of A.
+
+# Minor diagonal of a M X M matrix A is a collection of elements A[i, j] such that i + j = M + 1 (where i, j are 1-based).
+
+# Example Input
+# Input 1:
+
+#  A = [[1, -2, -3],
+#       [-4, 5, -6],
+#       [-7, -8, 9]]
+
+# Example Output
+# Output 1: -5
+
+# Explanation 1:
+
+# A[1][3] + A[2][2] + A[3][1] = (-3) + 5 + (-7) = -5 
+
+
+class Solution:
+    def solve(self, A):
+        rows = len(A)
+        cols = len(A[0])
+        M = len(A)
+        sum = 0
+
+        for i in range(rows):
+            sum += A[i][M-i-1]  # [M-i-1] will gv indx of the col in the minor diagonal
+        
+        return sum
+
 
 
