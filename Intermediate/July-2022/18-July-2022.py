@@ -340,4 +340,37 @@ class Solution:
         return sum
 
 
+# 14 : Matrix Scalar Product
+# You are given a matrix A and and an integer B, you have to perform scalar multiplication of matrix A with an integer B.
+
+# Example Input
+# Input 1:
+
+# A = [[1, 2, 3],[4, 5, 6],[7, 8, 9]]
+# B = 2 
+
+# Example Output
+# Output 1:
+
+# [[2, 4, 6], [8, 10, 12], [14, 16, 18]]
+
+
+# Example Explanation
+# Explanation 1:
+
+# ==> ( [[1, 2, 3],[4, 5, 6],[7, 8, 9]] ) * 2
+# ==> [[2*1, 2*2, 2*3],[2*4, 2*5, 2*6],[2*7, 2*8, 2*9]]
+# ==> [[2, 4, 6], [8, 10, 12], [14, 16, 18]]
+
+class Solution:
+    def solve(self, A, B):
+        rows = len(A)
+        cols = len(A[0])
+
+        for i in range(rows):
+            for j in range(cols):
+                A[i][j] = A[i][j] * B
+
+        return A
+
 
