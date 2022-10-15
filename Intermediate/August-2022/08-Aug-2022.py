@@ -300,3 +300,44 @@ class Solution:
             return -1
 
 
+# 8 : Check Palindrome - II
+# Given a string A consisting of lowercase characters.
+
+# Check if characters of the given string can be rearranged to form a palindrome.
+
+# Return 1 if it is possible to rearrange the characters of the string A such that it becomes a palindrome else return 0.
+
+# Output Format
+# Return 1 if it is possible to rearrange the characters of the string A such that it becomes a palindrome else return 0.
+
+
+
+# Example Input
+# Input 1: A = "abcde"
+
+# Example Explanation
+# Explanation 1:
+
+# No possible rearrangement to make the string palindrome.
+
+class Solution:
+    def solve(self, A):
+        str = A 
+
+        hashMap = {}
+
+        for char in str:
+            if char in hashMap:
+                hashMap[char] += 1
+            else:
+                hashMap[char] = 1
+
+        oddCount = 0
+        for i in hashMap:
+            # checking if any character given in A is repeating even no of times or odd no of times
+            if hashMap[i] % 2 != 0: 
+                oddCount += 1
+            
+            if oddCount > 1:
+                return 0
+        return 1
