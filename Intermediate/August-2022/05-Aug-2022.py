@@ -114,3 +114,39 @@ class Solution:
         return A
 
 
+# 6 : Isalnum()
+# You are given a function isalpha() consisting of a character array A.
+
+# Return 1 if all the characters of a character array are alphanumeric (a-z, A-Z, and 0-9) else, return 0.
+
+# Output Format
+# Return 1 if all the characters of the character array are alphanumeric (a-z, A-Z and 0-9), else return 0.
+
+
+
+# Example Input
+# Input 1:
+
+# A = ['S', 'c', 'a', 'l', 'e', 'r', 'A', 'c', 'a', 'd', 'e', 'm', 'y', '2', '0', '2', '0']
+
+# Example Output
+# Output 1: 1
+
+# Explanation 1:
+
+# All the characters are alphanumeric.
+
+class Solution:
+    # @param A : list of characters
+    # @return an integer
+    def solve(self, A):
+        nonAlphanumericCount = 0
+        for i in range(len(A)):
+            if (ord(A[i]) >= 65 and ord(A[i]) <= 90) or (ord(A[i]) >= 97 and ord(A[i]) <= 122) or (ord(A[i]) >= 48 and ord(A[i]) <= 57):
+                pass
+            else:
+                nonAlphanumericCount += 1
+        
+        return 0 if nonAlphanumericCount > 0 else 1
+
+
