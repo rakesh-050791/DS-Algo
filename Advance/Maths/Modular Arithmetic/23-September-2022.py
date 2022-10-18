@@ -165,3 +165,90 @@ class Solution:
         else:
             return ((power % mod) * (power % mod) * (base % mod)) % mod
 
+
+# 4 : Rearrange Array
+
+# Rearrange a given array so that Arr[i] becomes Arr[Arr[i]] with O(1) extra space.
+
+# Example:
+
+# Input : [1, 0]
+# Return : [0, 1]
+# Lets say N = size of the array. Then, following holds true :
+
+# All elements in the array are in the range [0, N-1]
+# N * N does not overflow for a signed integer
+
+
+# Approach: 
+
+# store initial value and result in the same element.
+# / by n will give the initial value
+# % by n will give the final result.
+
+# {4, 0, 2, 1, 3} -> {3, 4, 2, 0, 1}
+# n = 5;
+
+# Step I:
+# 20, 0, 10, 5, 15 -> / by 5 gives back the original 4, 0, 2, 1, 3
+
+# Step II: Include result in the element
+# i = 0
+# arr[i] = 20 but actual value is arr[i]/5 = 4 -> Index
+# arr[Index] = 15 but actual value is arr[Index]/5 = 3 -> result
+# arr[i]+3 = 23 -> 23%5 = 3 -> result, 23/5 = 4 -> Initial value
+
+# {23, 0, 10, 5, 15}
+
+# i = 1
+# arr[i] = 0 but actual value is arr[i]/5 = 0 -> Index
+# arr[Index] = 23 but actual value is arr[Index]/5 = 4 -> result
+# arr[i]+4 = 4 -> 4%5 = 4 -> result, 4/5 = 0 -> Initial value
+
+# {23, 4, 10, 5, 15}
+
+# i = 2
+# arr[i] = 10 but actual value is arr[i]/5 = 2 -> Index
+# arr[Index] = 10 but actual value is arr[Index]/5 = 2 -> result
+# arr[i]+2 = 12 -> 12%5 = 2 -> result, 12/5 = 2 -> Initial value
+
+# {23, 4, 12, 5, 15}
+
+# i = 3
+# arr[i] = 5 but actual value is arr[i]/5 = 1 -> Index
+# arr[Index] = 4 but actual value is arr[Index]/5 = 0 -> result
+# arr[i]+0 = 5 -> 5%5 = 0 -> result, 5/5 = 1 -> Initial value
+
+# {23, 4, 12, 5, 15}
+
+# i = 4
+# arr[i] = 15 but actual value is arr[i]/5 = 3 -> Index
+# arr[Index] = 5 but actual value is arr[Index]/5 = 1 -> result
+# arr[i]+1 = 16 -> 16%5 = 1 -> result, 16/5 = 3 -> Initial value
+
+# {23, 4, 12, 5, 16}
+
+# Step III: %5 of each element will be the final result {3, 4, 2, 0, 1}
+
+
+class Solution:
+    def arrange(self, A):
+        n = len(A)
+        arr = A 
+
+        #STEP : 1 - Multiply existing array elements with total length of an array i.e n
+        for i in range(n):
+            arr[i] = arr[i] * n 
+
+        #STEP : 2 - Divide array elements with total length of an array, create Arr[Arr[i]] and again
+                    # divide it with total length of an array and sum it with array elements.
+        for i in range(n):
+            idx = arr[i] // n
+            value = arr[idx] // n
+            arr[i] = arr[i] + value
+        
+        #STEP : 3 - Modulo array elements with total length of an array & return array ( to get back the swap value)
+        for i in range(n):
+            arr[i] = arr[i] % n
+        
+        return arr
