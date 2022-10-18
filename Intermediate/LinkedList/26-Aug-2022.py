@@ -1,4 +1,128 @@
-# 1 : Design Linked list
+# 1: Linked List
+
+# Design and implement a Linked List data structure.
+# A node in a linked list should have the following attributes - an integer value and a pointer to the next node. It should support the following operations:
+
+# insert_node(position, value) - To insert the input value at the given position in the linked list.
+# delete_node(position) - Delete the value at the given position from the linked list.
+# print_ll() - Print the entire linked list, such that each element is followed by a single space.
+# Note:
+
+# If an input position does not satisfy the constraint, no action is required.
+# Each print query has to be executed in a new line.
+
+# Input Format
+# First line contains an integer denoting number of cases, let's say t.
+# Next t line denotes the cases.
+
+
+# Output Format
+# When there is a case of print_ll(),  Print the entire linked list, such that each element is followed by a single space.
+# NOTE: You don't need to return anything.
+
+
+# Example Input
+# 5
+# i 1 23
+# i 2 24
+# p
+# d 1
+# p
+
+
+# Example Output
+# 23 24
+# 24
+
+
+# Example Explanation
+# After first two cases linked list contains two elements 23 and 24.
+# At third case print: 23 24.
+# At fourth case delete value at first position, only one element left 24.
+# At fifth case print: 24.
+
+class Node:
+    def __init__(self,data,next= None):
+        self.data = data
+        self.next = next
+
+
+class LL:
+    def __init__(self):
+        self.head = None
+        self.length = 0
+
+
+    def insert_node(self,position, value):
+        if position > (self.length + 1):
+            return
+           
+        newNode = Node(value)
+        temp = self.head
+        if position == 1:
+            newNode.next = temp
+            self.head = newNode
+        else:            
+            c = 1
+            while c < position -1:
+                temp = temp.next
+                c += 1
+            newNode.next = temp.next
+            temp.next = newNode
+        self.length += 1      
+       
+
+    def delete_node(self,position):
+        if position > (self.length):
+            return
+        else:
+            temp = self.head
+            if position == 1:
+                newHead = temp.next
+                self.head = newHead
+
+            else:
+                count = 1
+                while count < position - 1:
+                    temp = temp.next
+                    count +=1
+
+                new_node = temp.next.next
+                temp.next = new_node
+               
+           
+            self.length -= 1
+
+    def print_ll(self):
+        if self.head:
+            temp = self.head
+            while temp.next:
+                print(temp.data,end= " ")
+                temp = temp.next
+
+            if temp:
+                print(temp.data,end= "")
+            print()
+
+
+
+
+ll  = LL()
+
+
+def insert_node(position, value):
+    return ll.insert_node(position,value)
+
+
+def delete_node(position):
+    return ll.delete_node(position)
+
+def print_ll():
+    return ll.print_ll()
+
+    
+
+# 2 : Design Linked list
 
 # Given a matrix A of size Nx3 representing operations. Your task is to design the linked list based on these operations.
 
