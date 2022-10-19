@@ -252,3 +252,54 @@ class Solution:
             arr[i] = arr[i] % n
         
         return arr
+
+
+# 5 : Implement Power Function
+# Implement pow(A, B) % C.
+# In other words, given A, B and C, Find (AB % C).
+
+# Note: The remainders on division cannot be negative. In other words, make sure the answer you return is non-negative.
+
+
+
+# Problem Constraints
+# -109 <= A <= 109
+# 0 <= B <= 109
+# 1 <= C <= 109
+
+# Example Input
+# A = 2, B = 3, C = 3
+
+
+# Example Output : 2
+
+# Example Explanation
+# 23 % 3 = 8 % 3 = 2
+
+
+import sys
+sys.setrecursionlimit(10**6)
+
+class Solution:
+    def pow(self, A, B, C):
+        return self.powerFunction(A, B, C)
+    
+
+    def powerFunction(self, base, exponent, mod):
+
+        if base == 0:
+            return 0 #if 0 ^ n where n = any natural number, we get 0 only. Eg: 0 ^ 2 = 0
+        
+        if exponent == 0:
+            return 1 #If power is 0, we get 1 for all base values.
+
+        # storing the recursion calls in a variable power which gives us the SC: O(log N_base2)
+        power = self.powerFunction(base, exponent // 2, mod) % mod
+
+        # Using modulo to keep the multiplication of two max integers in the worst case also comes in the range [0, mod-1]
+        if exponent % 2 == 0: #If B is even, powers can be broken in equal parts
+            return ((power % mod) * (power % mod)) % mod
+        else:
+            return ((power % mod) * (power % mod) * (base % mod)) % mod
+
+
