@@ -105,7 +105,41 @@ a.perimeter() # 18.84
 a.area() # 28.26
 
 
-# 3 : Class Fraction
+# 3 Class Rectangle
+# Construct a class Rectangle that represents a rectangle.
+# The class should support the following functionalities:-
+# perimeter() -> returns the perimeter of the rectangle
+# area() -> returns the area of the rectangle
+# You may define any properties in the class as you see appropriate.
+class Rectangle:
+    # Define properties here
+    Length = 0
+    Breadth = 0
+    
+    
+    # Define constructor here
+    def __init__(self, Length, Breadth):
+        self.Length = Length
+        self.Breadth = Breadth
+
+
+    def perimeter(self):
+        P = 2 * (self.Length + self.Breadth)
+        return P
+       
+    def area(self):
+        A = self.Length * self.Breadth
+        return A    
+        
+a = Rectangle(2, 3)  #// Length = 2, Breadth = 3
+a.perimeter() #// Should give 10
+a.area() #// Should give 6
+
+
+
+
+
+# 4 : Class Fraction
 
 # Construct a class Fraction which stores a fraction. It should contain the
 
@@ -198,3 +232,63 @@ z = x.add(y) # 22/15
 z = x.subtract(y) # -2/15
 z = x.multiply(y) # 8/15
 
+
+# 5 : Class Matrix
+# Construct a class called Matrix which stores a 2D Array. It should store
+
+# The number of rows
+
+# The number of columns
+
+# The 2D Array itself
+
+# Implement the following functionalities inside this class :-
+
+# input() -> Reads the input from the user. This method should read the input from the user and populate the entire array. Each row will be in a new line and all the elements in a row will be space-separated.
+
+# add(Matrix) -> Returns the sum of two matrices. Assume the matrices provided have the same dimensions.
+
+# subtract(Matrix) -> Returns the sum of two matrices. Assume the matrices provided have the same dimensions.
+
+# transpose() -> Returns a new matrix containing the transpose of the given original matrix.
+
+# print() -> prints the entire matrix row by row. Each row will be in a new line and values in each row should be separated by a single space.
+
+# You may define any properties in the class as you see appropriate.
+
+class Matrix:
+    def __init__(self, r, c):
+        self.row = r
+        self.column = c
+        self.mat = [[0 for j in range(c)] for i in range(r)]
+
+    def input(self):
+        for i in range(self.row):
+            self.mat[i] = list(map(int, input().split(' ')[:self.column]))
+    
+    def add(self, x: "Matrix") -> "Matrix":
+        res = Matrix(self.row, self.column)
+        for i in range(self.row):
+            for j in range(self.column):
+                res.mat[i][j] = self.mat[i][j] + x.mat[i][j]
+        return res
+        
+    def subtract(self, x: "Matrix") -> "Matrix":
+        res = Matrix(self.row, self.column)
+        for i in range(self.row):
+            for j in range(self.column):
+                res.mat[i][j] = self.mat[i][j] - x.mat[i][j]
+        return res
+    
+    def transpose(self) -> "Matrix":
+        res = Matrix(self.column, self.row)
+        for i in range(self.row):
+            for j in range(self.column):
+                res.mat[j][i] = self.mat[i][j]
+        return res
+    
+    def print(self):
+        for i in range(self.row):
+            for j in range(self.column):
+                print(self.mat[i][j] , end=" ")
+            print()
