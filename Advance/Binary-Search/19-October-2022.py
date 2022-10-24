@@ -1,3 +1,81 @@
+# 1 : Painter's Partition Problem
+# Given 2 integers A and B and an array of integers C of size N. Element C[i] represents the length of ith board.
+# You have to paint all N boards [C0, C1, C2, C3 … CN-1]. There are A painters available and each of them takes B units of time to paint 1 unit of the board.
+
+# Calculate and return the minimum time required to paint all boards under the constraints that any painter will only paint contiguous sections of the board.
+# NOTE:
+# 1. 2 painters cannot share a board to paint. That is to say, a board cannot be painted partially by one painter, and partially by another.
+# 2. A painter will only paint contiguous boards. This means a configuration where painter 1 paints boards 1 and 3 but not 2 is invalid.
+
+# Return the ans % 10000003.
+
+# Input Format
+# The first argument given is the integer A.
+# The second argument given is the integer B.
+# The third argument given is the integer array C.
+
+# Output Format
+# Return minimum time required to paint all boards under the constraints that any painter will only paint contiguous sections of board % 10000003.
+
+# Example Input
+# Input 1:
+
+# A = 2
+# B = 5
+# C = [1, 10]
+
+# Example Output : 50
+
+# Example Explanation
+# Explanation 1:
+
+# Possibility 1:- One painter paints both blocks, time taken = 55 units.
+# Possibility 2:- Painter 1 paints block 1, painter 2 paints block 2, time take = max(5, 50) = 50
+# There are no other distinct ways to paint boards.
+# ans = 50 % 10000003
+
+class Solution:
+    def paint(self, A, B, C):
+        n = len(C)
+        for i in range(n):
+            C[i] = B * C[i]
+        
+        return self.binarySearch(A, C) 
+    
+    def binarySearch(self, painters, board):
+        mod = 10000003
+        low = max(board)
+        high = sum(board)
+        result = high
+
+        while (low <= high):
+            mid = (low + high) // 2
+
+            if (self.check(painters, board, mid) == True):
+                result = mid
+                high = mid - 1
+            else:
+                low = mid + 1
+        return result % mod
+    
+
+    def check(self, painters, board, mid):
+        n = len(board)
+        total = 0 
+        count = 0
+
+        for i in range(n):
+            total += board[i]
+
+            if total > mid:
+                count += 1
+                total = board[i]
+
+                if count == painters:
+                    return False
+        return True
+        
+
 # 3 : Allocate Books
 
 # Given an array of integers A of size N and an integer B.
