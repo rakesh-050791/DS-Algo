@@ -1,19 +1,19 @@
 # 3 : Find a peak element
 
-Given an array of integers A, find and return the peak element in it. An array element is peak if it is NOT smaller than its neighbors.
+# Given an array of integers A, find and return the peak element in it. An array element is peak if it is NOT smaller than its neighbors.
 
-For corner elements, we need to consider only one neighbor. We ensure that answer will be unique.
+# For corner elements, we need to consider only one neighbor. We ensure that answer will be unique.
 
-NOTE: Users are expected to solve this in O(log(N)) time. The array may have duplicate elements.
+# NOTE: Users are expected to solve this in O(log(N)) time. The array may have duplicate elements.
 
-Example Input
-Input 1: A = [1, 2, 3, 4, 5]
+# Example Input
+# Input 1: A = [1, 2, 3, 4, 5]
 
-Example Output
-Output 1: 5
+# Example Output
+# Output 1: 5
 
-Example Explanation
-Explanation 1: 5 is the peak.
+# Example Explanation
+# Explanation 1: 5 is the peak.
 
 
 class Solution:
