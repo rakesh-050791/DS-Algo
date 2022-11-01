@@ -69,3 +69,38 @@ class Solution:
         return self.binSearch(matrix, min_el, max_el, cntElBeforeMed)
         
 
+
+# Approach 2
+
+from bisect import bisect_right as upper_bound
+
+class Solution:
+	def findMedian(self, A):
+        n = len(A)
+        m = len(A[0])
+
+        low = float('inf')
+        high = float('-inf')
+
+        for i in range(n):
+            low = min(low, A[i][0])
+            high = max(high, A[i][m-1])
+        
+        desired = (n * m + 1) // 2
+        
+
+        while (low < high):
+            mid = (low + high) // 2
+            place = [0]
+         
+            # Find count of elements smaller than or equal to mid
+            for i in range(n):
+                j = upper_bound(A[i], mid)
+                place[0] = place[0] + j
+            if place[0] < desired:
+                low = mid + 1
+            else:
+                high = mid
+
+        return low
+        
