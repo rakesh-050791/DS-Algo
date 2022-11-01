@@ -158,6 +158,7 @@ class Solution:
             else:
                 hashMapA[i] = 1
 
+        # creating 1st window from B
         for j in range(n):
             if B[j] in hashMapB:
                 hashMapB[B[j]] += 1
@@ -167,6 +168,8 @@ class Solution:
         if hashMapA == hashMapB:
             totalPermutations += 1
 
+
+        # Applying sliding window on hashMapB
         l = 0
         for r in range(n, m):
             hashMapB[B[l]] -= 1
@@ -180,6 +183,53 @@ class Solution:
                 hashMapB[B[r]] += 1
             
             l += 1
+            
+            if hashMapA == hashMapB:
+                totalPermutations += 1
+
+        return totalPermutations
+
+    
+# Approach 2  (Different sliding window technique)
+
+class Solution:
+    def solve(self, A, B):
+        n = len(A)
+        m = len(B)
+        totalPermutations = 0
+        hashMapA = {}
+        hashMapB = {}
+
+        for i in A:
+            if i in hashMapA:
+                hashMapA[i] += 1
+            else:
+                hashMapA[i] = 1
+
+        for j in range(n):
+            if B[j] in hashMapB:
+                hashMapB[B[j]] += 1
+            else:
+                hashMapB[B[j]] = 1
+
+        if hashMapA == hashMapB:
+            totalPermutations += 1
+
+        for i in range(1, m-n+1):
+            # remove previous element
+            previousElement = B[i-1]
+            if previousElement in hashMapB and hashMapB[previousElement] != 0:
+                hashMapB[previousElement] -= 1
+
+            if previousElement in hashMapB and hashMapB[previousElement] == 0:
+                del hashMapB[previousElement]
+
+            # add next element 
+            nextElement = B[i+n-1]
+            if nextElement in hashMapB:
+                hashMapB[nextElement] += 1
+            else:
+                hashMapB[nextElement] = 1
             
             if hashMapA == hashMapB:
                 totalPermutations += 1
