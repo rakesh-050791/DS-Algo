@@ -110,3 +110,78 @@ class Solution:
                 longestSetLength = max(longestSetLength, length)
 
         return longestSetLength
+
+
+# 3 : Permutations of A in B
+
+# You are given two strings, A and B, of size N and M, respectively.
+
+# You have to find the count of all permutations of A present in B as a substring. You can assume a string will have only lowercase letters.
+
+
+# Example Input
+
+# Input 1:
+
+#  A = "abc"
+#  B = "abcbacabc"
+
+# Example Output
+
+# Output 1: 5
+
+# Example Explanation
+
+# Explanation 1:
+
+# Permutations of A that are present in B as substring are:
+#     1. abc
+#     2. cba
+#     3. bac
+#     4. cab
+#     5. abc
+#     So ans is 5.
+
+# Approach 1 
+
+class Solution:
+    def solve(self, A, B):
+        n = len(A)
+        m = len(B)
+        totalPermutations = 0
+        hashMapA = {}
+        hashMapB = {}
+
+        for i in A:
+            if i in hashMapA:
+                hashMapA[i] += 1
+            else:
+                hashMapA[i] = 1
+
+        for j in range(n):
+            if B[j] in hashMapB:
+                hashMapB[B[j]] += 1
+            else:
+                hashMapB[B[j]] = 1
+
+        if hashMapA == hashMapB:
+            totalPermutations += 1
+
+        l = 0
+        for r in range(n, m):
+            hashMapB[B[l]] -= 1
+
+            if hashMapB[B[l]] == 0:
+                del hashMapB[B[l]]
+            
+            if B[r] not in hashMapB:
+                hashMapB[B[r]] = 1
+            else:
+                hashMapB[B[r]] += 1
+            
+            l += 1
+            
+            if hashMapA == hashMapB:
+                totalPermutations += 1
+
+        return totalPermutations
