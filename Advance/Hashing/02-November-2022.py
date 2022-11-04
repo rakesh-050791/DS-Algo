@@ -115,6 +115,8 @@ class Solution:
 # Explanation:
 # There are 5 unique points in the given array.
 
+
+# Approach 1
 class Solution:
     def solve(self, A):
         n = len(A)
@@ -125,5 +127,20 @@ class Solution:
             y = A[i][1]
 
             element = str(x) +'@'+ str(y)
+            hashSet.add(element)
+        return len(hashSet)
+
+
+# Approach 2 (using python tuple)
+class Solution:
+    def solve(self, A):
+        n = len(A)
+        hashSet = set()
+        
+        for i in range(n):
+            x = A[i][0]
+            y = A[i][1]
+
+            element = (str(x), str(y))
             hashSet.add(element)
         return len(hashSet)
