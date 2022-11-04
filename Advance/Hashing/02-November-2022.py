@@ -81,3 +81,49 @@ class Solution:
 # TC : O (N^2)
 # SC : O (N)
 
+
+# 2 : Unique 2D points
+
+# Given a 2D array A of integer points on a 2D plane. Find and return the number of unique points in the array.
+# The ith point in the array is (A[i][0], A[i][1])
+
+# Input Format
+# The first argument is a 2D integer array A.
+
+
+# Output Format
+# Return an integer that is the number of unique points.
+
+
+# Example Input
+# Input:
+# A = [[5, 6],
+#      [2, 8],
+#      [-1, -1],
+#      [2, -3],
+#      [2, 8],
+#      [7, 7],
+#      [2, -3]]
+
+
+# Example Output
+# Output:
+# 5
+
+
+# Example Explanation
+# Explanation:
+# There are 5 unique points in the given array.
+
+class Solution:
+    def solve(self, A):
+        n = len(A)
+        hashSet = set()
+
+        for i in range(n):
+            x = A[i][0]
+            y = A[i][1]
+
+            element = str(x) +'@'+ str(y)
+            hashSet.add(element)
+        return len(hashSet)
