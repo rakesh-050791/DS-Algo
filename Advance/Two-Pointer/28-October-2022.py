@@ -147,3 +147,53 @@ class Solution:
                     end += 1
         return pairs
 
+# 3 : Subarray with given sum
+# Given an array of positive integers A and an integer B, find and return first continuous subarray which adds to B.
+
+# If the answer does not exist return an array with a single element "-1".
+
+# First sub-array means the sub-array for which starting index in minimum.
+
+
+
+# Output Format
+# Return the first continuous sub-array which adds to B and if the answer does not exist return an array with a single element "-1".
+
+
+
+# Example Input
+# Input 1:
+
+#  A = [1, 2, 3, 4, 5]
+#  B = 5
+
+
+# Example Output
+# Output 1: [2, 3]
+
+
+# Example Explanation
+# Explanation 1: [2, 3] sums up to 5.
+
+class Solution:
+    def solve(self, A, B):
+        n = len(A)
+        start = 0
+        end = 0
+        currentSum = 0
+        subArray = []
+
+        while (start < n and end < n):
+            if currentSum < B:
+                currentSum += A[end]
+                end += 1
+            
+            if currentSum > B:
+                currentSum -= A[start]
+                start += 1
+            
+            if currentSum == B:
+                return A[start:end]
+        
+        return [-1]
+
