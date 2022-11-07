@@ -58,3 +58,61 @@ class Solution:
 
         return lps
             
+
+# 2 : Hidden Pattern
+
+# Given two strings - a text A and a pattern B, having lower-case alphabetic characters. You have to determine the number of occurrences of pattern B in text A as its substring. i.e. the number of times B occurs as a substring in A.
+
+
+# Example Input
+
+# Input 1:
+
+#  A = "abababa"
+#  B = "aba" 
+
+# Example Output
+
+# Output 1: 3 
+
+# Example Explanation
+
+# Explanation 1:
+
+# A has 3 substrings equal to B - A[1, 3], A[3, 5] and A[5, 7] 
+
+# This solution is beased on KMP (Knuth Morris Pratt) Algo. 
+
+class Solution:
+    def solve(self, A, B):
+        text = B+'@'+A
+        lps = self.lpsBuilder(text)
+
+        patternlength = len(B)
+        result = 0
+
+        for no in lps:
+            if no == patternlength:
+                result += 1
+        
+        return result
+    
+    def lpsBuilder(self, text):
+        n = len(text)
+
+        lps = [0] * n
+
+        for i in range(1, n):
+            
+            x = lps[i-1]
+            while (text[i] != text[x]):
+            
+                if x == 0:
+                    x -= 1
+                    break
+                    
+                x = lps[x-1]
+                
+            lps[i] = x + 1
+
+        return lps
