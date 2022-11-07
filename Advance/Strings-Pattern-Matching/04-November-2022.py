@@ -116,3 +116,55 @@ class Solution:
             lps[i] = x + 1
 
         return lps
+
+
+# 3 : Smallest Prefix String
+
+# Given 2 strings A and B of size N and M respectively consisting of lowercase alphabets, find the lexicographically smallest string that can be formed by concatenating non-empty prefixes of A and B (in that order).
+# Note: The answer string has to start with a non-empty prefix of string A followed by a non-empty prefix of string B.
+
+
+# Output Format
+# Return lexicographically smallest string that can be formed by concatenating non-empty prefixes of A and B (in that order).
+
+
+
+# Example Input
+# Input 1:
+
+#  A = "abba"
+#  B = "cdd"
+
+# Example Output
+# Output 1:
+
+#  "abbac"
+
+# Example Explanation
+# Explanation 1:
+
+#  We can concatenate prefix of A i.e "abba" and prefix of B i.e "c".
+#  The lexicographically smallest string will be "abbac".
+
+
+# Solution Approach 
+
+# Adding to the hint, we keep appending characters from the first string till the current character is less than the first character of the second string.
+# After that, we add the first character of the second string, and we have our answer.
+# (Since we want the lexicographically smallest string)
+
+# Time Complexity:- O(A)
+
+class Solution:
+    def smallestPrefix(self, A, B):
+
+        outputStr = A[0]+''
+
+        # keep appending A[i] till it is smaller than B[0]
+        for i in range(1, len(A)):
+            if ord(A[i]) < ord(B[0]):
+                outputStr += A[i]
+            else:
+                break
+
+        return outputStr + B[0]
