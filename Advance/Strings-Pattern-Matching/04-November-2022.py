@@ -232,3 +232,68 @@ class Solution:
                 return 'NO'
             else:
                 return 'YES'
+
+
+# 5 : Make String Palindrome
+
+# Given a string A of size N consisting only of lowercase alphabets. The only operation allowed is to insert characters in the beginning of the string.
+
+# Find and return how many minimum characters are needed to be inserted to make the string a palindrome string.
+
+# Output Format
+# Return an integer denoting the minimum characters needed to be inserted in the beginning to make the string a palindrome string.
+
+
+# Example Input
+# Input 1:
+
+# A = "abc"
+ 
+# Example Output
+# Output 1: 2
+
+
+# Example Explanation
+# Explanation 1:
+
+#  Insert 'b' at beginning, string becomes: "babc".
+#  Insert 'c' at beginning, string becomes: "cbabc".
+
+
+#Solution Approach 
+
+# Each index of the LPS array contains the longest prefix, which is also a suffix. Now take the string and reverse of a string and combine them with a sentinel character in between them and compute the LPS array of this combined string. Now take the last value of the LPS array and subtract it from the length of the original string. This will give us the minimum number of insertions required at the beginning of the string.
+
+class Solution:
+    def solve(self, A):
+        n = len(A)
+        reverseA = A[::-1]
+        text = A +'@'+ reverseA
+        lps = self.lpsBuilder(text)
+        # lps array contains the longest prefix, which is also a suffix
+        longestPalindromeLen = lps[-1] #lps[2*n]
+
+        return n - longestPalindromeLen
+
+
+    def lpsBuilder(self, text):
+        n = len(text)
+
+        lps = [0] * n
+
+        for i in range(1, n):
+            
+            x = lps[i-1]
+            while (text[i] != text[x]):
+            
+                if x == 0:
+                    x -= 1
+                    break
+                    
+                x = lps[x-1]
+                
+            lps[i] = x + 1
+
+        return lps
+
+
