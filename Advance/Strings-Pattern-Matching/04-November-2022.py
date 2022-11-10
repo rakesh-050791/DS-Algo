@@ -297,3 +297,105 @@ class Solution:
         return lps
 
 
+# 6 : Period of a string
+
+# You are given a string A of length N consisting of lowercase alphabets. Find the period of the string.
+
+# Period of the string is the minimum value of k (k >= 1), that satisfies A[i] = A[i % k] for all valid i.
+
+
+# Example Input
+# Input 1:
+
+#  A = "abababab"
+# Input 2:
+
+#  A = "aaaa"
+
+
+# Example Output
+# Output 1:
+
+#  2
+# Output 2:
+
+#  1
+
+
+# Example Explanation
+# Explanation 1:
+
+#  Period of the string will be 2: 
+#  Since, for all i, A[i] = A[i%2]. 
+# Explanation 2:
+
+#  Period of the string will be 1.
+
+
+# Solution explanation 
+
+# Since the period of a string is a substring 
+# which repeats itself to form the string 
+# after a point lps values will increase by 1.
+
+# Example → ‘ab’ is the period of the string 
+# ‘abababab’ where it repeats 4 times to form the string.
+# However, ‘abab’ is also a period of this string 
+# as it repeats 2 times to form the string.
+
+# In this question we have to find the smallest period 
+# of the string. So, the answer is ‘ab’ i.e. 2. 
+
+# Now, there are two cases which we will encounter - 
+
+# Case 1: When we have a perfect string 
+# A perfect string would be a string where, the period 
+# will multiply itself an exact number of times.
+
+# Example - ‘ababab’ 
+# Here ‘ab’ is repeated thrice. 
+
+# Case 2: When we don’t have a perfect string
+# Example - ‘abcaabcaab’
+# Here ‘abca’ is repeated twice and then only ‘ab’ is 
+# appended at the end. So, this is not a perfect 
+# string. However the period is still ‘abca’ i.e. 4. 
+
+# In both the cases the final LPS value will give us 
+# the total characters in the string - length of the period. 
+# It is because, the KMP algorithm calculates the LPS for 
+# proper prefix and proper suffix and so the length of the 
+# period will always be excluded because if we add it then 
+# the highest LPS will be equal to the string length and 
+# hence it won’t be considered a proper prefix or a suffix. 
+
+# Thus, the answer is straightforward. The last value of the 
+# lps array would give us the value of string length - period, 
+# so we just subtract that value from the string length. 
+
+class Solution:
+    def solve(self, A):
+        n = len(A)
+        lps = self.lpsBuilder(A)
+
+        return n - lps[n-1]
+
+    def lpsBuilder(self, text):
+        n = len(text)
+
+        lps = [0] * n
+
+        for i in range(1, n):
+            
+            x = lps[i-1]
+            while (text[i] != text[x]):
+            
+                if x == 0:
+                    x -= 1
+                    break
+                    
+                x = lps[x-1]
+                
+            lps[i] = x + 1
+
+        return lps
