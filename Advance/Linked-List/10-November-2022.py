@@ -262,3 +262,94 @@ class Solution:
         return headOfReverseLL
 
 
+# 5 : Reverse Link List II || Revervse Linked List between two points
+
+# Reverse a linked list A from position B to C.
+
+# NOTE: Do it in-place and in one-pass.
+
+
+# Input Format
+# The first argument contains a pointer to the head of the given linked list, A.
+
+# The second arugment contains an integer, B.
+
+# The third argument contains an integer C.
+
+# Output Format
+# Return a pointer to the head of the modified linked list.
+
+# Example Input
+# Input 1:
+
+#  A = 1 -> 2 -> 3 -> 4 -> 5
+#  B = 2
+#  C = 4
+
+# Example Output
+# Output 1:
+
+#  1 -> 4 -> 3 -> 2 -> 5
+
+
+# Example Explanation
+# Explanation 1:
+
+#  In the first example, we want to reverse the highlighted part of the given linked list : 1 -> 2 -> 3 -> 4 -> 5 
+#  Thus, the output is 1 -> 4 -> 3 -> 2 -> 5 
+
+
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+class Solution:
+    def reverseBetween(self, A, B, C):
+        head = A
+        current = A
+
+        first = last = fromm = to = None
+        count = 0
+
+        while current != None:
+            count += 1
+
+            if count < B:
+                first = current
+            
+            if count == B:
+                fromm = current
+            
+            if count == C:
+                to = current
+                last = to.next
+            
+            current = current.next
+
+        
+        to.next = None #break link from existing LinkedList 
+
+        self.reverseList(fromm)
+
+        if first != None:
+            first.next = to
+        else:
+            head = to
+
+        fromm.next = last
+
+        return head
+
+    def reverseList(self, fromm):
+        head = fromm
+        temp =  head 
+        headOfReverseLL = None
+
+        while head != None:
+            temp =  head 
+            head = head.next
+            temp.next = None #breaking link from existing linkedList 
+            temp.next = headOfReverseLL #adding link to a new linkedList 
+            headOfReverseLL = temp
