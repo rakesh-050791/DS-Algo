@@ -199,4 +199,66 @@ class Solution:
             fast = fast.next.next
         
         return slow.val
+
+
+# 4 : Reverse Linked List
+
+# You are given a singly linked list having head node A. You have to reverse the linked list and return the head node of that reversed list.
+
+# NOTE: You have to do it in-place and in one-pass.
+
+# Input Format
+# First and only argument is a linked-list node A.
+
+# Output Format
+# Return a linked-list node denoting the head of the reversed linked list.
+
+
+
+# Example Input
+# Input 1: A = 1 -> 2 -> 3 -> 4 -> 5 -> NULL 
+
+# Example Output
+# Output 1: 5 -> 4 -> 3 -> 2 -> 1 -> NULL 
+
+
+# Example Explanation
+# Explanation 1:
+
+# The linked list has 5 nodes. After reversing them, the list becomes : 5 -> 4 -> 3 -> 2 -> 1 -> NULL 
+
+
+# # Solution Approach
+# ITERATIVE SOLUTION
+# Assume that we have linked list 1 → 2 → 3 → Ø, we would like to change it to Ø ← 1 ← 2 ← 3.
+# While you are traversing the list, change the current node's next pointer to point to its previous element. 
+# Since a node does not have reference to its previous node, you must store its previous element beforehand. 
+# You also need another pointer to store the next node before changing the reference. 
+# Do not forget to return the new head reference at the end!
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#   def __init__(self, x):
+#       self.val = x
+#       self.next = None
+
+class Solution:
+
+    #idea here is to keep adding head at the start of the new Linkedlist
+
+    def reverseList(self, A):
+        head = A
+        temp =  head 
+        headOfReverseLL = None
+
+        while head != None:
+            temp =  head 
+            head = head.next
+            temp.next = None #breaking link from existing linkedList 
+            temp.next = headOfReverseLL #adding link to a new linkedList 
+            headOfReverseLL = temp
         
+        return headOfReverseLL
+
+
