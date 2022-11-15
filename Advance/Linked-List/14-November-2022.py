@@ -85,7 +85,7 @@ class Solution:
         return newHead
 
 
-Solution 2 : Using Dummy Linkedlist 
+# Solution 2 : Using Dummy Linkedlist 
 
 # Definition for singly-linked list.
 # class ListNode:
@@ -116,3 +116,82 @@ class Solution:
         elif headB is not None:
             dummy.next = headB
         return dummy_head.next
+
+# 2 : Palindrome List
+
+# Given a singly linked list A, determine if it's a palindrome. Return 1 or 0, denoting if it's a palindrome or not, respectively.
+
+# Output Format
+# Return 0, if the linked list is not a palindrome.
+
+# Return 1, if the linked list is a palindrome.
+
+# Example Input
+# Input 1:
+
+# A = [1, 2, 2, 1]
+# Input 2:
+
+# A = [1, 3, 2]
+
+# Example Output
+# Output 1: 1 
+# Output 2: 0 
+
+# Example Explanation
+# Explanation 1:
+
+#  The first linked list is a palindrome as [1, 2, 2, 1] is equal to its reversed form.
+# Explanation 2:
+
+#  The second linked list is not a palindrom as [1, 3, 2] is not equal to [2, 3, 1].
+
+
+class ListNode:
+  def __init__(self, x):
+      self.val = x
+      self.next = None
+
+cclass Solution:
+    def lPalin(self, A):
+        if A.next == None:
+            return 1
+        
+        middleNode = self.getMid(A) 
+        list2 = middleNode.next
+        middleNode.next = None
+
+        head1 = A
+        head2 = self.reverseLL(list2)
+
+        return self.compareTwoLL(A, head2)
+
+    def reverseLL(self, listHead):
+        reversedLLHead = None
+
+        while listHead != None:
+            temp = listHead
+            listHead = listHead.next
+            temp.next = None #breaking link from existing linkedList 
+            temp.next = reversedLLHead #adding link to a new linkedList 
+            reversedLLHead = temp
+        
+        return reversedLLHead
+
+    def getMid(self, A):
+        slow = fast = A
+
+        while fast and fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        return slow
+
+    def compareTwoLL(self, headOne, HeadTwo):
+        while headOne and HeadTwo:
+            if headOne.val != HeadTwo.val:
+                return 0
+            headOne = headOne.next
+            HeadTwo = HeadTwo.next
+        return 1
+
