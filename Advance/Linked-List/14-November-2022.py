@@ -195,3 +195,88 @@ cclass Solution:
             HeadTwo = HeadTwo.next
         return 1
 
+
+# 3 : Clone a Linked List
+
+
+# Given a doubly linked list of integers with one pointer of each node pointing to the next node (just like in a single link list) while the second pointer, however, can point to any node in the list and not just the previous node.
+
+# You have to create a copy of this list and return the head pointer of the duplicated list.
+
+
+# Input Format
+# The only argument given is head pointer of the doubly linked list.
+
+# Output Format
+# Return the head pointer of the duplicated list.
+
+
+# Example Input
+# Input 1:
+
+# 1 -> 2 -> 3 -> 4 -> 5
+# random pointer of each node 
+# 1 -> 5 2 -> 4 3 -> 3 4 -> 2 5 -> 1
+
+# Example Output
+# Output 1:
+
+# 1 -> 2 -> 3 -> 4 -> 5
+# random pointer of each node 
+# 1 -> 5 2 -> 4 3 -> 3 4 -> 2 5 -> 1
+
+
+# Example Explanation
+# Explanation 1: Just clone the given list.
+
+"""
+class ListNode: 
+    def __init__(x):
+        self.val = x
+        self.next = None
+        self.random = None
+"""
+def clonelist(A):
+    head1 = A
+    temp1 = A 
+    
+    # STEP 1 : Cloning list1 head1 into list2 head2
+    while (temp1 != None):
+        # print("temp1 = ", temp1.val)
+        temp2 = ListNode(temp1.val)
+        temp2.next = temp1.next
+        temp1.next = temp2
+        temp1 = temp2.next  #temp1.next.next
+
+    
+    head2 = head1.next
+    temp1 = head1
+    temp2 = head2
+
+    # STEP 2 : list2 is ready from STEP 1, now filling random pointers for list 2
+    while (temp1 != None):
+        temp2.random = temp1.random.next
+        temp1 = temp2.next
+
+        if temp1 == None:
+            break
+
+        temp2 = temp1.next
+            
+
+    temp1 = head1
+    temp2 = head2
+
+    # STEP 3 : filling next pointers in list1 and list2 (correct next linking)
+    while (temp1 != None):
+        temp1.next = temp2.next
+        temp1 = temp1.next
+
+        if temp1 == None:
+            break
+            
+        temp2.next = temp1.next
+        temp2 = temp2.next
+            
+    return head2
+
