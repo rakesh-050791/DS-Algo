@@ -180,17 +180,74 @@ class Solution:
 
 
 # Solution Approach
-Algorithm:
+# Algorithm:
 
-# Scan the infix expression from left to right.
-# If the scanned character is an operand, output it.
-# Else,
+# 1 Scan the infix expression from left to right.
+# 2 If the scanned character is an operand, output it.
+# 3 Else,
 # 3.1 If the precedence of the scanned operator is greater than that of the operator in the stack(or the stack is empty, or the stack contains a ‘(‘ ), push it.
 # 3.2 Else, Pop all the operators from the stack which are greater than or equal to in precedence than that of the scanned operator. After doing that, Push the scanned operator to the stack. (If you encounter parenthesis while popping, stop there and push the scanned operator in the stack.)
-# If the scanned character is an ‘(‘, push it to the stack.
-# If the scanned character is an ‘)’, pop the stack and output it until a ‘(‘ is encountered, and discard both the parenthesis.
-# Repeat steps 2-6 until infix expression is scanned.
-# Print the output
-# Pop and output from the stack until it is not empty.
+# 4 If the scanned character is an ‘(‘, push it to the stack.
+# 5 If the scanned character is an ‘)’, pop the stack and output it until a ‘(‘ is encountered, and discard both the parenthesis.
+# 6 Repeat steps 2-6 until infix expression is scanned.
+# 7 Print the output
+# 8 Pop and output from the stack until it is not empty.
+
+
+from collections import deque
+
+class Solution:
+    def solve(self, A):
+
+        myStack = deque()
+        operators = ['^', '/', '*', '+', '-']
+
+        output = ''
+
+        for char in A:
+            #If the char is an operand, add it to output string.
+            if char.isalpha():
+                output += char
+
+            #If the char is an operator
+            elif char in operators:
+                if not myStack:
+                    myStack.append(char)
+                else:
+                    while myStack and (myStack[-1] != '(') and (self.checkPrecedence(myStack[-1]) >= (self.checkPrecedence(char))):
+                        output += myStack[-1]
+                        myStack.pop()
+                    myStack.append(char)
+
+            #If the char is an ‘(‘, append it to the stack.
+            elif char == '(':
+                myStack.append(char)
+                
+            # If the char is an ‘)’, pop and to output string from the stack
+            # until an ‘(‘ is encountered.
+            elif char == ')':
+                while myStack[-1] != '(':
+                    output += myStack[-1]
+                    myStack.pop()
+                myStack.pop() #removing the ‘(’ bracket from stack
+
+        #finally add all the remaining operators from stack to output
+        while myStack:
+            output += myStack[-1]
+            myStack.pop()
+        
+
+        return output
+
+    def checkPrecedence(self, char):
+        if ((char == '+') or (char == '-')):
+            return 1
+        
+        if ((char == '*') or (char == '/')):
+            return 2
+
+        if char == '^':
+            return 3
+
 
 
