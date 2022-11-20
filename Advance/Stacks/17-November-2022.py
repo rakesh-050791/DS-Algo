@@ -146,3 +146,51 @@ class Solution:
 
         return int(myStack[0])
 
+
+# 3 : Infix to Postfix
+
+# Given string A denoting an infix expression. Convert the infix expression into a postfix expression.
+
+# String A consists of ^, /, *, +, -, (, ) and lowercase English alphabets where lowercase English alphabets are operands and ^, /, *, +, - are operators.
+
+# Find and return the postfix expression of A.
+
+# NOTE:
+
+# ^ has the highest precedence.
+# / and * have equal precedence but greater than + and -.
+# + and - have equal precedence and lowest precedence among given operators.
+
+
+# Problem Constraints
+# 1 <= length of the string <= 500000
+
+
+
+# Example Input
+# Input 1: A = "x^y/(a*z)+b"
+
+# Input 2: A = "a+b*(c^d-e)^(f+g*h)-i"
+
+
+# Example Output
+# Output 1: "xy^az*/b+"
+
+# Output 2: "abcd^e-fgh*+^*+i-"
+
+
+# Solution Approach
+Algorithm:
+
+# Scan the infix expression from left to right.
+# If the scanned character is an operand, output it.
+# Else,
+# 3.1 If the precedence of the scanned operator is greater than that of the operator in the stack(or the stack is empty, or the stack contains a ‘(‘ ), push it.
+# 3.2 Else, Pop all the operators from the stack which are greater than or equal to in precedence than that of the scanned operator. After doing that, Push the scanned operator to the stack. (If you encounter parenthesis while popping, stop there and push the scanned operator in the stack.)
+# If the scanned character is an ‘(‘, push it to the stack.
+# If the scanned character is an ‘)’, pop the stack and output it until a ‘(‘ is encountered, and discard both the parenthesis.
+# Repeat steps 2-6 until infix expression is scanned.
+# Print the output
+# Pop and output from the stack until it is not empty.
+
+
