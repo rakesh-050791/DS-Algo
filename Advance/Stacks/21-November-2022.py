@@ -73,7 +73,7 @@ class Solution:
 
         return area
 
-# 2 : MAX and MIN
+# 2 : MAX and MIN (Sum of max of every sub array)
 
 # Given an array of integers A.
 
@@ -126,15 +126,16 @@ class Solution:
 from collections import deque
 
 class Solution:
-
     def leftSmaller(self, A, n):
         output = [-1] * n
         myStack = deque()
 
-        for i in range(n-1, -1, -1):
-            while (myStack and A[myStack[-1]] > A[i]):
-                element = myStack.pop()
-                output[element] = i
+        for i in range(n):
+            while (myStack and A[myStack[-1]] >= A[i]):
+                myStack.pop()
+
+            if myStack:
+                output[i] = myStack[-1]
             
             myStack.append(i)
         
@@ -145,10 +146,12 @@ class Solution:
         output = [-1] * n
         myStack = deque()
 
-        for i in range(n-1, -1, -1):
+        for i in range(n):
             while (myStack and A[myStack[-1]] <= A[i]):
-                element = myStack.pop()
-                output[element] = i
+                myStack.pop()
+            
+            if myStack:
+                output[i] = myStack[-1]
             
             myStack.append(i)
         
@@ -159,10 +162,12 @@ class Solution:
         output = [n] * n
         myStack = deque()
 
-        for i in range(n):
+        for i in range(n-1, -1, -1):
             while (myStack and A[myStack[-1]] >= A[i]):
-                element = myStack.pop()
-                output[element] = i
+                myStack.pop()
+                
+            if myStack:
+                output[i] = myStack[-1]
             
             myStack.append(i)
         
@@ -173,10 +178,12 @@ class Solution:
         output = [n] * n
         myStack = deque()
 
-        for i in range(n):
+        for i in range(n-1, -1, -1):
             while (myStack and A[myStack[-1]] <= A[i]):
-                element = myStack.pop()
-                output[element] = i
+                myStack.pop()
+            
+            if myStack:
+                output[i] = myStack[-1]
 
             myStack.append(i)
         
