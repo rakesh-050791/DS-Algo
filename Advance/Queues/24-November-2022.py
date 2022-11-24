@@ -52,5 +52,29 @@ class Solution:
         return output
 
 
+# Approach 2 
+
+from collections import deque
+class Solution:
+    def solve(self, A):
+
+        myQueue = deque()
+        output = []
+
+        myQueue.append('1')
+        myQueue.append('2')
+        myQueue.append('3')
+
+
+        for i in range(A):
+            element = myQueue.popleft() #Pops out the front of the queue
+            output.append(element)
+
+            myQueue.append(element + '1')
+            myQueue.append(element + '2')
+            myQueue.append(element + '3')
+
+        return output
+
 
         
