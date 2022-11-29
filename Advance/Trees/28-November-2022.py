@@ -80,3 +80,35 @@ class Solution:
 
         if root.right:
             self.inOrder(root.right, result)
+
+
+# Solution using iterative approach, using stacks
+
+from collections import deque
+# Definition for a  binary tree node
+class TreeNode:
+	def __init__(self, x):
+		self.val = x
+		self.left = None
+		self.right = None
+
+class Solution:
+	# @param A : root node of tree
+	# @return a list of integers
+	def inorderTraversal(self, A):
+        currentNode = A 
+        stack = deque()
+        result = []
+
+        while stack or currentNode != None:
+            while currentNode != None:
+                stack.append(currentNode)
+                currentNode = currentNode.left
+        
+            currentNode = stack[-1]
+            stack.pop()
+            result.append(currentNode.val)
+            currentNode = currentNode.right
+        return result
+
+
