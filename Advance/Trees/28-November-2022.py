@@ -112,3 +112,97 @@ class Solution:
         return result
 
 
+# 2 : Level Order
+# Given a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+
+
+
+# Problem Constraints
+# 1 <= number of nodes <= 105
+
+
+
+# Input Format
+# First and only argument is root node of the binary tree, A.
+
+
+
+# Output Format
+# Return a 2D integer array denoting the zigzag level order traversal of the given binary tree.
+
+
+
+# Example Input
+# Input 1:
+
+#     3
+#    / \
+#   9  20
+#     /  \
+#    15   7
+# Input 2:
+
+#    1
+#   / \
+#  6   2
+#     /
+#    3
+
+
+# Example Output
+# Output 1:
+
+#  [
+#    [3],
+#    [9, 20],
+#    [15, 7]
+#  ]
+# Output 2:
+
+#  [ 
+#    [1]
+#    [6, 2]
+#    [3]
+#  ]
+
+
+# Example Explanation
+# Explanation 1:
+
+#  Return the 2D array. Each row denotes the traversal of each level.
+
+from collections import deque
+# Definition for a  binary tree node
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+class Solution:
+    # @param A : root node of tree
+    # @return a list of list of integers
+    def levelOrder(self, A):
+        myQueue = deque()
+        myQueue.append(A)
+        result = []
+
+        while myQueue:
+            queueSize = len(myQueue)
+            level = []
+
+            for _ in range(queueSize):
+
+                currentNode = myQueue.popleft()
+                level.append(currentNode.val)
+                
+                if currentNode.left != None:
+                    myQueue.append(currentNode.left)
+                
+                if currentNode.right != None:
+                    myQueue.append(currentNode.right)
+            
+            if level:
+                result.append(level)
+    
+        return result
