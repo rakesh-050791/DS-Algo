@@ -98,3 +98,88 @@ class Solution:
         
         return result
 
+
+# 2 : Top View of Binary tree
+
+# Given a binary tree of integers denoted by root A. Return an array of integers representing the top view of the Binary tree.
+
+# The top view of a Binary Tree is a set of nodes visible when the tree is visited from the top.
+
+# Return the nodes in any order.
+
+
+# Input Format
+# First and only argument is head of the binary tree A.
+
+
+# Output Format
+# Return an array, representing the top view of the binary tree.
+
+
+# Example Input
+# Input 1:
+#             1
+#           /   \
+#          2    3
+#         / \  / \
+#        4   5 6  7
+#       /
+#      8 
+
+# Input 2:
+#             1
+#            /  \
+#           2    3
+#            \
+#             4
+#              \
+#               5
+
+
+# Example Output
+# Output 1: [1, 2, 4, 8, 3, 7]
+# Output 2: [1, 2, 3]
+
+from collections import deque
+# Definition for a  binary tree node
+class TreeNode:
+   def __init__(self, x):
+       self.val = x
+       self.left = None
+       self.right = None
+
+class Solution:
+    def solve(self, A):
+        minLevel = maxLevel = 0
+        myQueue = deque()
+        myQueue.append((A, 0))
+        hashmap = {}
+        result = []
+
+        while myQueue:
+            data = myQueue.popleft()
+            node = data[0]
+            level = data[1]
+
+            minLevel = min(minLevel, level)
+            maxLevel = max(maxLevel, level)
+            
+            if level not in hashmap:
+                hashmap[level] = [node.val]
+            else:
+                hashmap[level].append(node.val)
+
+            if node.left != None:
+                myQueue.append((node.left, level-1))
+            
+            if node.right != None:
+                myQueue.append((node.right, level+1))
+
+        
+        for i in range(minLevel, maxLevel+1):
+            result.append(hashmap[i][0])
+
+        return result
+
+
+
