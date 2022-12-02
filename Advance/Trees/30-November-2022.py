@@ -152,14 +152,15 @@ class Solution:
     def solve(self, A):
         minLevel = maxLevel = 0
         myQueue = deque()
-        myQueue.append((A, 0))
+        myQueue.append((0, A))
         hashmap = {}
         result = []
 
         while myQueue:
             data = myQueue.popleft()
-            node = data[0]
-            level = data[1]
+            level = data[0]
+            node = data[1]
+            
 
             minLevel = min(minLevel, level)
             maxLevel = max(maxLevel, level)
@@ -170,10 +171,10 @@ class Solution:
                 hashmap[level].append(node.val)
 
             if node.left != None:
-                myQueue.append((node.left, level-1))
+                myQueue.append((level-1, node.left))
             
             if node.right != None:
-                myQueue.append((node.right, level+1))
+                myQueue.append((level+1, node.right))
 
         
         for i in range(minLevel, maxLevel+1):
