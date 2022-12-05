@@ -168,3 +168,69 @@ class Solution:
         ret.ans = max(l.ans, r.ans)
         ret.isBST = False
         return ret
+
+
+# 3 : Check for BST with One Child
+
+# Given preorder traversal of a binary tree, check if it is possible that it is also a preorder traversal of a Binary Search Tree (BST), where each internal node (non-leaf nodes) have exactly one child.
+
+# Input Format
+
+# First and only argument is an integer array denoting the preorder traversal of binary tree.
+
+
+
+# Output Format
+
+# Return a string "YES" if true else "NO".
+
+
+# Example Input
+
+# Input 1: A : [4, 10, 5, 8]
+# Input 2: A : [1, 5, 6, 4]
+
+
+# Example Output
+
+# Output 1: "YES"
+# Output 2: "NO"
+
+
+# Example Explanation
+
+# Explanation 1:
+
+#  The possible BST is:
+#             4
+#              \
+#              10
+#              /
+#              5
+#               \
+#               8
+# Explanation 2:
+
+#  There is no possible BST which have the above preorder traversal.
+
+class Solution:
+    def solve(self, A):
+        n = len(A)
+        root = A[0]
+        leftMin = float('-inf')
+        rightMax = float('inf')
+
+        for i in range(1, n):
+            if A[i] > root:
+                leftMin = root
+            else:
+                rightMax = root
+
+            
+            if A[i] < leftMin or A[i] > rightMax:
+                return 'NO'
+            
+            root = A[i]
+        
+        return 'YES'
+
