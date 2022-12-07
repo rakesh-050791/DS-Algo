@@ -183,4 +183,94 @@ class Solution:
         return result
 
 
+# 3 : Bottom View Of Binary Tree
+
+# Given a Binary Tree A consisting of N integer nodes, you need to print the bottom view from left to right.
+
+# A node x is there in output if x is the bottom-most node at its horizontal distance.
+
+# Horizontal distance of left child of a node x is equal to horizontal distance of x minus 1, and that of right child is horizontal distance of x plus 1.
+
+# Note: If there are multiple bottom-most nodes for a horizontal distance from root, then print the later one in level traversal.
+
+
+# Input Format
+
+# First and only Argument represents the root of binary tree A.
+
+
+
+# Output Format
+
+# Return an one-dimensional integer array denoting the bottom view of A from left to right.
+
+
+
+# Example Input
+
+# Input:1
+#                       20
+#                     /    \
+#                   8       22
+#                 /   \      \
+#               5      3      25
+#                     / \      
+#                   10    14
+# Input:2
+
+#                       20
+#                     /    \
+#                   8       22
+#                 /   \    /   \
+#               5      3  4    25
+#                     / \      
+#                   10    14
+
+# Example Output
+# Output:1 : [5, 10, 3, 14, 25]
+# Output:2 : [5, 10, 4, 14, 25]
+
+
+from collections import deque
+# Definition for a  binary tree node
+class TreeNode:
+   def __init__(self, x):
+       self.val = x
+       self.left = None
+       self.right = None
+
+class Solution:
+    def solve(self, A):
+        minLevel = maxLevel = 0
+        myQueue = deque()
+        myQueue.append((0, A))
+        hashmap = {}
+        result = []
+
+        while myQueue:
+            data = myQueue.popleft()
+            level = data[0]
+            node = data[1]
+            
+
+            minLevel = min(minLevel, level)
+            maxLevel = max(maxLevel, level)
+            
+            if level not in hashmap:
+                hashmap[level] = [node.val]
+            else:
+                hashmap[level].append(node.val)
+
+            if node.left != None:
+                myQueue.append((level-1, node.left))
+            
+            if node.right != None:
+                myQueue.append((level+1, node.right))
+
+        
+        for i in range(minLevel, maxLevel+1):
+            result.append(hashmap[i][-1])
+
+        return result
+
 
