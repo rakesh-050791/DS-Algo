@@ -208,7 +208,7 @@ class Solution:
         return result
 
 
-# 2 : Left View of Binary tree
+# 3 : Left View of Binary tree
 
 # Given a binary tree of integers. Return an array of integers representing the left view of the Binary tree.
 
@@ -287,3 +287,79 @@ class Solution:
 
         return result 
 
+# 4 :  Right View of Binary tree
+# Given a binary tree of integers denoted by root A. Return an array of integers representing the right view of the Binary tree.
+
+# Right view of a Binary Tree is a set of nodes visible when the tree is visited from Right side
+
+
+# Input Format
+# First and only argument is head of the binary tree A.
+
+# Output Format
+# Return an array, representing the right view of the binary tree.
+
+
+
+# Example Input
+# Input 1:
+ 
+#             1
+#           /   \
+#          2    3
+#         / \  / \
+#        4   5 6  7
+#       /
+#      8 
+
+# Input 2:
+#             1
+#            /  \
+#           2    3
+#            \
+#             4
+#              \
+#               5
+
+
+# Example Output
+# Output 1: [1, 3, 7, 8]
+# Output 2: [1, 3, 4, 5]
+
+
+# Example Explanation
+# Explanation 1: Right view is described.
+
+from collections import deque
+
+# Definition for a  binary tree node
+class TreeNode:
+   def __init__(self, x):
+       self.val = x
+       self.left = None
+       self.right = None
+
+class Solution:
+    # @param A : root node of tree
+    # @return a list of integers
+    def solve(self, A):
+        myQueue = deque()
+        myQueue.append(A)
+        result = []
+
+        while myQueue:
+            queueSize = len(myQueue)
+
+            for i in range(queueSize):
+                currentNode = myQueue.popleft()
+                
+                if i == queueSize-1:
+                    result.append(currentNode.val)
+
+                if currentNode.left != None:
+                    myQueue.append(currentNode.left)
+
+                if currentNode.right != None:
+                    myQueue.append(currentNode.right)
+
+        return result 
