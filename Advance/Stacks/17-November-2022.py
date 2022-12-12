@@ -388,4 +388,72 @@ class Solution:
                     myStack.pop()
                 
         return 1 if len(myStack) == 0 else 0
+
+
+
+# 6 : Sort stack using another stack
+
+# Given a stack of integers A, sort it using another stack.
+
+# Return the array of integers after sorting the stack using another stack.
+
+
+# Input Format
+# The only argument is a stack given as an integer array A.
+
+
+
+# Output Format
+# Return the array of integers after sorting the stack using another stack.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = [5, 4, 3, 2, 1]
+# Input 2:
+
+#  A = [5, 17, 100, 11]
+
+
+# Example Output
+# Output 1:
+
+#  [1, 2, 3, 4, 5]
+# Output 2:
+
+#  [5, 11, 17, 100]
+
+from collections import deque
+
+class Solution:
+    def solve(self, A):
+        initialStack = deque()
+        finalStack = deque()
+
+        for element in A:
+            initialStack.append(element)
+
+        while initialStack:
+            x = int(initialStack.pop())
+
+            while finalStack and (finalStack[-1] > x):
+                y = int(finalStack.pop())
+                initialStack.append(y)
+
+            finalStack.append(x)
         
+        return finalStack
+
+        # if initialStack:
+        #     print("initialStack =", initialStack)
+        # else:
+        #     print("initialStack is empty", initialStack)
+
+
+
+
+
+
+
