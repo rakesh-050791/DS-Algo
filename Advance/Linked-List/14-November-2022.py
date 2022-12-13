@@ -413,3 +413,108 @@ class LRUCache:
         self.tail.prev = node
         self.cache[node.key] = node
 
+
+# 5 : Sort List
+
+# Sort a linked list, A in O(n log n) time using constant space complexity.
+
+# Input Format
+# The first and the only arugment of input contains a pointer to the head of the linked list, A.
+
+# Output Format
+# Return a pointer to the head of the sorted linked list.
+
+
+
+# Example Input
+# Input 1:
+
+# A = [3, 4, 2, 8]
+# Input 2:
+
+# A = [1]
+
+
+# Example Output
+# Output 1:
+
+# [2, 3, 4, 8]
+# Output 2:
+
+# [1]
+
+
+# Example Explanation
+# Explanation 1:
+
+#  The sorted form of [3, 4, 2, 8] is [2, 3, 4, 8].
+# Explanation 2:
+
+#  The sorted form of [1] is [1].
+
+sys.setrecursionlimit(10**6)
+
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+class Solution:    
+    def getMidNode(self, A):
+        if A.next.next == None:
+            return A
+        
+        slow = fast = A
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        return slow
+    
+    def sortList(self, A):
+        if A == None or A.next == None:
+            return A
+
+        middleNode = self.getMidNode(A)
+        
+        head1 = A 
+        head2 = middleNode.next
+
+        middleNode.next = None
+
+        list1 = self.sortList(head1)
+        list2 = self.sortList(head2)
+
+        return self.merge(list1, list2)
+
+    def merge(self, list1, list2):
+        newHead = None
+
+        if list1.val < list2.val:
+            newHead = list1
+            list1 = list1.next
+        else:
+            newHead = list2
+            list2 = list2.next
+        
+        temp = newHead
+
+        while (list1 is not None) and (list2 is not None):
+            if list1.val < list2.val:
+                temp.next = ListNode(list1.val)
+                list1 = list1.next
+            else:
+                temp.next = ListNode(list2.val)
+                list2 = list2.next
+            
+            temp = temp.next
+
+        if list1 is not None:
+            temp.next = list1
+        elif list2 is not None:
+            temp.next = list2
+        
+        return newHead
+
+
