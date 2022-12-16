@@ -170,3 +170,83 @@ class Solution:
         hashSet.add(currentSum)
 
         return currentSum
+
+
+# 3 : Kth Smallest Element In BST
+
+# Given a binary search tree represented by root A, write a function to find the Bth smallest element in the tree.
+
+# Input Format
+# First and only argument is head of the binary tree A.
+
+# Output Format
+# Return an integer, representing the Bth element.
+
+
+# Example Input
+# Input 1:
+
+ 
+#             2
+#           /   \
+#          1    3
+# B = 2
+# Input 2:
+
+ 
+#             3
+#            /
+#           2
+#          /
+#         1
+# B = 1
+
+
+
+# Example Output
+# Output 1: 2
+# Output 2: 1
+
+
+# Example Explanation
+# Explanation 1: 2nd element is 2.
+# Explanation 2: 1st element is 1.
+
+
+
+# Definition for a  binary tree node
+class TreeNode:
+	def __init__(self, x):
+		self.val = x
+		self.left = None
+		self.right = None
+
+class Solution:
+    hashMap = {}
+    hashMap[None] = 0
+
+	def kthsmallest(self, A, B):
+        self.generateHashMap(A)
+
+        current = A 
+        while (current is not None):
+            if self.hashMap[current.left] == B-1:
+                return current.val
+            elif (B <= self.hashMap[current.left]):
+                current = current.left
+            else:
+                B = B - self.hashMap[current.left] - 1
+                current = current.right 
+
+        return -1
+            
+    def generateHashMap(self, root):
+        if not root:
+            return 0
+        
+        l = self.generateHashMap(root.left)
+        r = self.generateHashMap(root.right)
+
+        self.hashMap[root] = l + r + 1
+
+        return l + r + 1
