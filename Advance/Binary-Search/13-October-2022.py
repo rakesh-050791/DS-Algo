@@ -1,4 +1,4 @@
-# 3 : Find a peak element
+# 1 : Find a peak element
 
 # Given an array of integers A, find and return the peak element in it. An array element is peak if it is NOT smaller than its neighbors.
 
@@ -48,7 +48,7 @@ class Solution:
         return arr[low]
             
 
-# 4 : Search in Bitonic Array!
+# 2 : Search in Bitonic Array!
 
 # Given a bitonic sequence A of N distinct elements, write a program to find a given element B in the bitonic sequence in O(logN) time.
 
@@ -180,3 +180,91 @@ class Solution:
                 
         #low indicates position where new element needs to be inserted into array after while loop breaks
         return low 
+
+
+# 4 Search for a Range
+
+# Given a sorted array of integers A(0 based index) of size N, find the starting and the ending position of a given integer B in array A.
+
+# Your algorithm's runtime complexity must be in the order of O(log n).
+
+# Return an array of size 2, such that the first element = starting position of B in A and the second element = ending position of B in A, if B is not found in A return [-1, -1].
+
+# Input Format
+# The first argument given is the integer array A.
+# The second argument given is the integer B.
+
+
+
+# Output Format
+# Return an array of size 2, such that the first element = starting position of B in A and the second element = the ending position of B in A if B is not found in A return [-1, -1].
+
+
+
+# Example Input
+# Input 1:
+
+#  A = [5, 7, 7, 8, 8, 10]
+#  B = 8
+# Input 2:
+
+#  A = [5, 17, 100, 111]
+#  B = 3
+
+
+# Example Output
+# Output 1: [3, 4]
+# Output 2: [-1, -1]
+
+
+# Example Explanation
+# Explanation 1:
+
+#  The first occurence of 8 in A is at index 3.
+#  The second occurence of 8 in A is at index 4.
+#  ans = [3, 4]
+# Explanation 2:
+
+#  There is no occurence of 3 in the array.
+
+class Solution:
+    def searchRange(self, A, B):
+        n = len(A)
+        low = 0
+        high = n-1
+        startIndex = self.getFirstOccurence(A, B, low, high)
+        endIndex = self.getLastOccurence(A, B, low, high)
+        return [startIndex, endIndex]
+
+    
+    def getFirstOccurence(self, A, B, low, high):
+        firstOccurence = -1
+        while low <= high:
+            mid = (low + high) // 2
+
+            if A[mid] == B:
+                firstOccurence = mid
+                high = mid - 1
+                
+            elif A[mid] > B:
+                high = mid - 1
+            elif A[mid] < B:
+                low = mid + 1
+
+        return firstOccurence
+    
+    def getLastOccurence(self, A, B, low, high):
+        lastOccurence = -1
+        while low <= high:
+            mid = (low + high) // 2
+
+            if A[mid] == B:
+                lastOccurence = mid
+                low = mid + 1
+
+            elif A[mid] > B:
+                high = mid - 1
+            elif A[mid] < B:
+                low = mid + 1
+        
+        return lastOccurence
