@@ -53,3 +53,74 @@ class Solution:
                 high = mid - 1
 
         return int(result)
+
+# 2 Single Element in Sorted Array
+
+# Given a sorted array of integers A where every element appears twice except for one element which appears once, find and return this single element that appears only once.
+
+# NOTE: Users are expected to solve this in O(log(N)) time.
+
+# Input Format
+# The only argument given is the integer array A.
+
+
+
+# Output Format
+# Return the single element that appears only once.
+
+
+
+# Example Input
+# Input 1:
+
+# A = [1, 1, 7]
+# Input 2:
+
+# A = [2, 3, 3]
+
+
+# Example Output
+# Output 1: 7
+# Output 2: 2
+
+# Example Explanation
+# Explanation 1: 7 appears once
+# Explanation 2: 2 appears once
+
+class Solution:
+    def solve(self, A):
+        n = len(A)
+        low = 0
+        high = n - 1
+
+        #edge cases
+        ## when first element of an array is uniq
+        if A[0] != A[1]:
+            return A[0]
+        
+        ## when last element of an array is uniq
+        if A[n-1] != A[n-2]:
+            return A[n-1]
+        
+        ## when array length is 1
+        if n == 1:
+            return A[0]
+
+        while (low <= high):
+            mid = (low + high) // 2
+            
+            # when left to mid or right to mid is not equal to mid, then mid is the unique element
+            if A[mid - 1] != A[mid] and A[mid] != A[mid + 1]:
+                return A[mid]
+
+            # mid can be at 1st or 2nd occurance (since n-1 elements are in pairs),now bring mid to 1st occurance
+            if A[mid - 1] == A[mid]:
+                mid = mid - 1
+             
+
+            if mid % 2 == 0:
+                # search on right
+                low = mid + 2 #(because elements are in pair)
+            elif mid % 2 != 0:
+                # search on left
+                high = mid - 1
