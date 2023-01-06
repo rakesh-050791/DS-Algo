@@ -103,4 +103,63 @@ class Solution:
             j += 1
         
         return inversionPairs
+
+
+# 2 : Count swaps in InsertionSort - II
+# Given an integer array A of size N, sort the elements in increasing order using Insertion Sort.
+
+# You are asked to return the total number of shifts/swaps done.
+
+
+# Input Format
+# First and only argument is an integer array A.
+
+
+
+# Output Format
+# Return an integer denoting the number of swaps.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = [5, 3, 1, 9, 4]
+# Input 2:
+
+#  A = [2, 10, 4, 11]
+
+
+# Example Output
+# Output 1:
+
+#  5
+# Output 2:
+
+#  1
+
+
+# Example Explanation
+# Explanation 1:
+
+#  Array will be sorted in 5 Swaps.
+# Explanation 2:
+
+#  Only 1 swap is required.
+
+class Solution:
+    def solve(self, A):
+        n = len(A)
+        swapCount = 0
+        for i in range(1, n):
+            for j in range(i-1, -1, -1):
+                if A[j] > A[j+1]:
+                    temp = A[j]
+                    A[j] = A[j+1]
+                    A[j+1] = temp 
+                    swapCount += 1
+                else:
+                    break;
+        return swapCount
+        
         
