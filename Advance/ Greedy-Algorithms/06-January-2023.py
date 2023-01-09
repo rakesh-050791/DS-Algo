@@ -145,7 +145,7 @@ class Solution:
     def solve(self, A, B):
         N = len(B)
         m = 1000000007
-        
+
         tup = []
         for i in range(N):
             tup.append(( B[i],A[i] ))
@@ -177,3 +177,91 @@ class Solution:
                     total_sum -= delval[0]
                     total_sum += cur_profit
         return total_sum % m
+
+
+# 3 : Distribute Candy
+
+# N children are standing in a line. Each child is assigned a rating value.
+
+# You are giving candies to these children subjected to the following requirements:
+
+# Each child must have at least one candy.
+# Children with a higher rating get more candies than their neighbors.
+# What is the minimum number of candies you must give?
+
+
+
+# Problem Constraints
+# 1 <= N <= 105
+# -109 <= A[i] <= 109
+
+
+
+# Input Format
+# The first and only argument is an integer array A representing the rating of children.
+
+
+
+# Output Format
+# Return an integer representing the minimum candies to be given.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = [1, 2]
+# Input 2:
+
+#  A = [1, 5, 2, 1]
+
+
+# Example Output
+# Output 1:
+
+#  3
+# Output 2:
+
+#  7
+
+
+# Example Explanation
+# Explanation 1:
+
+#  The candidate with 1 rating gets 1 candy and candidate with rating 2 cannot get 1 candy as 1 is its neighbor. 
+#  So rating 2 candidate gets 2 candies. In total, 2 + 1 = 3 candies need to be given out.
+# Explanation 2:
+
+#  Candies given = [1, 3, 2, 1]
+
+class Solution:
+    # @param A : list of integers
+    # @return an integer
+    def candy(self, A):
+        n = len(A)
+
+        # Give each child 1 candy
+        candies_00 = [1] * n
+        
+        # From Left to right :  
+        # if child to right has higher rating—>give right child 1 candy extra than no. of candies 
+        # to left child
+        for i in range(1, n):
+            if A[i] > A[i-1]:
+                candies_00[i] = candies_00[i-1] + 1
+
+        
+        # From right to left :  
+        # if child to left has higher rating—>give left child 1 candy extra than no. of candies 
+        # to right child
+        candies_01 = [1] * n
+        for i in range(n-2, -1, -1):
+            if A[i] > A[i+1]:
+                candies_01[i] = candies_01[i+1] + 1
+
+        ans = 0
+        # get max from left to right and right to left
+        for x, y in zip(candies_00, candies_01):
+            ans += max(x, y)
+        
+        return ans
