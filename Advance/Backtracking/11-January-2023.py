@@ -85,6 +85,7 @@ class Solution:
 
 		currentList.pop()
 		self.generateSubsets(arr, n, currentList, indx+1)
+		
 
 # 2 : Subsets II
 # Given a collection of integers denoted by array A of size N that might contain duplicates, return all possible subsets.
