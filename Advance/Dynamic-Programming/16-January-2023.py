@@ -126,3 +126,52 @@ class Solution:
                     break
             dp[i]=ans
         return dp[A]
+
+
+# other Approaches 
+
+ Top Down Approach
+
+import sys
+sys.setrecursionlimit(10**6)
+
+class Solution:
+    # @param A : integer
+    # @return an integer
+    def helper(self, A, dp):
+        if dp[A] != -1: return dp[A]
+
+        ans = A
+        i = 1
+        while i * i <= A:
+            ans = min(ans, 1 + self.helper(A - i * i, dp))
+            i += 1
+
+        dp[A] = ans
+        return ans
+
+    def countMinSquares(self, A):
+        dp = [-1] * (A + 1)
+        dp[0], dp[1] = 0, 1
+        return self.helper(A, dp)
+
+    # TC: O(NsqrtN); SC: O(N)
+
+# Bottom Up Approach
+
+class Solution:
+    # @param A : integer
+    # @return an integer
+    def countMinSquares(self, A):
+        dp = [A] * (A + 1)
+        dp[0], dp[1] = 0, 1
+
+        for i in range(A + 1):
+            j = 1
+            while j * j <= i:
+                dp[i] = min(dp[i], 1 + dp[i - j * j])
+                j += 1
+
+        return dp[A]
+
+        # TC: O(NsqrtN); SC: O(N)
