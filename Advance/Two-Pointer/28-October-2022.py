@@ -357,3 +357,142 @@ class Solution:
                 elif cur_sum > target:
                     k = k - 1
         return ans
+
+# 6 : Pairs with given sum II
+
+# Given a sorted array of integers (not necessarily distinct) A and an integer B, find and return how many pair of integers ( A[i], A[j] ) such that i != j have sum equal to B.
+
+# Since the number of such pairs can be very large, return number of such pairs modulo (109 + 7).
+
+
+
+# Problem Constraints
+# 1 <= |A| <= 100000
+
+# 1 <= A[i] <= 10^9
+
+# 1 <= B <= 10^9
+
+
+
+# Input Format
+# The first argument given is the integer array A.
+
+# The second argument given is integer B.
+
+
+
+# Output Format
+# Return the number of pairs for which sum is equal to B modulo (10^9+7).
+
+
+
+# Example Input
+# Input 1:
+
+# A = [1, 1, 1]
+# B = 2
+# Input 2:
+
+ 
+# A = [1, 1]
+# B = 2
+
+
+# Example Output
+# Output 1:
+
+#  3
+# Output 2:
+
+#  1
+
+
+# Example Explanation
+# Explanation 1:
+
+#  Any two pairs sum up to 2.
+# Explanation 2:
+
+#  only pair (1, 2) sums up to 2.
+
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return an integer
+    def solve(self, A, B):
+        dic = {}
+        ans = 0
+        mod = pow(10, 9) + 7
+
+        # dictionary
+        for ind, ele in enumerate(A):
+            if ele in dic:
+                dic[ele] += 1
+            else:
+                dic[ele] = 1
+
+        for ele in A:
+            if B - ele in dic:
+                # i != j
+                dic[ele] -= 1
+
+                # if the pair constitutes the same element
+                # then the frequency must at least be 2
+                # to constitute a pair.
+                if B - ele == ele and dic[ele] > 1:  # duplicates
+                    ans += dic[ele] % mod
+                else:
+                    ans += dic[B - ele] % mod
+
+                    # restoring the current element
+                dic[ele] += 1
+
+        return (ans // 2) % mod
+
+        # TC: O(N); SC: O(N)
+
+
+# optimisation
+
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return an integer
+    def solve(self, A, B):
+        n = len(A)
+        p1 = 0
+        p2 = n - 1
+        mod = pow(10, 9) + 7
+        ans = 0
+        while p1 < p2:
+            summ = A[p1] + A[p2]
+            if summ < B:
+                p1 += 1
+            elif summ > B:
+                p2 -= 1
+            else:
+                if A[p1] == A[p2]:
+                    # this is a scenario when we encounter duplicates
+                    # thus, there are no other elements between p1 and p2 now
+                    x = p2 - p1 + 1
+                    ans += ((x * (x - 1)) // 2) % mod  # xC2
+                    break
+                else:
+                    dup1 = 1
+                    p1 += 1
+                    while A[p1] == A[p1 - 1]:
+                        p1 += 1
+                        dup1 += 1
+
+                    dup2 = 1
+                    p2 -= 1
+                    while A[p2] == A[p2 + 1]:
+                        p2 -= 1
+                        dup2 += 1
+
+                    ans += (dup1 * dup2) % mod
+
+        return ans % mod
+
+        # TC: O(N); SC: O(1)
