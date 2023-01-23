@@ -416,6 +416,17 @@ class Solution:
 
 #  only pair (1, 2) sums up to 2.
 
+
+# Approach
+
+# Algorithm:
+# 1. Simply using 2 pointers when both pointers equal to target we iterate left towards right and count all a[left]in "count" varible and similarly we iterate right towards left and count all of them in "count1" variable. answer is  incremented by count*count1
+
+# One edge case is if A[left]==A[right] and A[left]+A[right]==B then while we increment for "count" variable it goes till right and no answer for "count1" in this case, ans incremented by count*(count+1)/2
+ 
+# Another edge case is ifA[left]!=A[right]  but left pointer goes upto right pointer in calculating "count1",  thats why we decrement left pointer by 1 in this case.
+
+
 class Solution:
     # @param A : list of integers
     # @param B : integer
