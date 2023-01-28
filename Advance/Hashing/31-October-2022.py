@@ -267,7 +267,7 @@ class Solution:
 
         return '' if min_left == float('inf') else A[min_left:min_left + min_len]
 
-# 4 : 
+# 4 : Window String
 
 # Given a string A and a string B, find the window with minimum length in A, which will contain all the characters in B in linear time complexity.
 # Note that when the count of a character c in B is x, then the count of c in the minimum window in A should be at least x.
@@ -388,3 +388,104 @@ class Solution:
         # if the while loop is never processed, then we never update min_left and 
         # it implies that the characters in B can't be found in A 
         return '' if min_left == float('inf') else A[min_left:min_left + min_len]
+
+
+# 5 : Sort Array in given Order
+
+# Given two arrays of integers A and B, Sort A in such a way that the relative order among the elements will be the same as those are in B.
+# For the elements not present in B, append them at last in sorted order.
+
+# Return the array A after sorting from the above method.
+
+# NOTE: Elements of B are unique.
+
+
+
+# Problem Constraints
+# 1 <= length of the array A <= 100000
+
+# 1 <= length of the array B <= 100000
+
+# -10^9 <= A[i] <= 10^9
+
+
+
+# Input Format
+# The first argument given is the integer array A.
+
+# The second argument given is the integer array B.
+
+
+
+# Output Format
+# Return the array A after sorting as described.
+
+
+
+# Example Input
+# Input 1:
+
+# A = [1, 2, 3, 4, 5]
+# B = [5, 4, 2]
+# Input 2:
+
+# A = [5, 17, 100, 11]
+# B = [1, 100]
+
+
+# Example Output
+# Output 1:
+
+# [5, 4, 2, 1, 3]
+# Output 2:
+
+# [100, 5, 11, 17]
+
+
+# Example Explanation
+# Explanation 1:
+
+#  Simply sort as described.
+# Explanation 2:
+
+#  Simply sort as described.
+
+from collections import OrderedDict
+class Solution:
+    # @param A : list of integers
+    # @param B : list of integers
+    # @return a list of integers
+    def solve(self, A, B):
+
+        # BruteForce 
+        A.sort()
+
+        bmap = OrderedDict()
+        for i in B:
+            if i not in bmap:
+                bmap[i] = 1
+            else:
+                bmap[i] += 1
+
+        amap = OrderedDict()
+        for i in A:
+            if i not in amap:
+                amap[i] = 1
+            else:
+                amap[i] += 1
+
+
+        ans = []
+        for k in bmap:
+            if k in amap:
+                while amap[k] > 0:
+                    ans.append(k)
+                    amap[k] -= 1
+
+        for jk in amap:
+            while amap[jk] > 0:
+                ans.append(jk)
+                amap[jk] -= 1
+
+
+        return ans 
