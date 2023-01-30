@@ -507,3 +507,59 @@ class Solution:
         return ans % mod
 
         # TC: O(N); SC: O(1)
+
+# 7 : Minimize the absolute difference
+
+# Given three sorted arrays A, B and Cof not necessarily same sizes.
+
+# Calculate the minimum absolute difference between the maximum and minimum number from the triplet a, b, c such that a, b, c belongs arrays A, B, C respectively. i.e. minimize | max(a,b,c) - min(a,b,c) |.
+
+# Example :
+
+# Input:
+
+# A : [ 1, 4, 5, 8, 10 ]
+# B : [ 6, 9, 15 ]
+# C : [ 2, 3, 6, 6 ]
+# Output:
+
+# 1
+# Explanation: We get the minimum difference for a=5, b=6, c=6 as | max(a,b,c) - min(a,b,c) | = |6-5| = 1.
+
+# See Expected Output
+
+
+class Solution:
+    # @param A : list of integers
+    # @param B : list of integers
+    # @param C : list of integers
+    # @return an integer
+    def solve(self, A, B, C):
+        pointer_A, range_A = 0, len(A)
+        pointer_B, range_B = 0, len(B)
+        pointer_C, range_C = 0, len(C)
+
+        minimum = lambda a,b,c : max(abs(a-b), abs(b-c), abs(c-a))
+        val = float('inf')
+
+        while ( pointer_A < range_A and
+                pointer_B < range_B and
+                pointer_C < range_C):
+               
+            cal = minimum(A[pointer_A], B[pointer_B], C[pointer_C])
+            if cal < val:
+                val = cal
+
+            if (A[pointer_A] < C[pointer_C] and
+                A[pointer_A] < B[pointer_B]):
+                pointer_A += 1
+
+            elif (B[pointer_B] < C[pointer_C]):
+                pointer_B += 1
+               
+            else:
+                pointer_C += 1
+
+        return val
+
+
