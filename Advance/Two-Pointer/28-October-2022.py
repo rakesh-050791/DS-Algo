@@ -775,3 +775,92 @@ class Solution:
                 
         return(A[first_indx],B[secnd_indx])
 
+
+# 10 : 3 Sum 
+
+# Given an array A of N integers, find three integers in A such that the sum is closest to a given number B. Return the sum of those three integers.
+
+# Assume that there will only be one solution.
+
+
+
+# Problem Constraints
+# -108 <= B <= 108
+# 1 <= N <= 104
+# -108 <= A[i] <= 108
+
+
+# Input Format
+# First argument is an integer array A of size N.
+
+# Second argument is an integer B denoting the sum you need to get close to.
+
+
+
+# Output Format
+# Return a single integer denoting the sum of three integers which is closest to B.
+
+
+
+# Example Input
+# Input 1:
+
+# A = [-1, 2, 1, -4]
+# B = 1
+# Input 2:
+
+ 
+# A = [1, 2, 3]
+# B = 6
+
+
+# Example Output
+# Output 1:
+
+# 2
+# Output 2:
+
+# 6
+
+
+# Example Explanation
+# Explanation 1:
+
+#  The sum that is closest to the target is 2. (-1 + 2 + 1 = 2)
+# Explanation 2:
+
+#  Take all elements to get exactly 6.
+
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return an integer
+    def threeSumClosest(self, A, B):
+        A.sort()
+        N = len(A) - 1
+
+        diff = float('inf')
+        ans = 0
+
+        for i in range(N-1):
+            j = i + 1
+            k = len(A) - 1
+
+            while j < k:
+                cur_sum = A[i] + A[j] + A[k]
+
+                if cur_sum == B:
+                    return cur_sum
+
+                if abs(cur_sum - B) < diff:
+                    diff = abs(cur_sum - B)
+                    ans = cur_sum
+
+                elif cur_sum < B:
+                    j += 1
+
+                else:
+                    k -= 1
+
+
+        return ans
