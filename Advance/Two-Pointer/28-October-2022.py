@@ -948,3 +948,81 @@ class Solution:
             count %= modulo
 
         return count%modulo
+
+
+# 12 : Array 3 Pointers
+
+# You are given 3 sorted arrays A, B and C.
+
+# Find i, j, k such that : max(abs(A[i] - B[j]), abs(B[j] - C[k]), abs(C[k] - A[i])) is minimized.
+
+# Return the minimum max(abs(A[i] - B[j]), abs(B[j] - C[k]), abs(C[k] - A[i])).
+
+# Problem Constraints
+# 0 <= len(A), len(B), len(c) <= 106
+
+# 0 <= A[i], B[i], C[i] <= 107
+
+# Input Format
+# First argument is an integer array A.
+
+# Second argument is an integer array B.
+
+# Third argument is an integer array C.
+
+
+
+# Output Format
+# Return an single integer denoting the minimum max(abs(A[i] - B[j]), abs(B[j] - C[k]), abs(C[k] - A[i])).
+
+
+
+# Example Input
+# Input 1:
+
+#  A = [1, 4, 10]
+#  B = [2, 15, 20]
+#  C = [10, 12]
+# Input 2:
+
+#  A = [3, 5, 6]
+#  B = [2]
+#  C = [3, 4]
+
+
+# Example Output
+# Output 1:
+
+#  5
+# Output 2:
+
+#  1
+
+
+# Example Explanation
+# Explanation 1:
+
+#  With 10 from A, 15 from B and 10 from C.
+# Explanation 2:
+
+#  With 3 from A, 2 from B and 3 from C.
+
+class Solution:
+# @param A : tuple of integers
+# @param B : tuple of integers
+# @param C : tuple of integers
+# @return an integer
+    def minimize(self, A, B, C):
+        n=[len(A)-1, len(B)-1, len(C)-1]
+        p1, p2, p3 = n
+        mindiff=1e7
+        while(p1>=0 and p2>=0 and p3>=0):
+            mindiff = min(mindiff, max(abs(A[p1]-B[p2]), abs(B[p2]-C[p3]), abs(C[p3]-A[p1])))
+            # print(p1, p2, p3, A[p1], B[p2], C[p3], max(A[p1], B[p2], C[p3])-min(A[p1], B[p2], C[p3]))
+            if(A[p1] >= B[p2] and A[p1] > C[p3]):
+                p1-=1
+            elif(B[p2] > A[p1] and B[p2] > C[p3]):
+                p2-=1
+            else:
+                p3-=1
+        return mindiff
