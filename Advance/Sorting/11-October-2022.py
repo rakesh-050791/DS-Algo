@@ -290,3 +290,100 @@ class Solution:
         
         return [maxMagicNo, minMagicNo]
 
+
+# 4 : Maximum Unsorted Subarray
+
+# Given an array A of non-negative integers of size N. Find the minimum sub-array Al, Al+1 ,..., Ar such that if we sort(in ascending order) that sub-array, then the whole array should get sorted. If A is already sorted, output -1.
+
+
+
+# Problem Constraints
+# 1 <= N <= 1000000
+# 1 <= A[i] <= 1000000
+
+
+
+# Input Format
+# First and only argument is an array of non-negative integers of size N.
+
+
+
+# Output Format
+# Return an array of length two where the first element denotes the starting index(0-based) and the second element denotes the ending index(0-based) of the sub-array. If the array is already sorted, return an array containing only one element i.e. -1.
+
+
+
+# Example Input
+# Input 1:
+
+# A = [1, 3, 2, 4, 5]
+# Input 2:
+
+# A = [1, 2, 3, 4, 5]
+
+
+# Example Output
+# Output 1:
+
+# [1, 2]
+# Output 2:
+
+# [-1]
+
+
+# Example Explanation
+# Explanation 1:
+
+# If we sort the sub-array A1, A2, then the whole array A gets sorted.
+# Explanation 2:
+
+# A is already sorted.
+
+
+## Approach
+# Basic Idea would be to 
+
+# Copy the Array
+# Sort the Copied Array
+# Now we want to know which is the first element is displaced from the start
+# Similarly we will find which is the first element displaced from the end
+# Answer would be difference of those Index.
+
+# TC would be o(nlogn) for above approach 
+
+# o(n) Approach:
+
+# So following up from above idea what we need to do is find out which is first & last element which is displaced.
+
+# Here we also need to maintain max_so_far
+
+# 1.Iterate through array
+
+ 
+
+# If max_so_far > nums[i] => ith element is not currenlty not in correct position.. Now we iterate back untill we find element smaller than it.
+# We just need to iterate from start (not i) because we already know element from start are not correct ordered(this avoid repeat )
+# Last element for which max_so_far > nums[i] 
+# Would be our end point
+
+
+
+
+class Solution:
+    # @param A : list of integers
+    # @return a list of integers
+    def subUnsort(self, A):
+        start = -1; end = -1
+        max_so_far = -math.inf
+        for i in range(len(A)):
+            if max_so_far > A[i]:
+                if start == -1:
+                    start = i - 1
+                while start -1 >= 0 and A[start-1] > A[i] :
+                    start -= 1
+                end = i+1
+            else:
+                max_so_far = A[i]
+        if end == -1:
+            return [-1]
+        return [start, end -1]
