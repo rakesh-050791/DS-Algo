@@ -492,3 +492,155 @@ class Solution:
         #print(set(parent))
         tmp = len(set(parent))-1
         return pow(2,tmp) % mod
+
+
+# 5 :  Maximum Depth
+# Given a Tree of A nodes having A-1 edges. Each node is numbered from 1 to A where 1 is the root of the tree.
+
+# You are given Q queries. In each query, you will be given two integers L and X. Find the value of such node which lies at level L mod (MaxDepth + 1) and has value greater than or equal to X.
+
+# Answer to the query is the smallest possible value or -1, if all the values at the required level are smaller than X.
+
+# NOTE:
+
+# Level and Depth of the root is considered as 0.
+# It is guaranteed that each edge will be connecting exactly two different nodes of the tree.
+# Please read the input format for more clarification.
+
+
+# Problem Constraints
+
+# 2 <= A, Q(size of array E and F) <= 105
+
+# 1 <= B[i], C[i] <= A
+
+# 1 <= D[i], E[i], F[i] <= 106
+
+
+
+# Input Format
+
+# The first argument is an integer A denoting the number of nodes.
+
+# The second and third arguments are the integer arrays B and C where for each i (0 <= i < A-1), B[i] and C[i] are the nodes connected by an edge.
+
+# The fourth argument is an integer array D, where D[i] denotes the value of the (i+1)th node
+
+# The fifth and sixth arguments are the integer arrays E and F where for each i (0 <= i < Q), E[i] denotes L and F[i] denotes X for ith query.
+
+
+
+# Output Format
+
+# Return an array of integers where the ith element denotes the answer to ith query.
+
+
+
+# Example Input
+
+# Input 1:
+
+#  A = 5
+#  B = [1, 4, 3, 1]
+#  C = [5, 2, 4, 4]
+#  D = [7, 38, 27, 37, 1]
+#  E = [1, 1, 2]
+#  F = [32, 18, 26]
+# Input 2:
+
+#  A = 3
+#  B = [1, 2]
+#  C = [3, 1]
+#  D = [7, 15, 27]
+#  E = [1, 10, 1]
+#  F = [29, 6, 26]
+
+
+# Example Output
+
+# Output 1:
+
+#  [37, 37, 27]
+# Output 2:
+
+#  [-1, 7, 27]
+
+
+# Example Explanation
+
+# Explanation 1:
+
+#       1[7]
+#      /    \
+#    5[1]  4[37]
+#         /    \
+#        2[38]  3[27]
+
+#  Query 1: 
+#     L = 1, X = 32
+#     Nodes for level 1 are 5, 4
+#     Value of Node 5 = 1 < 32
+#     Value of Node 4 = 37 >= 32
+#     Ans = 37
+# Explanation 2:
+
+#       1[7]
+#      /    \
+#    2[15]  3[27]
+
+#  Query 1: 
+#     L = 1, X = 6
+#     Nodes for level 1 are 2, 3 having value 15 and 27 respectively.
+#     Answer = -1 (Since no node is greater or equal to 29).
+#  Query 1: 
+#     L = 10 % 2 = 0, X = 6
+#     Nodes for level 0 is 1 having value 7.
+#     Answer = 7. 
+
+import bisect
+
+class Solution:
+    # @param A : integer
+    # @param B : list of integers
+    # @param C : list of integers
+    # @param D : list of integers
+    # @param E : list of integers
+    # @param F : list of integers
+    # @return a list of integers
+    def __init__(self) -> None:
+        self.max_depth = 0
+
+    def dfs(self, u, parent, lvl, dist, adj, vals):
+        self.max_depth = max(self.max_depth, dist)
+        lvl[dist].append(vals[u])
+        for nex in adj[u]:
+            if nex == parent:
+                continue
+            self.dfs(nex, u, lvl, dist + 1, adj, vals)
+
+    def solve(self, A, B, C, D, E, F):
+        # create adjancency list
+        adj = [[] for _ in range(A+1)]
+        vals = [0] * (A + 1)        
+        for i in range(len(B)):
+            node, edge = B[i], C[i]
+            adj[node].append(edge)
+            adj[edge].append(node)
+        levels = [[] for _ in range(A+1)]
+        for i in range(A):
+            vals[i + 1] = D[i]
+        self.dfs(1, 1, levels, 0, adj, vals)
+       
+        for i in range(self.max_depth+1):
+            levels[i].sort()        
+        res = []
+        for i in range(len(E)):
+            l, x = E[i], F[i]
+            l %= (self.max_depth + 1)
+            lb_idx = bisect.bisect_left(levels[l], x) # returns idx of lb
+            if lb_idx == len(levels[l]):
+                res.append(-1)
+            else:
+                res.append(levels[l][lb_idx])
+        return res
+
