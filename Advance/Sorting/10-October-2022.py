@@ -389,4 +389,132 @@ class Solution:
                 A[i] +=  ((A[i - 1] + 1) - A[i]) 
         return minimumSteps
 
+
+# 6 : Reverse pairs
+# Given an array of integers A, we call (i, j) an important reverse pair if i < j and A[i] > 2*A[j].
+# Return the number of important reverse pairs in the given array A.
+
+
+
+# Problem Constraints
+# 1 <= length of the array <= 105
+
+# -2 * 109 <= A[i] <= 2 * 109
+
+
+
+# Input Format
+# The only argument given is the integer array A.
+
+
+
+# Output Format
+# Return the number of important reverse pairs in the given array A.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = [1, 3, 2, 3, 1]
+# Input 2:
+
+#  A = [4, 1, 2]
+
+
+# Example Output
+# Output 1:
+
+#  2
+# Output 2:
+
+#  1
+
+
+# Example Explanation
+# Explanation 1:
+
+#  There are two pairs which are important reverse i.e (3, 1) and (3, 1).
+# Explanation 2:
+
+#  There is only one pair i.e (4, 1).
+
+class Solution:
+    def solve(self, A):
+        n = len(A)
+        mod = 10**9 + 7
+        result = self.mergeSort(A, 0, n-1)
+        return result % mod
+
+
+    def mergeSort(self, arr, start, end):
+        if start == end:
+            return 0
         
+        midElement = (start + end) // 2
+
+        leftpairs = self.mergeSort(arr, start, midElement) #Left array
+        rightpairs = self.mergeSort(arr, midElement + 1, end) #Right array
+        bothPairs = self.reversePairs(arr, start, midElement, end)
+        self.mergeSubarrays(arr, start, midElement, end)
+        inversionPairsCount = leftpairs + rightpairs + bothPairs
+
+        return inversionPairsCount #% (10**9 + 7)
+
+    def mergeSubarrays(self, arr, start, midElement, end):
+
+        #consider two sorted sub arrays
+        ##1 start to midElement
+        ##2 midElement+1 to end
+        p1 = start
+        p2 = midElement + 1
+        p3 = 0
+        inversionPairs = 0
+
+        tempArray = [0] * (end - start + 1)
+
+        while (p1 <= midElement and p2 <= end):
+            if arr[p1] <= arr[p2]:
+                tempArray[p3] = arr[p1]
+                p1 += 1
+                p3 += 1
+            else:
+                inversionPairs += midElement - p1 + 1
+                tempArray[p3] = arr[p2]
+                p2 += 1
+                p3 += 1
+        
+        #Copying remaining elements
+        while p1 <= midElement:
+            tempArray[p3] = arr[p1]
+            p1 += 1
+            p3 += 1
+        
+        #Copying remaining elements
+        while p2 <= end:
+            tempArray[p3] = arr[p2]
+            p2 += 1
+            p3 += 1
+        
+        # copying the sorted tempArray (merged two sub arrays) to main array
+        i = start
+        j = 0 
+
+        while i <= end:
+            arr[i] = tempArray[j]
+            i += 1
+            j += 1
+        
+        return inversionPairs
+
+    def reversePairs(self, A, start, mid, end):
+        pointer1 = start
+        pointer2 = mid + 1
+        count = 0
+        while pointer1 <= mid and pointer2 <= end:
+            if A[pointer1] > A[pointer2] * 2:
+                    count += mid - pointer1 + 1
+                    pointer2 += 1
+            else: pointer1 += 1
+        return count
+
