@@ -193,3 +193,81 @@ class Solution:
     def solve(self, A):
         if A == 2: return 1
         return 2
+
+
+# 5 : Prime Sum
+
+# Given an even number A ( greater than 2 ), return two prime numbers whose sum will be equal to the given number.
+
+# If there is more than one solution possible, return the lexicographically smaller solution.
+
+# If [a, b] is one solution with a <= b, and [c,d] is another solution with c <= d, then 
+# [a, b] < [c, d], If a < c OR a==c AND b < d. 
+# NOTE: A solution will always exist. Read Goldbach's conjecture.
+
+
+
+# Problem Constraints
+# 4 <= A <= 2*107
+
+
+
+# Input Format
+# First and only argument of input is an even number A.
+
+
+
+# Output Format
+# Return a integer array of size 2 containing primes whose sum will be equal to given number.
+
+
+
+# Example Input
+#  4
+
+
+# Example Output
+#  [2, 2]
+
+
+# Example Explanation
+#  There is only 1 solution for A = 4.
+
+#Ref : https://www.youtube.com/watch?v=MxiTG96QOxw&t=33s
+
+class Solution:
+    # @param A : integer
+    # @return a list of integers
+    def primesum(self, A):
+        if A == 4: return [2,2]
+
+        # Creating Prime Bool Seive    
+        def creatseive(n):
+            pf = [True] * (n)
+            pf[0] , pf[1] = False , False
+            i = 2
+            while i * i  < n:
+                if pf[i] == True:
+                    j = i * i
+                    while j < n:
+                        pf[j] = False
+                        j +=i
+                i +=1
+               
+            return pf
+           
+        spf = creatseive(A+1)
+
+        # Using Two Pointer x Goldbach's conjecture Approach
+        i = 2
+        j = A - 2
+
+        while i < j:
+            if spf[i] and spf[j]:
+                cur_sum = i + j
+                if cur_sum == A:
+                    arr = [i,j]
+                    return arr
+            i += 1
+            j -= 1
+
