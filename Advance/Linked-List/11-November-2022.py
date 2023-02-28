@@ -475,3 +475,103 @@ class Solution:
             
             
         return head
+
+# 6 : Sort List
+
+# Sort a linked list, A in O(n log n) time using constant space complexity.
+
+
+
+# Problem Constraints
+# 0 <= |A| = 105
+
+
+
+# Input Format
+# The first and the only arugment of input contains a pointer to the head of the linked list, A.
+
+
+
+# Output Format
+# Return a pointer to the head of the sorted linked list.
+
+
+
+# Example Input
+# Input 1:
+
+# A = [3, 4, 2, 8]
+# Input 2:
+
+# A = [1]
+
+
+# Example Output
+# Output 1:
+
+# [2, 3, 4, 8]
+# Output 2:
+
+# [1]
+
+
+# Example Explanation
+# Explanation 1:
+
+#  The sorted form of [3, 4, 2, 8] is [2, 3, 4, 8].
+# Explanation 2:
+
+#  The sorted form of [1] is [1].
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#   def __init__(self, x):
+#       self.val = x
+#       self.next = None
+
+class Solution:
+    # @param A : head node of linked list
+    # @return the head node in the linked list
+    def middle(self, A) :
+        f = A
+        s = A
+        if A.next.next == None :
+            return A
+        while f != None and f.next != None :
+            s = s.next
+            f = f.next.next
+        return s
+
+    def merge(self, h1, h2) :
+        if h1.val <= h2.val :
+            h3 = h1
+            h1 = h1.next
+        else :
+            h3 = h2
+            h2 = h2.next
+        ans = h3
+        while h1 != None and h2 != None :
+            if h1.val <= h2.val :
+                h3.next = h1
+                h1 = h1.next
+            else :
+                h3.next = h2
+                h2 = h2.next
+            h3 = h3.next
+        if h1 == None and h2 != None :
+            h3.next = h2
+        elif h2 == None and h1 != None :
+            h3.next = h1
+        return ans
+
+    def sortList(self, A):
+        if A == None or A.next == None :
+            return A
+        mid = self.middle(A)
+        list2 = mid.next
+        mid.next = None
+        list1 = self.sortList(A)
+        list2 = self.sortList(list2)
+        return self.merge(list1, list2)
+
