@@ -76,7 +76,6 @@ class Solution:
 
 # 2 : Min Stack
 
-
 # Design a stack that supports push, pop, top, and retrieve the minimum element in constant time.
 # push(x) -- Push element x onto stack.
 # pop() -- Removes the element on top of the stack.
@@ -172,4 +171,152 @@ class MinStack:
         else:
             return -1
 
+
+# 3 : Sum of min and max
+# Given an array A of both positive and negative integers.
+
+# Your task is to compute the sum of minimum and maximum elements of all sub-array of size B.
+
+# NOTE: Since the answer can be very large, you are required to return the sum modulo 109 + 7.
+
+
+
+# Problem Constraints
+# 1 <= size of array A <= 105
+
+# -109 <= A[i] <= 109
+
+# 1 <= B <= size of array
+
+
+
+# Input Format
+# The first argument denotes the integer array A.
+# The second argument denotes the value B
+
+
+
+# Output Format
+# Return an integer that denotes the required value.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = [2, 5, -1, 7, -3, -1, -2]
+#  B = 4
+# Input 2:
+
+#  A = [2, -1, 3]
+#  B = 2
+
+
+# Example Output
+# Output 1:
+
+#  18
+# Output 2:
+
+#  3
+
+
+# Example Explanation
+# Explanation 1:
+
+#  Subarrays of size 4 are : 
+#     [2, 5, -1, 7],   min + max = -1 + 7 = 6
+#     [5, -1, 7, -3],  min + max = -3 + 7 = 4      
+#     [-1, 7, -3, -1], min + max = -3 + 7 = 4
+#     [7, -3, -1, -2], min + max = -3 + 7 = 4   
+#     Sum of all min & max = 6 + 4 + 4 + 4 = 18 
+# Explanation 2:
+
+#  Subarrays of size 2 are : 
+#     [2, -1],   min + max = -1 + 2 = 1
+#     [-1, 3],   min + max = -1 + 3 = 2
+#     Sum of all min & max = 1 + 2 = 3 
+
+from collections import deque
+
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return an integer
+
+    def slidingMaximum(self,arr,k):
+        N = len(arr)
+        ans = 0
+        q = deque()
         
+        # sliding window in front window
+        for i in range(k):
+            cur_ele = arr[i]
+            while q and cur_ele > q[-1]:
+                q.pop()
+            q.append(cur_ele)
+        
+        # start sliding 
+        for i in range(N-k):
+            out_gng = arr[i]
+            
+            if out_gng == q[0]:
+                peek = q.popleft()
+                ans += peek
+            else:
+                ans += q[0]
+        
+            in_cmg  = arr[i+k]
+            
+            while q and in_cmg > q[-1]:
+                q.pop()
+                
+            q.append(in_cmg)
+        
+        if q: ans += (q.popleft())
+                
+        return ans 
+
+    def slidingMinimum(self,arr,k):
+        N = len(arr)
+        ans = 0
+        q = deque()
+        
+        # sliding window in front window
+        for i in range(k):
+            cur_ele = arr[i]
+            while q and cur_ele < q[-1]:
+                q.pop()
+            q.append(cur_ele)
+        
+        # start sliding 
+        for i in range(N-k):
+            out_gng = arr[i]
+            
+            if out_gng == q[0]:
+                peek = q.popleft()
+                ans += peek
+            else:
+                ans += q[0]
+        
+            in_cmg  = arr[i+k]
+            
+            while q and in_cmg < q[-1]:
+                q.pop()
+                
+            q.append(in_cmg)
+        
+        if q: 
+            ans += (q.popleft())
+                
+        return ans 
+
+
+    def solve(self, A, B):
+        mod = 1000000007
+        max_sum  =  self.slidingMaximum(A,B)
+        min_sum  =  self.slidingMinimum(A,B)
+
+        return (min_sum + max_sum) % mod 
+
+
