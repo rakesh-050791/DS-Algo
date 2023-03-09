@@ -345,3 +345,96 @@ class Solution:
             A //= gcd(A,B)
        
         return A
+
+
+# 7 : Divisor game
+
+# Scooby has 3 three integers A, B, and C.
+
+# Scooby calls a positive integer special if it is divisible by B and it is divisible by C. You need to tell the number of special integers less than or equal to A.
+
+
+
+# Problem Constraints
+# 1 <= A, B, C <= 109
+
+
+
+# Input Format
+# First argument is a positive integer A
+# Second argument is a positive integer B
+# Third argument is a positive integer C
+
+
+
+# Output Format
+# One integer corresponding to the number of special integers less than or equal to A.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = 12
+#  B = 3
+#  C = 2
+# Input 2:
+
+#  A = 6
+#  B = 1
+#  C = 4
+
+
+# Example Output
+# Output 1:
+
+#  2
+# Output 2:
+
+#  1
+
+
+# Example Explanation
+# Explanation 1:
+
+#  The two integers divisible by 2 and 3 and less than or equal to 12 are 6,12.
+# Explanation 2:
+
+#  Only 4 is a positive integer less than equal to 6 which is divisible by 1 and 4.
+
+#The idea behind is we first have to find the number which is divisble by both B and C.
+
+# So  in other words we just need to find the LCM(Least common multiple).
+
+#So as we know 
+# BXC = gcd(B,C) X LCM
+#LCM = BXC/ gcd(B,C)
+# After finding the LCM we just need to find the higher multiple of that number which is less then A.
+
+# Example : A = 100, B = 5, C = 10
+# now the LCM = (10X5)/5 == 10
+# now we just need to count multiple of 10 which are less then 100. which is 10 in our example. 
+# This count can be obtained by simply dividing A by LCM
+# i.e. count = A/B
+
+# Solution
+
+class Solution:
+    # @param A : integer
+    # @param B : integer
+    # @param C : integer
+    # @return an integer
+
+    def gcd(self, A,B):
+        if B==0:
+            return A
+        return self.gcd(B,A%B)
+
+    def solve(self, A, B, C):
+
+       #a number divisible by both the numbers means find the LCM of two numbers.
+        prod = B*C
+        hcf = self.gcd(B,C)
+        LCM = prod//hcf
+
+        return A//LCM
