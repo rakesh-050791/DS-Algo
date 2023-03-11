@@ -303,3 +303,100 @@ class Solution:
             return ((power % mod) * (power % mod) * (base % mod)) % mod
 
 
+# 6 : Count of divisors
+
+# Given an array of integers A, find and return the count of divisors of each element of the array.
+
+# NOTE: The order of the resultant array should be the same as the input array.
+
+
+
+# Problem Constraints
+# 1 <= length of the array <= 100000
+# 1 <= A[i] <= 106
+
+
+
+# Input Format
+# The only argument given is the integer array A.
+
+
+
+# Output Format
+# Return the count of divisors of each element of the array in the form of an array.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = [2, 3, 4, 5]
+# Input 2:
+
+#  A = [8, 9, 10]
+
+
+# Example Output
+# Output 1:
+
+#  [2, 2, 3, 2]
+# Output 1:
+
+#  [4, 3, 4]
+
+
+# Example Explanation
+# Explanation 1:
+
+#  The number of divisors of 2 : [1, 2], 3 : [1, 3], 4 : [1, 2, 4], 5 : [1, 5]
+#  So the count will be [2, 2, 3, 2].
+# Explanation 2:
+
+#  The number of divisors of 8 : [1, 2, 4, 8], 9 : [1, 3, 9], 10 : [1, 2, 5, 10]
+#  So the count will be [4, 3, 4].
+
+
+
+
+# Calculate the SPF array before the class Solution. That way, no matter how many test cases scaler uses to test your code, the SPF array will be precalculated
+
+### Create the SPF array here before Solution class
+def spf(X):
+    if X%2 == 0:
+        return 2
+    for i in range(3,X+1,2):
+        if i*i > X:
+            break
+        if X%i == 0:
+            return i
+    return X
+
+spf_arr = [spf(x) for x in range(1, 1000000+1)]
+
+class Solution:
+    # @param A : list of integers
+    # @return a list of integers
+
+
+    def solve(self, A):
+       
+        ans_arr = []
+        for i in A:
+            j = i
+
+            ans = 1
+            if j == 1:
+                ans_arr.append(1)
+                continue
+            if j == spf_arr[j-1]:
+                ans_arr.append(2)
+                continue
+            while j > 1:
+                spf_val = spf_arr[j - 1]
+                c = 0
+                while j%spf_val == 0:
+                    j = j//spf_val
+                    c += 1
+                ans *= c+ 1
+            ans_arr.append(ans)
+        return ans_arr
