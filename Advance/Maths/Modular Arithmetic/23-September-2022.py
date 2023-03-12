@@ -400,3 +400,175 @@ class Solution:
                 ans *= c+ 1
             ans_arr.append(ans)
         return ans_arr
+
+
+# 7 : Very Large Power
+
+# Given two Integers A, B. You have to calculate (A ^ (B!)) % (1e9 + 7).
+
+# "^" means power,
+
+# "%" means "mod", and
+
+# "!" means factorial.
+
+
+
+# Problem Constraints
+# 1 <= A, B <= 5e5
+
+
+
+# Input Format
+# First argument is the integer A
+
+# Second argument is the integer B
+
+
+
+# Output Format
+# Return one integer, the answer to the problem
+
+
+
+# Example Input
+# Input 1:
+
+# A = 1
+# B = 1
+# Input 2:
+
+# A = 2
+# B = 2
+
+
+# Example Output
+# Output 1:
+
+# 1
+# Output 2:
+
+# 4
+
+
+# Example Explanation
+# Explanation 1:
+
+#  1! = 1. Hence 1^1 = 1.
+# Explanation 2:
+
+#  2! = 2. Hence 2^2 = 4.
+
+class Solution:
+
+    """
+
+    Reference: https://www.geeksforgeeks.org/find-power-power-mod-prime/
+
+    https://en.wikipedia.org/wiki/Fermat's_little_theorem
+
+
+
+    According the Fermat's little
+
+    A^M ~= A%M if M is a prime.
+
+    => A^(M - 1) = 1 % M  if M is a prime.
+
+
+
+    So if we rewrite B! as x*(M-1) + y, then 
+
+  
+
+    What is the value of y?
+
+    From B! = x * (M - 1) + y,
+
+    y can be written as B! % (M-1)
+
+
+
+    We can easily use the above theorem such that we can get
+
+    A ^ (B!) % M = (A ^ y ) %  M
+
+
+
+    Now we only need to find two things as:-
+
+    1. y = (B!) % (M - 1)
+
+    2. Ans = (A ^ y) % M
+
+    """
+
+    prime = (1000000000 + 7)
+
+
+
+    def factorial(self, num):
+
+        if num<=1:
+
+            return 1
+
+        factorial = 1
+
+        for x in range(2, num+1):
+
+            factorial*=x
+
+            factorial%=(self.prime-1)
+
+        return factorial
+
+
+
+    def power(self, A, B):
+
+        if A==0 or A==1:
+
+            return A 
+
+        if B==0:
+
+            return 1
+
+        
+
+        A=A%self.prime
+
+        result = 1
+
+        while B>0:
+
+            if B&1==1:  # odd
+
+                result*=A
+
+                result%=self.prime
+
+            B = B>>1 # divide the power by 2
+
+            A = (A*A)%self.prime # square the number
+
+
+
+        return result
+
+
+
+    # @param A : integer
+
+    # @param B : integer
+
+    # @return an integer
+
+    def solve(self, A, B):
+
+        y = self.factorial(B)
+
+        ans = self.power(A, y)
+
+        return ans%(1000000000+7)
