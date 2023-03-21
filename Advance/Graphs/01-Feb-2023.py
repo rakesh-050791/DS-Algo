@@ -73,30 +73,38 @@ class Solution:
     # @param B : list of list of integers
     # @return an integer
     def solve(self, A, B):
-        adj_list  = [[] for _ in range(A+1)]
-        T = len(B)
+        # src/source here is 1 
+        # dest/destination here is A 
 
-        for cur in range(T):
-            row = B[cur][0]
-            val = B[cur][1]
-            adj_list[row].append(val)
+        adjList = [[] for _ in range(A+1)]
 
+        totalEdges = len(B)
 
-        visited_list = [False] * (A+1)
+        for i in range(totalEdges):
+            indx = B[i][0]
+            val = B[i][1]
+            adjList[indx].append(val)
+            # OR : One liner below
+            # adjList[B[indx][0]].append(B[indx][1])
+
+        visitedList = [False] * (A+1)
+        visitedList[1] = True ## visitedList[src] = True
         q = deque()
-        q.append(1)
+        q.append(1) ## Appending source
 
         while q:
-            for i in range(len(q)):
-                cur_node = q.popleft()
-                nodes =  len(adj_list[cur_node])
-                for child in range(nodes):
-                    if not visited_list[adj_list[cur_node][child]]:
-                        q.append(adj_list[cur_node][child])
-                        visited_list[adj_list[cur_node][child]] =  True
-                    
-                    
-        if visited_list[A]:
+            currentNode = q.popleft()
+            nodes = len(adjList[currentNode]) ## size of adjacency list of currentNode
+
+            ## Now iterate on adjacency list of currentNode 
+            for child in range(nodes):
+                currentNodeChild = adjList[currentNode][child]
+                if not visitedList[currentNodeChild]:
+                    q.append(currentNodeChild)
+                    visitedList[currentNodeChild] = True
+            
+        
+        if visitedList[A]:
             return 1
         return 0
 
@@ -542,5 +550,3 @@ class Solution:
                 cur_clone.neighbors.append(clones[cur_child])
                     
         return clones[node.label]  
-        
-
