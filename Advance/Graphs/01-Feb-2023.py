@@ -85,7 +85,15 @@ class Solution:
             val = B[i][1]
             adjList[indx].append(val)
             # OR : One liner below
+            
             # adjList[B[indx][0]].append(B[indx][1])
+
+            #OR another way to create adjacency list
+
+            # from collections import deque, defaultdict
+            # Graph = defaultdict(list)
+            # for i in range(len(B)):
+            #     Graph[B[i][0]].append(B[i][1])
 
         visitedList = [False] * (A+1)
         visitedList[1] = True ## visitedList[src] = True
