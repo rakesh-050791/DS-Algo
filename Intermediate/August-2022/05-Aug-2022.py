@@ -291,3 +291,73 @@ class Solution:
             if A[i:i+3]==ans:
                 coun+=1
         return coun
+
+
+# 10 : Change character
+# You are given a string A of size N consisting of lowercase alphabets.
+
+# You can change at most B characters in the given string to any other lowercase alphabet such that the number of distinct characters in the string is minimized.
+
+# Find the minimum number of distinct characters in the resulting string.
+
+
+
+# Problem Constraints
+# 1 <= N <= 100000
+
+# 0 <= B < N
+
+
+
+# Input Format
+# The first argument is a string A.
+
+# The second argument is an integer B.
+
+
+
+# Output Format
+# Return an integer denoting the minimum number of distinct characters in the string.
+
+
+
+# Example Input
+# A = "abcabbccd"
+# B = 3
+
+
+
+# Example Output
+# 2
+
+
+
+# Example Explanation
+# We can change both 'a' and one 'd' into 'b'.So the new string becomes "bbcbbbccb".
+# So the minimum number of distinct character will be 2.
+
+class Solution:
+    # @param A : string
+    # @param B : integer
+    # @return an integer
+
+    # Since there are 26 characters we can find frequency of each character.
+
+    # Sort them in ascending order. Since we have to minimize the number of distinct characters,
+    # we will change characters whose frequency is less into the character which has the highest frequency.
+
+    # We will check the maximum number of distinct characters we can successfully change.
+
+    def solve(self, A, B):
+        index=[0]*(26)
+        for i in A:                        
+            index[ord(i)-ord('a')]+=1  # first created an index array with elemnts as freq of index lik 0=a,1=b..........25=z
+
+        index.sort()       # index is sorted from 0 to min values to max values
+                           # only minimum values less than B can be changed
+        count=26          
+        for i in range(25):
+            if index[i]<=B:
+                count-=1    # those alphabets whose freq=0 will be dedcuted until we get total no of elemnts in our string
+                B-=index[i]  
+        return count    
