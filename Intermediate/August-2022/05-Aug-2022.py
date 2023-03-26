@@ -426,3 +426,77 @@ class Solution:
                 ans += A[i]    
 
         return ans+ans
+
+
+# 12 : Longest Common Prefix
+
+# Given the array of strings A, you need to find the longest string S, which is the prefix of ALL the strings in the array.
+
+# The longest common prefix for a pair of strings S1 and S2 is the longest string S which is the prefix of both S1 and S2.
+
+# Example: the longest common prefix of "abcdefgh" and "abcefgh" is "abc".
+
+
+
+# Problem Constraints
+# 0 <= sum of length of all strings <= 1000000
+
+
+
+# Input Format
+# The only argument given is an array of strings A.
+
+
+
+# Output Format
+# Return the longest common prefix of all strings in A.
+
+
+
+# Example Input
+# Input 1:
+
+# A = ["abcdefgh", "aefghijk", "abcefgh"]
+# Input 2:
+
+# A = ["abab", "ab", "abcd"];
+
+
+# Example Output
+# Output 1:
+
+# "a"
+# Output 2:
+
+# "ab"
+
+
+# Example Explanation
+# Explanation 1:
+
+# Longest common prefix of all the strings is "a".
+# Explanation 2:
+
+# Longest common prefix of all the strings is "ab".
+
+
+class Solution:
+    # @param A : list of strings
+    # @return a strings
+    def longestCommonPrefix(self, A):
+        resultstring = ''
+        minlen = 1000000
+
+        for each in A:
+            if(minlen>len(each)):
+                minlen = len(each)
+       
+        i = 0
+        while(i<minlen):
+            for j in range(1,len(A)):
+                if(A[j][i]!= A[j-1][i]):
+                    return resultstring
+            resultstring+=A[0][i]
+            i+=1
+        return resultstring
+
