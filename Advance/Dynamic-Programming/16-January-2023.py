@@ -180,3 +180,81 @@ class Solution:
 
         # TC: O(NsqrtN); SC: O(N)
 
+
+# 3 : Stairs
+
+# You are climbing a staircase and it takes A steps to reach the top.
+
+# Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+
+# Return the number of distinct ways modulo 1000000007
+
+
+
+# Problem Constraints
+# 1 <= A <= 105
+
+
+
+# Input Format
+# The first and the only argument contains an integer A, the number of steps.
+
+
+
+# Output Format
+# Return an integer, representing the number of ways to reach the top.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = 2
+# Input 2:
+
+#  A = 3
+
+
+# Example Output
+# Output 1:
+
+#  2
+# Output 2:
+
+#  3
+
+
+# Example Explanation
+# Explanation 1:
+
+#  Distinct ways to reach top: [1, 1], [2].
+# Explanation 2:
+
+#  Distinct ways to reach top: [1 1 1], [1 2], [2 1].
+
+import sys
+sys.setrecursionlimit(10**6)
+MODULO = 1000000007
+
+class Solution:
+    # @param A : integer
+    # @return an integer
+    def climbStairs(self, A):
+        dp = [-1] * (A + 1)
+        if A >= 1: dp[1] = 1
+        if A >= 2: dp[2] = 2
+        if A >= 3: dp[3] = 3
+
+        return self.calculateStairs(A, dp)
+        
+
+    def calculateStairs(self, n, dp):
+        if dp[n] != -1:
+            return dp[n]
+
+        
+        dp[n] = self.calculateStairs(n-1, dp) + self.calculateStairs(n-2, dp)
+
+        return dp[n] % MODULO
+
+
