@@ -258,3 +258,90 @@ class Solution:
         return dp[n] % MODULO
 
 
+# 4 : Max Sum Without Adjacent Elements
+
+# Given a 2 x N grid of integer, A, choose numbers such that the sum of the numbers is maximum and no two chosen numbers are adjacent horizontally, vertically or diagonally, and return it.
+
+# Note: You can choose more than 2 numbers.
+
+# Problem Constraints
+
+# 1 <= N <= 20000
+# 1 <= A[i] <= 2000
+
+
+# Input Format
+
+# The first and the only argument of input contains a 2d matrix, A.
+
+
+# Output Format
+
+# Return an integer, representing the maximum possible sum.
+
+
+# Example Input
+
+# Input 1:
+
+#  A = [   
+#         [1]
+#         [2]    
+#      ]
+# Input 2:
+
+#  A = [   
+#         [1, 2, 3, 4]
+#         [2, 3, 4, 5]    
+#      ]
+
+
+# Example Output
+
+# Output 1:
+
+#  2
+# Output 2:
+
+#  8
+
+
+# Example Explanation
+
+# Explanation 1:
+
+#  We will choose 2.
+# Explanation 2:
+
+#  We will choose 3 and 5.
+
+
+import sys 
+sys.setrecursionlimit(10**6)
+class Solution:
+    # @param A : list of list of integers
+    # @return an integer
+    def adjacent(self, A):
+        rows = len(A)
+        cols = len(A[0])
+        
+        ip   = []
+        for i in range(cols):
+            ip.append(max(A[0][i],A[1][i]))
+            
+        dp = [-1] * cols 
+
+        return self.getmeMax(cols-1, dp, ip)
+
+    def getmeMax(self,indx,dp,ip):
+        if indx < 0:
+            return 0
+            
+        if dp[indx] != -1:
+            return dp[indx]
+            
+        take_it = ip[indx] + self.getmeMax(indx-2,dp,ip)
+        dont_tk = self.getmeMax(indx-1,dp,ip)
+        dp[indx] = max(take_it,dont_tk)
+        
+        return dp[indx]
