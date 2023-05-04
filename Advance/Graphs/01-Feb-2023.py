@@ -440,14 +440,26 @@ class Solution:
             self.backtracking(i,j+1,mat,N,M)
 
 
-
+            # go top left diagonal
             self.backtracking(i-1, j-1,mat,N,M)
+
+            # go bottom right diagonal
             self.backtracking(i+1, j+1,mat,N,M)
+
+            # go top right diagonal
             self.backtracking(i-1, j+1,mat,N,M)
+
+            # go bottom left diagonal
             self.backtracking(i+1, j-1,mat,N,M)
 
+            ## Line 434 to 453 can also be written as below (shortform)
+            
+            # x = [-1, -1, -1,  0, 0,  1, 1, 1]
+            # y = [-1,  0,  1, -1, 1, -1, 0, 1]
 
-        
+            # for k in range(8):
+            #     self.backtracking(i + x[k], j + y[k],mat,N,M)
+
     
     def solve(self,grid):
         N , M = len(grid) , len(grid[0])
@@ -459,6 +471,7 @@ class Solution:
                     self.backtracking(i,j,grid,N,M)
                     islands += 1
         return islands
+
 
 
 # 5 : Clone Graph
