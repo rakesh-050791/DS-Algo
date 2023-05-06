@@ -213,3 +213,89 @@ class Solution:
             count += self.countNodes(node.right, max(maxx,node.val))
         
         return count
+
+
+# 5 :  Identical Binary Trees
+# Given two binary trees, check if they are equal or not.
+
+# Two binary trees are considered equal if they are structurally identical and the nodes have the same value.
+
+
+
+# Problem Constraints
+# 1 <= number of nodes <= 105
+
+
+
+# Input Format
+# The first argument is a root node of the first tree, A.
+
+# The second argument is a root node of the second tree, B.
+
+
+
+# Output Format
+# Return 0 / 1 ( 0 for false, 1 for true ) for this problem.
+
+
+
+# Example Input
+# Input 1:
+
+#    1       1
+#   / \     / \
+#  2   3   2   3
+# Input 2:
+
+#    1       1
+#   / \     / \
+#  2   3   3   3
+
+
+# Example Output
+# Output 1:
+
+#  1
+# Output 2:
+
+#  0
+
+
+# Example Explanation
+# Explanation 1:
+
+#  Both trees are structurally identical and the nodes have the same value.
+# Explanation 2:
+
+#  Values of the left child of the root node of the trees are different.
+
+import sys
+sys.setrecursionlimit(10**6)
+# Definition for a  binary tree node
+# class TreeNode:
+#   def __init__(self, x):
+#       self.val = x
+#       self.left = None
+#       self.right = None
+
+class Solution:
+    # @param A : root node of tree
+    # @param B : root node of tree
+    # @return an integer
+    def isSameTree(self, A, B):
+
+        # If both A & B tree are empty, they are equal
+        if A == None and B == None:
+            return 1
+
+        # If only one tree (either A or B) is empty, they are not equal
+        if A == None or B == None:
+            return 0
+        
+        # If the current nodes have different values, the A & B trees are not equal
+        if A.val != B.val:
+            return 0
+
+        # Check left and right subtree of both A & B trees recursively
+        return self.isSameTree(A.left, B.left) and self.isSameTree(A.right, B.right)
+
