@@ -115,18 +115,19 @@ class Solution:
     # @param A : integer
     # @return an integer
     def countMinSquares(self, A):
-        dp=[-1]*(A+1)
-        dp[0]=0
-        for i in range(1, A+1):
-            ans=float('inf')
-            for j in range(1, i+1):
-                if j*j<=(i):
-                    ans=min(ans, dp[i-j*j]+1)
-                else:
-                    break
-            dp[i]=ans
-        return dp[A]
+        dp = [A] * (A+1)
+        dp[0] = 0
 
+        for i in range(1, A+1):
+            for j in range(1, i+1):
+                square = j*j
+
+                if i - square < 0:
+                    break
+                
+                dp[i] = min(dp[i], 1 + dp[i - square])
+        
+        return dp[A]
 
 # other Approaches 
 
