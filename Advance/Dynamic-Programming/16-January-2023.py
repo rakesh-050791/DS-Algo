@@ -346,3 +346,104 @@ class Solution:
         dp[indx] = max(take_it,dont_tk)
         
         return dp[indx]
+
+
+# 5 :  Let's Party
+
+# In Danceland, one person can party either alone or can pair up with another person.
+
+# Can you find in how many ways they can party if there are A people in Danceland?
+
+# Note: Return your answer modulo 10003, as the answer can be large.
+
+
+
+# Problem Constraints
+
+# 1 <= A <= 105
+
+
+
+# Input Format
+
+# Given only argument A of type Integer, number of people in Danceland.
+
+
+
+# Output Format
+
+# Return an integer denoting the number of ways people of Danceland can party.
+
+
+
+# Example Input
+
+# Input 1:
+
+#  A = 3
+# Input 2:
+
+#  A = 5
+
+
+# Example Output
+
+# Output 1:
+
+#  4
+# Output 2:
+
+#  26
+
+
+# Example Explanation
+
+# Explanation 1:
+
+#  Let suppose three people are A, B, and C. There are only 4 ways to party
+#  (A, B, C) All party alone
+#  (AB, C) A and B party together and C party alone
+#  (AC, B) A and C party together and B party alone
+#  (BC, A) B and C party together and A
+#  here 4 % 10003 = 4, so answer is 4.
+ 
+# Explanation 2:
+
+#  Number of ways they can party are: 26.
+
+Solution Approach :
+
+
+# Choices - 
+# 1. Dance Alone - Ways(n - 1) 
+#     We can add the current element to every outcome of the previous combination.
+# 2. Dance with a Partner
+#     The current person can pair up with (n - 1) persons and with each, 
+#     there can be ways(n - 2) combinations. 
+
+# Top down Approach
+
+import sys
+sys.setrecursionlimit(10**6)
+modulo = 10003
+
+class Solution:
+    # @param A : integer
+    # @return an integer
+    def solve(self, A):
+        dp = [-1] * (A+1)
+        if A >= 1: dp[1] = 1
+        if A >= 2: dp[2] = 2
+
+        return self.noOfWaysToParty(A, dp) % modulo
+
+    def noOfWaysToParty(self, n, dp):
+        if dp[n] != -1:
+            return dp[n]
+        
+        dp[n] = self.noOfWaysToParty(n-1, dp) + (self.noOfWaysToParty(n-2, dp) * (n-1))
+        dp[n] %= modulo
+        
+        return dp[n]
+
+# TC: O(A); SC: O(A)
