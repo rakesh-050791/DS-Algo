@@ -348,9 +348,24 @@ class Solution:
 # Explanation 1:
 
 #  The minimum path sum from top to bottom is 11 (i.e., 2 + 3 + 5 + 1 = 11).
-# Explanation 2:
+# Explanation 2: Only 2 can be collected.
 
-#  Only 2 can be collected.
+# Approach 1
+
+class Solution:
+    # @param A : list of list of integers
+    # @return an integer
+    def minimumTotal(self, A):
+        n = len(A)
+
+        for i in range(n - 2, -1, -1):
+            for j in range(len(A[i])):
+                A[i][j] += min(A[i + 1][j], A[i + 1][j + 1])
+
+        return A[0][0]
+
+
+# Approach 2
 
 class Solution:
     # @param A : list of list of integers
@@ -374,7 +389,7 @@ class Solution:
         left = self.dfs(A, n, dp, i+1 , j)
         right = self.dfs(A, n, dp, i+1, j+1)  
 
-        dp[i][j] = A[i][j] = min(left, right)
+        dp[i][j] = A[i][j] + min(left, right)
 
         return dp[i][j]
 
