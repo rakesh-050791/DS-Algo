@@ -394,3 +394,78 @@ class Solution:
         return dp[i][j]
 
 
+#  5: Ways to Decode
+
+# A message containing letters from A-Z is being encoded to numbers using the following mapping:
+
+# 'A' -> 1
+# 'B' -> 2
+# ...
+# 'Z' -> 26
+# Given an encoded message denoted by string A containing digits, determine the total number of ways to decode it modulo 109 + 7.
+
+
+
+# Problem Constraints
+# 1 <= length(A) <= 105
+
+
+
+# Input Format
+# The first and the only argument is a string A.
+
+
+
+# Output Format
+# Return an integer, representing the number of ways to decode the string modulo 109 + 7.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = "12"
+# Input 2:
+
+#  A = "8"
+
+
+# Example Output
+# Output 1:
+
+#  2
+# Output 2:
+
+#  1
+
+
+# Example Explanation
+# Explanation 1:
+
+#  Given encoded message "12", it could be decoded as "AB" (1, 2) or "L" (12).
+#  The number of ways decoding "12" is 2.
+# Explanation 2:
+
+#  Given encoded message "8", it could be decoded as only "H" (8).
+#  The number of ways decoding "8" is 1.
+
+
+class Solution:
+    # @param A : string
+    # @return an integer
+    def numDecodings(self, A):
+        mod = 10**9 + 7
+        N = len(A)
+        if N == 0 :
+            return 0
+        if A[0] == "0":
+            return 0
+        dp = [0] * (N+1)
+        dp[0] = 1
+        dp[1] = 1
+        for i in range(2, N+1):
+            if int(A[i-1]) >= 1 and int(A[i-1]) <= 9:
+                dp[i] = dp[i-1]
+            if int(A[i-2]) == 1 or (int(A[i-2]) == 2 and int(A[i-1])>= 0 and int(A[i-1]) <= 6):
+                dp[i] = (dp[i] + dp[i-2]) % mod
+        return dp[N]
