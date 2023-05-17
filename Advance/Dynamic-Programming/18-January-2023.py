@@ -542,3 +542,26 @@ class Solution:
             result = max(result, currMax)
 
         return result
+
+# Another approach :
+
+class Solution:
+    # @param A : tuple of integers
+    # @return an integer
+    def maxProduct(self, A):
+        result = max(A)
+        currMin , currMax = 1, 1
+
+        for n in A:
+            # multiplied by a negative makes big number smaller, small number bigger
+            # so we redefine the extremums by swapping them
+            if n < 0:
+                currMax, currMin = currMin, currMax
+
+            currMax = max(n * currMax, n)
+            currMin = min(n * currMin, n)
+
+            result = max(result, currMax)
+
+        return result
+
