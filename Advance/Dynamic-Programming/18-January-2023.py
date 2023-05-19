@@ -736,25 +736,28 @@ sys.setrecursionlimit(10 ** 6)
 class Solution:
     # @param A : list of list of integers
     # @return an integer
-    def helper(self, i, j, dp, A):
-        if i < 0 or j < 0: return float('inf')
-
-        if i == 0 and j == 0:
-            dp[i][j] = A[i][j]
-            return dp[i][j]
-
-        if dp[i][j] != 0: return dp[i][j]
-
-        dp[i][j] = min(self.helper(i, j - 1, dp, A), self.helper(i - 1, j, dp, A)) + A[i][j]
-        return dp[i][j]
-
     def minPathSum(self, A):
         n = len(A)
         m = len(A[0])
 
         dp = [[0] * m for _ in range(n)]
 
-        self.helper(n - 1, m - 1, dp, A)
-        return dp[n - 1][m - 1]
+        self.getPathSum(dp, A, n-1, m-1)
+
+        return dp[n-1][m-1]
+
+    
+    def getPathSum(self, dp, A, i, j):
+        if i < 0 or j < 0:
+            return float('inf')
+        
+        if i == 0 and j == 0:
+            dp[i][j] = A[i][j]
+            return dp[i][j]
+        
+        if dp[i][j] == 0:
+            dp[i][j] = min(self.getPathSum(dp, A, i-1, j), self.getPathSum(dp, A, i, j-1)) + A[i][j]
+
+        return dp[i][j]
 
         # TC: O(MN); SC: O(MN)
