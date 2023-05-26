@@ -336,6 +336,41 @@ class Solution:
 
 #  3 is not present in the matrix so return 0.
 
+# Approach 1 : (https://dcga8ozhbq5np.cloudfront.net/original/2X/8/8acfc22f7bb54681bc3530e3c10359785f02aa38.jpeg)
+
+class Solution:
+    # @param A : list of list of integers
+    # @param B : integer
+    # @return an integer
+    def searchMatrix(self, A, B):
+        rows = len(A)
+        cols = len(A[0])
+        
+        low = 0
+        high = (rows * cols) - 1
+        
+        while low <= high:
+            
+            mid = (low + high) // 2
+            
+            rowidx = mid // cols # i
+            colidx = mid % cols  # j
+            
+            if A[rowidx][colidx] == B:
+                return 1
+            
+            if A[rowidx][colidx] > B:
+                high = mid - 1
+                
+            else:
+                low = mid + 1
+                
+        return 0 
+
+# TC : log(N*M)
+
+
+# Approach 2 
 class Solution:
     # @param A : list of list of integers
     # @param B : integer
