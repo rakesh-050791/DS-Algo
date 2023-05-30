@@ -166,3 +166,83 @@ class Solution:
         for i in range(2, A + 1):
             dp[i] = (dp[i - 1] + dp[i - 2]) % MOD
         return dp[A]
+
+
+# 3 : Edit Distance
+# Given two strings A and B, find the minimum number of steps required to convert A to B. (each operation is counted as 1 step.)
+
+# You have the following 3 operations permitted on a word:
+
+# Insert a character
+# Delete a character
+# Replace a character
+
+
+# Problem Constraints
+# 1 <= length(A), length(B) <= 450
+
+
+
+# Input Format
+# The first argument of input contains a string, A.
+# The second argument of input contains a string, B.
+
+
+
+# Output Format
+# Return an integer, representing the minimum number of steps required.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = "abad"
+#  B = "abac"
+# Input 2:
+
+#  A = "Anshuman"
+#  B = "Antihuman
+
+
+# Example Output
+# Output 1:
+
+#  1
+# Output 2:
+
+#  2
+
+
+# Example Explanation
+# Exlanation 1:
+
+#  A = "abad" and B = "abac"
+#  After applying operation: Replace d with c. We get A = B.
+ 
+# Explanation 2:
+
+#  A = "Anshuman" and B = "Antihuman"
+#  After applying operations: Replace s with t and insert i before h. We get A = B.
+
+class Solution:
+    # @param A : string
+    # @param B : string
+    # @return an integer
+    def minDistance(self, A, B):
+        dp = [[-1 for _ in range(len(B))] for _ in range(len(A))]
+        return self.findDistance(A, B, len(A)-1, len(B)-1, dp)
+            
+    def findDistance(self, A, B, i, j, dp):
+        if i == -1 and j == -1 :
+            return 0
+        elif i == -1 :
+            return j+1
+        elif j == -1 :
+            return i+1
+        elif dp[i][j] == -1 :
+            if A[i] == B[j]:
+                dp[i][j] = self.findDistance(A, B, i-1, j-1, dp)
+            else:
+                dp[i][j] = min(1+ self.findDistance(A, B, i-1, j, dp), 1+ self.findDistance(A, B, i, j-1, dp), 1+ self.findDistance(A, B, i-1,j-1, dp))
+        return dp[i][j]
