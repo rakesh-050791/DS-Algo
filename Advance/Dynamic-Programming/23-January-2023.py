@@ -246,3 +246,92 @@ class Solution:
             else:
                 dp[i][j] = min(1+ self.findDistance(A, B, i-1, j, dp), 1+ self.findDistance(A, B, i, j-1, dp), 1+ self.findDistance(A, B, i-1,j-1, dp))
         return dp[i][j]
+
+
+
+# 4 : Regular Expression Match
+
+# Implement wildcard pattern matching with support for ' ? ' and ' * ' for strings A and B.
+
+# ' ? ' : Matches any single character.
+# ' * ' : Matches any sequence of characters (including the empty sequence).
+# The matching should cover the entire input string (not partial).
+
+
+
+# Problem Constraints
+# 1 <= length(A), length(B) <= 104
+
+
+
+# Input Format
+# The first argument of input contains a string A.
+# The second argument of input contains a string B.
+
+
+
+# Output Format
+# Return 1 if the patterns match else return 0.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = "aaa"
+#  B = "a*"
+# Input 2:
+
+#  A = "acz"
+#  B = "a?a"
+
+
+# Example Output
+# Output 1:
+
+#  1
+# Output 2:
+
+#  0
+
+
+# Example Explanation
+# Explanation 1:
+
+#  Since '*' matches any sequence of characters. Last two 'a' in string A will be match by '*'.
+#  So, the pattern matches we return 1.
+# Explanation 2:
+
+#  '?' matches any single character. First two character in string A will be match. 
+#  But the last character i.e 'z' != 'a'. Return 0.
+
+import sys
+sys.setrecursionlimit(10**7)
+class Solution:
+    # @param A : string
+    # @param B : string
+    # @return an integer
+    def isMatch(self, A, B):
+        N = len(A)
+        M = len(B)
+
+        # initialize the DP table and the base cases
+        dp = [[False] * (M + 1) for _ in range(N + 1)]
+        dp[0][0] = True  # empty string matches empty pattern
+        for j in range(1, M + 1):
+            if B[j-1] == '*':
+                dp[0][j] = dp[0][j-1]  # if pattern starts with '*', we can match with an empty string
+
+        # fill the DP table in a bottom-up manner
+        for i in range(1, N + 1):
+            for j in range(1, M + 1):
+                if A[i-1] == B[j-1] or B[j-1] == '?':
+                    dp[i][j] = dp[i-1][j-1]  # current characters match, so we can check previous characters
+                elif B[j-1] == '*':
+                    dp[i][j] = dp[i-1][j] or dp[i][j-1]  # current pattern is '*', so we can either match zero or more characters
+                else:
+                    dp[i][j] = False  # current characters don't match, and pattern isn't '*', so no match
+
+        return int(dp[N][M])
+
+
