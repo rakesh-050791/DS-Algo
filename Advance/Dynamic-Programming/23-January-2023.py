@@ -335,3 +335,85 @@ class Solution:
         return int(dp[N][M])
 
 
+# 5 :  Interleaving Strings
+
+# Given A, B, C find whether C is formed by the interleaving of A and B.
+
+
+
+# Problem Constraints
+# 1 <= length(A), length(B) <= 100
+
+# 1 <= length(C) <= 200
+
+
+
+# Input Format
+# The first argument of input contains a string, A.
+# The second argument of input contains a string, B.
+# The third argument of input contains a string, C.
+
+
+
+# Output Format
+# Return 1 if string C is formed by interleaving of A and B else 0.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = "aabcc"
+#  B = "dbbca"
+#  C = "aadbbcbcac"
+# Input 2:
+
+#  A = "aabcc"
+#  B = "dbbca"
+#  C = "aadbbbaccc"
+
+
+# Example Output
+# Output 1:
+
+#  1
+# Output 2:
+
+#  0
+
+
+# Example Explanation
+# Explanation 1:
+
+#  "aa" (from A) + "dbbc" (from B) + "bc" (from A) + "a" (from B) + "c" (from A)
+# Explanation 2:
+
+#  It is not possible to get C by interleaving A and B.
+
+import sys 
+sys.setrecursionlimit(10**6)
+from functools import lru_cache
+
+class Solution:
+    # @param A : string
+    # @param B : string
+    # @param C : string
+    # @return an integer
+    def isInterleave(self, s1, s2, s3):
+        if len(s1) + len(s2) != len(s3): return 0
+        N , M = len(s1) , len(s2)
+
+        @lru_cache(None)
+        def recurBro(indx1 , indx2):
+            if indx1 == N and indx2 == M:
+                return True
+
+            ans = False
+            if indx1 < N and s1[indx1] == s3[indx1 + indx2]:
+                ans |= recurBro(indx1 +1 , indx2 )
+            if indx2 < M and s2[indx2] == s3[indx1 + indx2]:
+                ans |= recurBro(indx1 , indx2 +1)
+            return ans
+
+        if recurBro(0,0): return 1
+        return 0
