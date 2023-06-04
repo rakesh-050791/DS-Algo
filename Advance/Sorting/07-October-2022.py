@@ -407,4 +407,3 @@ class Solution:
             minDifference = min(minDifference , minMaxDiff)
         
         return minDifference
-        
