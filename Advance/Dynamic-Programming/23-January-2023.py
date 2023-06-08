@@ -490,3 +490,92 @@ class Solution:
                 if coins_used >= coins[indx]:
                     dp[coins_used] += dp[coins_used - coins[indx]]
         return dp[amount] % 1000007
+
+
+# 7 : 0-1 Knapsack II
+# Given two integer arrays A and B of size N each which represent values and weights associated with N items respectively.
+
+# Also given an integer C which represents knapsack capacity.
+
+# Find out the maximum value subset of A such that sum of the weights of this subset is smaller than or equal to C.
+
+# NOTE: You cannot break an item, either pick the complete item, or don’t pick it (0-1 property).
+
+
+
+# Problem Constraints
+# 1 <= N <= 500
+
+# 1 <= C, B[i] <= 106
+
+# 1 <= A[i] <= 50
+
+
+
+# Input Format
+# First argument is an integer array A of size N denoting the values on N items.
+
+# Second argument is an integer array B of size N denoting the weights on N items.
+
+# Third argument is an integer C denoting the knapsack capacity.
+
+
+
+# Output Format
+# Return a single integer denoting the maximum value subset of A such that sum of the weights of this subset is smaller than or equal to C.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = [6, 10, 12]
+#  B = [10, 20, 30]
+#  C = 50
+# Input 2:
+
+#  A = [1, 3, 2, 4]
+#  B = [12, 13, 15, 19]
+#  C = 10
+
+
+# Example Output
+# Output 1:
+
+#  22
+# Output 2:
+
+#  0
+
+
+# Example Explanation
+# Explanation 1:
+
+#  Taking items with weight 20 and 30 will give us the maximum value i.e 10 + 12 = 22
+# Explanation 2:
+
+#  Knapsack capacity is 10 but each item has weight greater than 10 so no items can be considered in the knapsack therefore answer is 0.
+
+# this question can be solved only using bottom up approach because for topdown approach we are unable to obtain values for every single cell
+
+class Solution:
+    # @param A : list of integers
+    # @param B : list of integers
+    # @param C : integer
+    # @return an integer
+
+   
+    def solve(self, A, B, C):  # TC:O(N*maxval) SC:O(maxval)  #this is a bit faster as well
+        maxval=sum(A)
+        dp=[float('inf') for _ in range(maxval+1)]
+        dp[0]=0
+       
+        for i in range(len(A)):   #A- values B- weights C-knapsack weight
+            for j in range(maxval,-1,-1):
+                if A[i-1]<=j:
+                    dp[j]=min(dp[j-A[i-1]]+B[i-1],dp[j])
+                else:
+                    dp[j]=dp[j]
+        for k in range(len(dp)-1,-1,-1):
+            if dp[k]<=C:
+                return k
