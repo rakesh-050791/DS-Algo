@@ -252,3 +252,90 @@ class Solution:
                             mini = dp[j - 1]
                 dp[i] = mini + 1
         return dp[n - 1]
+
+        
+
+# 4 : Longest Palindromic Subsequence
+# Given a string A. Find the longest palindromic subsequence (A subsequence which does not need to be contiguous and is a palindrome).
+
+# You need to return the length of longest palindromic subsequence.
+
+
+
+# Problem Constraints
+# 1 <= length of(A) <= 103
+
+
+
+# Input Format
+# First and only integer is a string A.
+
+
+
+# Output Format
+# Return an integer denoting the length of longest palindromic subsequence.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = "bebeeed"
+# Input 2:
+
+#  A = "aedsead"
+
+
+# Example Output
+# Output 1:
+
+#  4
+# Output 2:
+
+#  5
+
+
+# Example Explanation
+# Explanation 1:
+
+#  The longest palindromic subsequence is "eeee", which has a length of 4.
+# Explanation 2:
+
+#  The longest palindromic subsequence is "aedea", which has a length of 5.
+
+ sys.setrecursionlimit(1000000)
+class Solution:
+    # @param A : string
+    # @return an integer
+    dp = []
+    def solve(self, A):
+        s = A
+        rs = s[::-1]
+
+        N = len(s)
+
+        self.dp = []
+        for i in range(N+1):
+            self.dp.append([-1]*(N+1))
+
+        result = self.LPS(s, rs, N-1, N-1)
+        return len(result)
+
+    def LPS(self, s, rs, N, M):
+
+        if N < 0 or M < 0:
+            return ''
+
+        if self.dp[N][M] != -1:
+            return self.dp[N][M]
+
+        if s[N] == rs[M]:
+            self.dp[N][M] = s[N] + self.LPS(s, rs, N-1, M-1)
+            return self.dp[N][M]
+
+        takes = self.LPS(s, rs, N, M-1)
+        takers = self.LPS(s, rs, N-1, M)
+
+        self.dp[N][M] = takes if len(takes) > len(takers) else takers
+        return self.dp[N][M]
+
