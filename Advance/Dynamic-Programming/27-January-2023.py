@@ -253,7 +253,7 @@ class Solution:
                 dp[i] = mini + 1
         return dp[n - 1]
 
-        
+
 
 # 4 : Longest Palindromic Subsequence
 # Given a string A. Find the longest palindromic subsequence (A subsequence which does not need to be contiguous and is a palindrome).
@@ -339,3 +339,76 @@ class Solution:
         self.dp[N][M] = takes if len(takes) > len(takers) else takers
         return self.dp[N][M]
 
+
+
+# 5 : Length of LIS
+
+# You are given an array A. You need to find the length of the Longest Increasing Subsequence in the array.
+
+# In other words, you need to find a subsequence of array A in which the elements are in sorted order, (strictly increasing) and as long as possible.
+
+
+
+# Problem Constraints
+# 1 ≤ length(A), A[i] ≤ 105
+
+
+
+# Input Format
+# The first and only argument of the input is the array A.
+
+
+
+# Output Format
+# Output a single integer, the length of the longest increasing subsequence in array A.
+
+
+
+# Example Input
+# Input 1:
+
+# A: [2, 1, 4, 3]
+# Input 2:
+
+# A: [5, 6, 3, 7, 9]
+
+
+# Example Output
+# Output 1:
+
+# 2
+# Output 2:
+
+# 4
+
+
+# Example Explanation
+# Explanation 1:
+
+#  [2, 4] and [1, 3] are the longest increasing sequences of size 2. 
+# Explanation 2:
+
+# The longest increasing subsequence we can get is [5, 6, 7, 9] of size 4.
+
+
+
+# Below solution is in C++, reference is GFG : https://www.geeksforgeeks.org/longest-increasing-subsequence-dp-3/
+
+int Solution::findLIS(vector<int> &A) {
+    vector<int> temp;
+    int ans=0;
+    for(int a:A){
+        auto it = lower_bound(temp.begin(),temp.end(),a);
+        if(it == temp.end()){
+            temp.push_back(a);
+            ans++;
+        }
+        else{
+            if(*it > a){
+                int pos = it - temp.begin();
+                temp[pos] = a;
+            }
+        }
+    }
+    return ans;
+}
