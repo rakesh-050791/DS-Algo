@@ -761,3 +761,87 @@ class Solution:
         return dp[i][j]
 
         # TC: O(MN); SC: O(MN)
+
+# 9 : Unbounded Knapsack
+
+# Given a knapsack weight A and a set of items with certain value B[i] and weight C[i], we need to calculate maximum amount that could fit in this quantity.
+
+# This is different from classical Knapsack problem, here we are allowed to use unlimited number of instances of an item.
+
+
+
+# Problem Constraints
+# 1 <= A <= 1000
+
+# 1 <= |B| <= 1000
+
+# 1 <= B[i] <= 1000
+
+# 1 <= C[i] <= 1000
+
+
+
+# Input Format
+# First argument is the Weight of knapsack A
+
+# Second argument is the vector of values B
+
+# Third argument is the vector of weights C
+
+
+
+# Output Format
+# Return the maximum value that fills the knapsack completely
+
+
+
+# Example Input
+# Input 1:
+
+# A = 10
+# B = [5]
+# C = [10]
+# Input 2:
+
+# A = 10
+# B = [6, 7]
+# C = [5, 5]
+
+
+# Example Output
+# Output 1:
+
+#  5
+# Output 2:
+
+# 14
+
+
+# Example Explanation
+# Explanation 1:
+
+# Only valid possibility is to take the given item.
+# Explanation 2:
+
+# Take the second item twice.
+
+class Solution:
+    # @param A : integer
+    # @param B : list of integers
+    # @param C : list of integers
+    # @return an integer
+    def solve(self, A, B, C):
+        # Initialize a list `ds` of size `A+1` with all zeros
+        ds = [0]*(A+1)
+        # Get the length of the list of values and weights of items
+        N = len(B)
+        
+        # Loop through each item
+        for i in range(N):
+            # Loop through all the weights from the weight of the item to the knapsack weight `A`
+            for j in range(C[i], A+1):
+                # Calculate the maximum value that can be obtained by either not taking the current item or taking the current item
+                ds[j] = max(ds[j], ds[j-C[i]]+B[i])
+                
+        # Return the maximum value that can be obtained by filling the knapsack of weight `A` with items from the given set
+        return ds[A]
