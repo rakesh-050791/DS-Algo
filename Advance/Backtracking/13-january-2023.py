@@ -204,3 +204,107 @@ class Solution:
                     break
         return dp[0]
 
+
+# 3 : Sudoku
+# Write a program to solve a Sudoku puzzle by filling the empty cells. Empty cells are indicated by the character '.' You may assume that there will be only one unique solution.
+
+
+
+# A sudoku puzzle,
+
+
+
+# and its solution numbers marked in red.
+
+
+
+# Problem Constraints
+# N = 9
+
+
+# Input Format
+# First argument is an array of array of characters representing the Sudoku puzzle.
+
+
+# Output Format
+# Modify the given input to the required answer.
+
+
+# Example Input
+# Input 1:
+
+# A = [[53..7....], [6..195...], [.98....6.], [8...6...3], [4..8.3..1], [7...2...6], [.6....28.], [...419..5], [....8..79]]
+
+
+# Example Output
+# Output 1:
+
+# [[534678912], [672195348], [198342567], [859761423], [426853791], [713924856], [961537284], [287419635], [345286179]]
+
+
+# Example Explanation
+# Explanation 1:
+
+# Look at the diagrams given in the question.
+
+from collections import defaultdict
+class Solution:
+    # @param A : list of list of chars
+    def insertinMaps(self,value,row,col,rowMap,colMap,sqrMap):
+        rowMap[row].add(value)
+        colMap[col].add(value)
+        sqrMap[(row//3,col//3)].add(value)
+
+    def removeinMaps(self,value,row,col,rowMap,colMap,sqrMap,indx):
+        rowMap[row].remove(value)
+        colMap[col].remove(value)
+        sqrMap[(row//3,col//3)].remove(value)
+
+    def verifyMaps(self,value,row,col,rowMap,colMap,sqrMap):
+        if value in colMap[col] or value in rowMap[row] or value in sqrMap[(row//3,col//3)]:
+            return False
+        return True
+
+    def solveSudoku(self, A):
+        rows , cols = 9 , 9
+        rowMap = defaultdict(set)
+        colMap = defaultdict(set)
+        sqrMap = defaultdict(set)   # (row//3 , col// 3) 
+        
+        ans_mat = []
+        
+        # inserting initial cells in map
+        for ii in range(9):
+            for jj in range(9):
+                if  A[ii][jj] != '.':
+                    self.insertinMaps(int(A[ii][jj]),ii,jj,rowMap,colMap,sqrMap) 
+                    
+        def Sudoku(indx,mat):
+            if indx == 81:
+                temp_mat = mat.copy()
+                ans_mat  = temp_mat
+                return True
+            
+            row = indx // 9           # row indx in matrix
+            col = indx % 9            # col indx in matrix
+            
+            # already filled 
+            if mat[row][col] != '.':
+                return Sudoku(indx+1,mat)
+            else:
+                # not filled try all possible numbers
+                for cell in range(1,10):
+                    if self.verifyMaps(cell,row,col,rowMap,colMap,sqrMap):        # verify cell can be placed
+                        self.insertinMaps(cell,row,col,rowMap,colMap,sqrMap)      # if so then add newval in maps
+                        mat[row][col] = str(cell)
+                        if Sudoku(indx+1,mat):                                    # since we filled call next cell
+                            return True
+                        
+                        # if last call not working undo and backtrack
+                        mat[row][col] = '.'
+                        self.removeinMaps(cell,row,col,rowMap,colMap,sqrMap,indx)
+                        
+                return False
+            
+        Sudoku(0,A)
+        return ans_mat
