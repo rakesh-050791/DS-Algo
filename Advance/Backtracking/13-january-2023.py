@@ -525,3 +525,88 @@ class Solution:
         subbsetSum(0,[],0)
         return res
 
+
+# 6 : Palindrome Partitioning
+
+# Given a string A, partition A such that every string of the partition is a palindrome.
+
+# Return all possible palindrome partitioning of A.
+
+# Ordering the results in the answer : Entry i will come before Entry j if :
+# len(Entryi[0]) < len(Entryj[0]) OR
+# (len(Entryi[0]) == len(Entryj[0]) AND len(Entryi[1]) < len(Entryj[1])) OR * * *
+# (len(Entryi[0]) == len(Entryj[0]) AND ... len(Entryi[k] < len(Entryj[k]))
+
+
+# Problem Constraints
+# 1 <= len(A) <= 15
+
+
+
+# Input Format
+# First argument is a string A of lowercase characters.
+
+
+
+# Output Format
+# Return a list of all possible palindrome partitioning of s.
+
+
+
+# Example Input
+# Input 1:
+
+# A = "aab"
+# Input 2:
+
+# A = "a"
+
+
+# Example Output
+# Output 1:
+
+#  [
+#     ["a","a","b"]
+#     ["aa","b"],
+#   ]
+# Output 2:
+
+#  [
+#     ["a"]
+#   ]
+
+
+# Example Explanation
+# Explanation 1:
+
+# In the given example, ["a", "a", "b"] comes before ["aa", "b"] because len("a") < len("aa").
+# Explanation 2:
+
+# In the given example, only partition possible is "a" .
+
+class Solution:
+    # @param A : string
+    # @return a list of list of strings
+    def __init__(self):
+        self.mem = []
+       
+    def isPalindrome(self, letter):
+        return letter == letter[::-1]
+
+    def rec(self,A,temp):
+        if len(A) == 0:
+            b = temp.copy()
+            self.mem.append(b)
+            return
+        for i in range(len(A)):
+            if self.isPalindrome(A[:i+1]):
+                temp.append(A[:i+1])
+            else:
+                continue
+            self.rec(A[i+1:],temp)
+            temp.pop()
+
+    def partition(self, A):
+        self.rec(A,[])
+        return self.mem
+
