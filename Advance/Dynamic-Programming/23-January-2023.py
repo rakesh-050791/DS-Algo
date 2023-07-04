@@ -670,3 +670,94 @@ class Solution:
 
 
         return ans 
+
+# 9 : 0-1 Knapsack
+
+
+# Given two integer arrays A and B of size N each which represent values and weights associated with N items respectively.
+
+# Also given an integer C which represents knapsack capacity.
+
+# Find out the maximum value subset of A such that sum of the weights of this subset is smaller than or equal to C.
+
+# NOTE:
+
+# You cannot break an item, either pick the complete item, or don’t pick it (0-1 property).
+
+
+# Problem Constraints
+# 1 <= N <= 103
+
+# 1 <= C <= 103
+
+# 1 <= A[i], B[i] <= 103
+
+
+
+# Input Format
+# First argument is an integer array A of size N denoting the values on N items.
+
+# Second argument is an integer array B of size N denoting the weights on N items.
+
+# Third argument is an integer C denoting the knapsack capacity.
+
+
+
+# Output Format
+# Return a single integer denoting the maximum value subset of A such that sum of the weights of this subset is smaller than or equal to C.
+
+
+
+# Example Input
+# Input 1:
+
+#  A = [60, 100, 120]
+#  B = [10, 20, 30]
+#  C = 50
+# Input 2:
+
+#  A = [10, 20, 30, 40]
+#  B = [12, 13, 15, 19]
+#  C = 10
+
+
+# Example Output
+# Output 1:
+
+#  220
+# Output 2:
+
+#  0
+
+
+# Example Explanation
+# Explanation 1:
+
+#  Taking items with weight 20 and 30 will give us the maximum value i.e 100 + 120 = 220
+# Explanation 2:
+
+#  Knapsack capacity is 10 but each item has weight greater than 10 so no items can be considered in the knapsack therefore answer is 0.
+
+import sys
+sys.setrecursionlimit(10**6)
+class Solution:
+    # @param A : integer
+    # @param B : list of integers
+    # @param C : list of integers
+    # @return an integer
+    def solve(self, A, B, C):
+        dp = [[-1 for _ in range(C+1)] for _ in range(len(A))]
+        return self.solveHelper(C, A, B, len(A)-1, dp)
+
+    def solveHelper(self, tot, values, weights, i, dp):
+        if i == -1 or tot == 0:
+            return 0
+        if dp[i][tot] != -1:
+            return dp[i][tot]
+        if weights[i-1] <= tot:
+            dp[i][tot] = max(values[i-1] + self.solveHelper(tot - weights[i-1], values, weights, i-1, dp), self.solveHelper(tot, values, weights, i - 1, dp))
+        else:
+            dp[i][tot] = self.solveHelper(tot, values, weights, i - 1, dp)
+        return dp[i][tot]
+
+
