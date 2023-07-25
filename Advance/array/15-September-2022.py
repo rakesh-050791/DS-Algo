@@ -390,3 +390,95 @@ class Solution:
                 result[-1].end = max(intervals[i].end, result[-1].end)
         
         return result
+
+
+# 10 : Maximum Submatrix Sum
+# Given a row-wise and column-wise sorted matrix A of size N * M.
+# Return the maximum non-empty submatrix sum of this matrix.
+
+
+# Problem Constraints
+# 1 <= N, M <= 1000
+# -109 <= A[i][j] <= 109
+
+
+# Input Format
+# The first argument is a 2D integer array A.
+
+
+# Output Format
+# Return a single integer that is the maximum non-empty submatrix sum of this matrix.
+
+
+# Example Input
+# Input 1:-
+#     -5 -4 -3
+# A = -1  2  3
+#      2  2  4
+# Input 2:-
+#     1 2 3
+# A = 4 5 6
+#     7 8 9
+
+
+# Example Output
+# Output 1:-
+# 12
+# Output 2:-
+# 45
+
+
+# Example Explanation
+# Expanation 1:-
+# The submatrix with max sum is 
+# -1 2 3
+#  2 2 4
+#  Sum is 12.
+# Explanation 2:-
+# The largest submatrix with max sum is 
+# 1 2 3
+# 4 5 6
+# 7 8 9
+# The sum is 45.
+
+class Solution:
+
+    # @param A : list of list of integers
+
+     # @return an long
+
+     # TC : O(NM) SC : O(1) accommodated DP states in input array to avoid additional O(NM) space
+
+    def solve(self, A):
+
+        n,m=len(A),len(A[0])
+
+        maxSum=A[n-1][m-1]
+
+        # right and bottom boundaries
+
+        for j in range(m-2,-1,-1):
+
+            A[n-1][j]+=A[n-1][j+1]
+
+            maxSum=max(maxSum,A[n-1][j])
+
+        for i in range(n-2,-1,-1):
+
+            A[i][m-1]+=A[i+1][m-1]
+
+            maxSum=max(maxSum,A[i][m-1])
+
+        
+
+        # Bottom up approach on rest of the matrix
+
+        for i in range(n-2,-1,-1):
+
+            for j in range(m-2,-1,-1):
+
+                A[i][j]=A[i][j]+A[i+1][j]+A[i][j+1]-A[i+1][j+1]
+
+                maxSum=max(maxSum,A[i][j])
+
+        return maxSum
